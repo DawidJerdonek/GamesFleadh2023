@@ -77,7 +77,6 @@ MonoBehaviour:
   onlineInfection: {fileID: 3694200031796571811, guid: e99f4679dc8b2504c827572519076cf2, type: 3}
   nameText: {fileID: 2346964893344361753}
   infectionText: {fileID: 4745393784684640647, guid: e99f4679dc8b2504c827572519076cf2, type: 3}
-  bar: {fileID: 0}
   infection: 0
   resistance: 0
   playerColor: {r: 1, g: 1, b: 1, a: 1}

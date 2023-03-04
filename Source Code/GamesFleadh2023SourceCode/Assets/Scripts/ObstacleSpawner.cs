@@ -71,7 +71,7 @@ public class ObstacleSpawner : NetworkBehaviour
         {
             return;
         }
-
+        
         switch (GameManager.instance.currentLevel)
         {
             case 1:
@@ -158,8 +158,42 @@ public class ObstacleSpawner : NetworkBehaviour
                 setParentofObject(samplePillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                 break;
         }
+    }
 
+    public void spawnResistancePill()
+    {
+        MapGen mapgener = GetComponent<MapGen>();
+        int ChunkToSpawnOn = /*Random.Range(mapgener.chunks.Count - 4, */mapgener.chunks.Count - 10/*)*/;
+        resistancePillClone = Instantiate(resistancePillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+        NetworkServer.Spawn(resistancePillClone);
+        setParentofObject(resistancePillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+    }
 
+    public void spawnSamplePill()
+    {
+        MapGen mapgener = GetComponent<MapGen>();
+        int ChunkToSpawnOn = /*Random.Range(mapgener.chunks.Count - 4, */mapgener.chunks.Count - 10/*)*/;
+        samplePillClone = Instantiate(samplePillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+        NetworkServer.Spawn(samplePillClone);
+        setParentofObject(samplePillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+    }
+
+    public void spawnEnemyPrefab()
+    {
+        MapGen mapgener = GetComponent<MapGen>();
+        int ChunkToSpawnOn = /*Random.Range(mapgener.chunks.Count - 4, */mapgener.chunks.Count - 10/*)*/;
+        enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+        NetworkServer.Spawn(enemyJumperClone);
+        setParentofObject(enemyJumperClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+    }
+
+    public void spawnTrap()
+    {
+        MapGen mapgener = GetComponent<MapGen>();
+        int ChunkToSpawnOn = /*Random.Range(mapgener.chunks.Count - 4, */mapgener.chunks.Count - 10/*)*/;
+        obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+        NetworkServer.Spawn(obstacleClone);
+        setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
     }
 
     [Server]

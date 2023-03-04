@@ -11,9 +11,10 @@ public class MapGen : NetworkBehaviour
 {
     public GameObject chunk;
     public List<WorldChunk> chunks = new List<WorldChunk>();
+    public ObstacleSpawner obstacleSpawner;
     
     [SyncVar]
-    public int currentLevel = 1;
+    public int currentLevel = 0;
 
     public float SquareWidth = 1;
     public float speed = 2;
@@ -27,8 +28,17 @@ public class MapGen : NetworkBehaviour
     public int level1TileCount = 3;
     public int level1MapDeviation = 0;
     int ShouldTileHeightRise = 0;
+    private int level0SpawnDeviationCounter = 0;
+    private int maxLevel0Deviation = 3;
+    bool level0IsEnemySpawned = false;
+    bool level0IsHealthPillSpawned = false;
+    bool level0isResistancePillSpawned = false;
+    int randLevel0Tutorial = 0;
+    int level0EnemySpawnCount = 0;
+    int level0MaxEnemySpawn = 3;
 
 
+    
     [SyncVar]
     public Vector2 LowerLeftScreenPos;
 
@@ -42,14 +52,22 @@ public class MapGen : NetworkBehaviour
     public override void OnStartServer()
     {
         LowerLeftScreenPos = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
+        obstacleSpawner = this.GetComponent<ObstacleSpawner>();
+        randLevel0Tutorial = Random.Range(1, 3);
 
         //spawn first 25 flat chunks
         for (int i = 0; i < startChunksCount; i++)
         {
             //Spawn first tile
-            GameObject firstChunk = Instantiate(chunk.gameObject, (Vector3)LowerLeftScreenPos + new Vector3(-(SquareWidth * RightSideOffset),0,0) + (i * new Vector3(SquareWidth, 0, 0)), Quaternion.identity);
+            GameObject firstChunk = Instantiate(chunk.gameObject, (Vector3)LowerLeftScreenPos + new Vector3(-(SquareWidth * RightSideOffset), 0, 0) + (i * new Vector3(SquareWidth, 0, 0)), Quaternion.identity);
             NetworkServer.Spawn(firstChunk);
+
+            if (i >= 15)
+            {
+                //spawnLevelZero();
+            }
         }
+
         base.OnStartServer();
     }
 
@@ -72,6 +90,7 @@ public class MapGen : NetworkBehaviour
 
         CreateAndSpawnNewChunks();
         manageTimerAndIncreaseSpeed();
+
         if (currentLevel == 4)
         {
             targetTime -= Time.deltaTime;
@@ -114,6 +133,70 @@ public class MapGen : NetworkBehaviour
         for (int i = chunks.Count - 1; i >= 0; i--)
         {
             chunks[i].transform.position = chunks[i].transform.position + -chunks[i].transform.right * Time.deltaTime * speed;
+
+            if (currentLevel == 0)
+            {
+                // destroy old normal chunk and make new normal chunk
+                if (chunks[i].transform.position.x <= LowerLeftScreenPos.x - (SquareWidth * RightSideOffset) && chunks[i].doesChunkHaveTrain == false)
+                {
+                    GameObject toDestroy = chunks[i].gameObject;
+                    NetworkServer.Destroy(toDestroy);
+
+                    //spawn new chunk
+                    GameObject myChunk = Instantiate(chunk.gameObject, chunks[chunks.Count - 1].transform.position + new Vector3(SquareWidth, 0, 0), Quaternion.identity);
+                    NetworkServer.Spawn(myChunk);
+
+                    switch (randLevel0Tutorial)
+                    {
+                        case 1:
+                            if (level0IsEnemySpawned == false)
+                            {
+                                obstacleSpawner.spawnEnemyPrefab();
+                                level0SpawnDeviationCounter = 0;
+                                level0IsEnemySpawned = true;
+                            }
+                            else
+                            {
+                                level0SpawnDeviationCounter++;
+                            }
+
+                            if (level0IsEnemySpawned == true && level0SpawnDeviationCounter >= maxLevel0Deviation && level0IsHealthPillSpawned == false)
+                            {
+                                level0IsHealthPillSpawned = true;
+                                obstacleSpawner.spawnSamplePill();
+                            }
+                            break;
+
+                        case 2:
+                            if (level0isResistancePillSpawned == false)
+                            {
+                                obstacleSpawner.spawnResistancePill();
+                                level0SpawnDeviationCounter = 0;
+                                level0isResistancePillSpawned = true;
+                            }
+                            else
+                            {
+                                level0SpawnDeviationCounter++;
+                            }
+
+                            if (level0isResistancePillSpawned == true && level0SpawnDeviationCounter >= maxLevel0Deviation && level0IsEnemySpawned == false)
+                            {
+                                level0EnemySpawnCount++;
+                                if (level0EnemySpawnCount >= level0MaxEnemySpawn)
+                                {
+                                    level0IsEnemySpawned = true;
+                                }
+                                obstacleSpawner.spawnEnemyPrefab();
+                            }
+                            break;
+
+                    }
+
+                }
+            }
+
+
+
 
             if (chunks[i].transform.position.x <= LowerLeftScreenPos.x - (SquareWidth * RightSideOffset) && currentLevel != 2 && currentLevel != 4&& currentLevel != 3)
             {
@@ -214,6 +297,9 @@ public class MapGen : NetworkBehaviour
 
         switch (currentLevel)
         {
+            case 0:
+                MaxTiles = 2;
+                break;
             case 1:
                 MaxTiles = level1MaxTiles;
                 break;
@@ -250,5 +336,59 @@ public class MapGen : NetworkBehaviour
         }
 
         return ShouldTileHeightRise - 1;
+    }
+
+    private void spawnLevelZero()
+    {
+        if (currentLevel == 0)
+        {
+            switch (randLevel0Tutorial)
+            {
+                case 1:
+                    if (level0IsEnemySpawned == false)
+                    {
+                        obstacleSpawner.spawnEnemyPrefab();
+                        level0SpawnDeviationCounter = 0;
+                        level0IsEnemySpawned = true;
+                    }
+                    else
+                    {
+                        level0SpawnDeviationCounter++;
+                    }
+
+                    if (level0IsEnemySpawned == true && level0SpawnDeviationCounter >= maxLevel0Deviation && level0IsHealthPillSpawned == false)
+                    {
+                        level0IsHealthPillSpawned = true;
+                        obstacleSpawner.spawnSamplePill();
+                    }
+                    break;
+
+                case 2:
+                    if (level0isResistancePillSpawned == false)
+                    {
+                        obstacleSpawner.spawnResistancePill();
+                        level0SpawnDeviationCounter = 0;
+                        level0isResistancePillSpawned = true;
+                    }
+                    else
+                    {
+                        level0SpawnDeviationCounter++;
+                    }
+
+                    if (level0isResistancePillSpawned == true && level0SpawnDeviationCounter >= maxLevel0Deviation && level0IsEnemySpawned == false)
+                    {
+                        level0EnemySpawnCount++;
+                        if (level0EnemySpawnCount >= level0MaxEnemySpawn)
+                        {
+                            level0IsEnemySpawned = true;
+                        }
+                        obstacleSpawner.spawnEnemyPrefab();
+                    }
+                    break;
+
+            }
+
+            
+        }
     }
 }

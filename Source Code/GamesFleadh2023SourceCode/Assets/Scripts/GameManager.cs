@@ -10,7 +10,7 @@ using Mirror.Examples.Basic;
 public class GameManager : MonoBehaviour
 {
     public int highScore = 0;
-    public int currentLevel = 1;
+    public int currentLevel = 0;
     public int prestige = 0;
 
     public GameObject lightningEffect;
@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
     private float levelAddOnToGoal = 100.0f;
     private float highLevelAddOn = 150.0f;
     public float distanceMultiplier = 1.2f;
+    private bool wasLevel0Exited = false;
 
     [SerializeField]
     private string BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=";
@@ -103,6 +104,12 @@ public class GameManager : MonoBehaviour
             {
                 highScore = (int)distanceTraveled;
 
+                if (distanceTraveled >=  0 && distanceTraveled <= 0.2 && wasLevel0Exited == false)
+                {
+                    wasLevel0Exited = true;
+                    currentLevel++;
+                    mapGeneratorScript.changeLevel(currentLevel);
+                }
                 if(distanceTraveled > 10)
                 {
                     panelOne.SetActive(false);
