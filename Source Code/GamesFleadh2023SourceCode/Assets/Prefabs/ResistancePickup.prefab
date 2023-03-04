@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5710853094463688393}
   - component: {fileID: 4880443086140972120}
   - component: {fileID: 8950131597559810299}
+  - component: {fileID: 4988695059495482873}
   m_Layer: 0
   m_Name: ResistancePickup
   m_TagString: ResistancePickup
@@ -146,3 +147,21 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   ParticlePrefab: {fileID: 1427182321035140762, guid: 510490ab21003894d9e34ea8da5edef1, type: 3}
+--- !u!114 &4988695059495482873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944484261910568749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc2fbd0aa501dc4fb99a061f448d780, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotateSpeed: 180
+  maxScale: 0.4
+  minScale: 0.1
+  ScaleingFactor: 0.005
+  shouldIncreaseInSize: 0
+  DecreasingInSize: 1
