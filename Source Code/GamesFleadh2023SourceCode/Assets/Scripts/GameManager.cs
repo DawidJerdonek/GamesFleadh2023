@@ -220,7 +220,7 @@ public class GameManager : MonoBehaviour
         instance.distanceTraveled = 0;
         menuExitButton.SetActive(false);
         feedbackButton.SetActive(false);
-        SceneManager.LoadScene("Menu");
+        SceneManager.LoadScene("Reload");
     }
 
     public void ExitToMenu()
@@ -251,4 +251,5 @@ public class GameManager : MonoBehaviour
         string uid = z1 + "/" + z2;
         return uid;
     }
+
 }

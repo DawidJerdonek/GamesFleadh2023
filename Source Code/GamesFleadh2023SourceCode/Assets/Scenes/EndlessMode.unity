@@ -270,7 +270,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23058a1f61d28b84f9bf9a85f87dabe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 8175147}
 --- !u!1 &66283033
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +928,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 23058a1f61d28b84f9bf9a85f87dabe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 391504722}
 --- !u!1 &511600093
 GameObject:
   m_ObjectHideFlags: 0
@@ -1334,7 +1332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 43, y: 52}
+  m_AnchoredPosition: {x: 100, y: 52}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &909312740
@@ -2619,6 +2617,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1351669804}
+    - target: {fileID: 3088825485545092751, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: RestartGame
+      objectReference: {fileID: 0}
     - target: {fileID: 3611357165890190152, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
       propertyPath: m_IsActive
       value: 0

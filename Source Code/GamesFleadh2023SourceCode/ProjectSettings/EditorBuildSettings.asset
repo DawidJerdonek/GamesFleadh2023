@@ -29,9 +29,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/EndlessMode.unity
     guid: c0a3c70c1757d25449ea5c493c830637
+  - enabled: 1
+    path: Assets/Scenes/Reload.unity
+    guid: da89cbb6ea2437f4c8243fab92a17578
   - enabled: 0
-    path: Assets/Scenes/Game.unity
-    guid: aa878d6361265ac4193e3189f682bb9c
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/Scenes/Level2.unity
     guid: 9f806bab7d1575848820f73c5fb9d893

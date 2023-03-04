@@ -249,7 +249,8 @@ public class PlayerController : NetworkBehaviour
         if (infection >= 100)
         {
             GameManager.instance.menuExitButton.SetActive(true);
-            GameManager.instance.feedbackButton.SetActive(true);
+            //GameManager.instance.feedbackButton.SetActive(true);
+            //StartCoroutine("RestartGame");
         }
 
 
@@ -492,5 +493,33 @@ public class PlayerController : NetworkBehaviour
         {
             rb.velocity = (new Vector2(0, rb.velocity.y));
         }
+    }
+
+    public IEnumerator RestartGame()
+    {
+        yield return new WaitForSeconds(3);
+        //if (FindObjectOfType<MyNetworkRoomManager>() != null)
+        //{
+        //    FindObjectOfType<MyNetworkRoomManager>().StopClient();
+        //    FindObjectOfType<MyNetworkRoomManager>().StopHost();
+        //    Destroy(FindObjectOfType<GameManager>().gameObject);
+        //    Destroy(FindObjectOfType<MusicController>().gameObject);
+        //    //Destroy(FindObjectOfType<MyNetworkRoomManager>().gameObject);
+        //    FindObjectOfType<MyNetworkRoomManager>().StartHost();
+        //}
+        //else
+        //{
+        //    FindObjectOfType<NetworkManager>().StopClient();
+        //    FindObjectOfType<NetworkManager>().StopHost();
+        //    Destroy(FindObjectOfType<GameManager>().gameObject);
+        //    Destroy(FindObjectOfType<MusicController>().gameObject);
+        //    Destroy(FindObjectOfType<NetworkManager>().gameObject);
+        //    FindObjectOfType<NetworkManager>().StartHost();
+        //}
+
+
+        //SceneManager.LoadScene("Menu");
+
+   
     }
 }

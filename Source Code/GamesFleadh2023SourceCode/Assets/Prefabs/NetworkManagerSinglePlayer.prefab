@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b0fecffa3f624585964b0d0eb21b18e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Port: 7777
+  Port: 5555
   DualMode: 1
   NoDelay: 1
   Interval: 10
@@ -81,7 +81,7 @@ MonoBehaviour:
   onlineScene: Assets/Scenes/EndlessMode.unity
   transport: {fileID: 3421582719361182631}
   networkAddress: localhost
-  maxConnections: 100
+  maxConnections: 4
   authenticator: {fileID: 0}
   playerPrefab: {fileID: 628449253120534090, guid: c08088ba32d4d334e86f9268969a2185, type: 3}
   autoCreatePlayer: 1
