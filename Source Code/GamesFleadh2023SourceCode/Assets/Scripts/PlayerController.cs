@@ -332,7 +332,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (joystick.InputDirection.x > 0 || joystick.InputDirection.x < 0)
         {
-            transform.position += (new Vector3(joystick.InputDirection.x * 0.20f, 0));
+            transform.position += (new Vector3(joystick.InputDirection.x * speed, 0));
         }
 
 
@@ -472,7 +472,6 @@ public class PlayerController : NetworkBehaviour
         {
             rb.AddForce(new Vector2(jumpForce.x, jumpForce.y));
             isGrounded = false;
-
         }
     }
 
