@@ -1,0 +1,11 @@
+fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/MenuManager.prefab.meta
+guid: ec0f74d7d91a1074a9afc57c8ed6c352
+========
+guid: 8190503fea521444dbb85deed1c1b6a6
+>>>>>>>> soundEffects:Assets/Prefabs/ParticleSystems/LightningParticleSystem.prefab.meta
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

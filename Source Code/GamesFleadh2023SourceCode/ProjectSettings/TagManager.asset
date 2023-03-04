@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Enemy
+  - Ground
+  - Undefined
+  - obstacle
+  - Sample
+  - NotLocalPlayer
+  - GunPowerup
+  - Bullet
+  - noJumpEnemy
+  - ResistancePickup
+  - AiDebuff
+  - DebugScreen
+  - noJumpEnemy
+  - ResistancePickup
+  - ScreenSmoke
+  - Audio
+  - Chunk
+  - OnlinePos
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - Wall
+  - Water
+  - UI
+  - Ground
+  - Player
+  - PickupBorder
+  - Pickup
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Background
+    uniqueID: 3713572901
+    locked: 0
+  - name: Hazards
+    uniqueID: 1163233721
+    locked: 0
+  - name: PowerupParticles
+    uniqueID: 388136099
+    locked: 0
+  - name: Player
+    uniqueID: 4168563673
+    locked: 0
+  - name: Powerups
+    uniqueID: 1670257177
+    locked: 0

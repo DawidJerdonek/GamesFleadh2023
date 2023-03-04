@@ -1,0 +1,38 @@
+ShroomLady.png
+size:1823,1240
+filter:Linear,Linear
+pma:true
+head
+bounds:2,2,1395,1236
+offsets:1,1,1397,1239
+hips
+bounds:1399,490,272,293
+offsets:47,13,342,313
+left foot
+bounds:1574,275,74,213
+offsets:2,1,77,215
+left hand
+bounds:1713,353,52,138
+offsets:1,1,54,140
+left upper arm
+bounds:1673,493,77,117
+offsets:1,1,79,119
+rotate:90
+leftUpperleg
+bounds:1673,572,119,211
+offsets:1,1,122,214
+right arm lower
+bounds:1474,92,96,175
+offsets:1,1,98,177
+right arm upper
+bounds:1650,347,61,141
+offsets:1,1,63,143
+rightUpperleg
+bounds:1399,269,173,219
+offsets:1,3,175,223
+rightfoot
+bounds:1399,38,73,229
+offsets:1,1,75,231
+torso
+bounds:1399,785,422,453
+offsets:295,196,721,653
