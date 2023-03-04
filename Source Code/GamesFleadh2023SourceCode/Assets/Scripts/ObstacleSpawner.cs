@@ -246,16 +246,16 @@ public class ObstacleSpawner : NetworkBehaviour
     [Server]
     void spawnAiDebuff()
     {
-        MapGen mapgener = GetComponent<MapGen>();
-        int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 2);
+        //MapGen mapgener = GetComponent<MapGen>();
+        //int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 2);
         
-        if (mapgener.chunks[ChunkToSpawnOn].ActualHeight > 0)
-        {
-            mindClone = Instantiate(mindDebuffPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-            NetworkServer.Spawn(mindClone);
-            setParentofObject(mindClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
-            targetTimeMindDebuff = Random.Range(7.0f, 13.0f);
-        }
+        //if (mapgener.chunks[ChunkToSpawnOn].ActualHeight > 0)
+        //{
+        //    mindClone = Instantiate(mindDebuffPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+        //    NetworkServer.Spawn(mindClone);
+        //    setParentofObject(mindClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+        //    targetTimeMindDebuff = Random.Range(7.0f, 13.0f);
+        //}
     }
 
 
@@ -279,15 +279,15 @@ public class ObstacleSpawner : NetworkBehaviour
     [Server]
     void spawnScreenDebuff()
     {
-        MapGen mapgener = GetComponent<MapGen>();
-        int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 2);
+        //MapGen mapgener = GetComponent<MapGen>();
+        //int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 2);
         
-        if (mapgener.chunks[ChunkToSpawnOn].ActualHeight > 0)
-        {
-            ScreenClone = Instantiate(ScreenDebuffPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-            NetworkServer.Spawn(ScreenClone);
-            setParentofObject(ScreenClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
-            targetTimeScreenDebuff = Random.Range(5.0f, 13.0f);
-        }
+        //if (mapgener.chunks[ChunkToSpawnOn].ActualHeight > 0)
+        //{
+        //    ScreenClone = Instantiate(ScreenDebuffPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+        //    NetworkServer.Spawn(ScreenClone);
+        //    setParentofObject(ScreenClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+        //    targetTimeScreenDebuff = Random.Range(5.0f, 13.0f);
+        //}
     }
 }

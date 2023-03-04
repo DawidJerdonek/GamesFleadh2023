@@ -97,4 +97,7 @@ MonoBehaviour:
   - {fileID: 5358471116602389046, guid: c37914bd0ecc26147b65abebdf2a0273, type: 3}
   - {fileID: 1944484261910568749, guid: 33211b2183bbc854b9a069c1c3c437cd, type: 3}
   - {fileID: 8251515554183704497, guid: 05f7c92a96fb73145b1fb64674996ac1, type: 3}
+  - {fileID: 434276540098324291, guid: 391f4998b99f29d40a1ad6720fb3a8fd, type: 3}
+  - {fileID: 434276540098324291, guid: 00b775dde78e7e945b0ec819be79aba2, type: 3}
+  - {fileID: 9184346184822107770, guid: 8d86f36939f5f26479282574c8315f89, type: 3}
   timeInterpolationGui: 0

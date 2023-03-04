@@ -37,6 +37,11 @@ public class MenuManager : MonoBehaviour
         {
             Destroy(FindObjectOfType<GameManager>().gameObject);
         }
+        
+        if (FindObjectOfType<MusicController>() != null)
+        {
+            Destroy(FindObjectOfType<MusicController>().gameObject);
+        }
 
         if (FindObjectOfType<Mirror.Examples.Basic.MyNetworkRoomManager>() != null)
         {
@@ -79,6 +84,29 @@ public class MenuManager : MonoBehaviour
     }
     public void ConnectMenu()
     {
+        if (FindObjectOfType<GameManager>() != null)
+        {
+            Destroy(FindObjectOfType<GameManager>().gameObject);
+        }
+
+        if (FindObjectOfType<MusicController>() != null)
+        {
+            Destroy(FindObjectOfType<MusicController>().gameObject);
+        }
+
+        if (FindObjectOfType<Mirror.Examples.Basic.MyNetworkRoomManager>() != null)
+        {
+            FindObjectOfType<Mirror.Examples.Basic.MyNetworkRoomManager>().StopClient();
+            FindObjectOfType<Mirror.Examples.Basic.MyNetworkRoomManager>().StopHost();
+            Destroy(FindObjectOfType<Mirror.Examples.Basic.MyNetworkRoomManager>().gameObject);
+        }
+        else if (FindObjectOfType<NetworkManager>() != null)
+        {
+            FindObjectOfType<NetworkManager>().StopClient();
+            FindObjectOfType<NetworkManager>().StopHost();
+            Destroy(FindObjectOfType<NetworkManager>().gameObject);
+        }
+
         SceneManager.LoadScene("Connect Menu");
         //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
     }

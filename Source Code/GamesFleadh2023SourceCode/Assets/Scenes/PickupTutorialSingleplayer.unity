@@ -1917,26 +1917,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1649386722824433227, guid: 93186d1fb3cd6ac469374f60f01b21bb, type: 3}
-      propertyPath: spawnPrefabs.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 1649386722824433227, guid: 93186d1fb3cd6ac469374f60f01b21bb, type: 3}
-      propertyPath: spawnPrefabs.Array.data[10]
-      value: 
-      objectReference: {fileID: 434276540098324291, guid: 391f4998b99f29d40a1ad6720fb3a8fd, type: 3}
-    - target: {fileID: 1649386722824433227, guid: 93186d1fb3cd6ac469374f60f01b21bb, type: 3}
-      propertyPath: spawnPrefabs.Array.data[11]
-      value: 
-      objectReference: {fileID: 434276540098324291, guid: 00b775dde78e7e945b0ec819be79aba2, type: 3}
-    - target: {fileID: 1649386722824433227, guid: 93186d1fb3cd6ac469374f60f01b21bb, type: 3}
-      propertyPath: spawnPrefabs.Array.data[12]
-      value: 
-      objectReference: {fileID: 9184346184822107770, guid: 8d86f36939f5f26479282574c8315f89, type: 3}
-    - target: {fileID: 1649386722824433227, guid: 93186d1fb3cd6ac469374f60f01b21bb, type: 3}
-      propertyPath: spawnPrefabs.Array.data[13]
-      value: 
-      objectReference: {fileID: 9184346184822107770, guid: 8d86f36939f5f26479282574c8315f89, type: 3}
     - target: {fileID: 1649386722824433231, guid: 93186d1fb3cd6ac469374f60f01b21bb, type: 3}
       propertyPath: m_Name
       value: NetworkManagerSinglePlayer

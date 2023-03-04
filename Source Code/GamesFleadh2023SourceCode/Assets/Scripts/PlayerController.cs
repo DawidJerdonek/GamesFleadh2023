@@ -7,6 +7,9 @@ using Mirror;
 using UnityEngine.UI;
 using System;
 using Mirror.Examples.Basic;
+using System.ComponentModel;
+using Spine.Unity;
+using UnityEngine.PlayerLoop;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -34,7 +37,7 @@ public class PlayerController : NetworkBehaviour
     public Camera m_cameraMain;
 
     public float speed = 10f;
-    public Vector2 jumpForce = new Vector2(-100,1000);
+    public Vector2 jumpForce = new Vector2(-100, 1000);
     private bool isGrounded = false;
     private Vector2 swipeStart;
     private float swipeDistanceMove = 0.0f;
@@ -61,21 +64,35 @@ public class PlayerController : NetworkBehaviour
 
     public static PlayerController instance;
 
+    public bool shouldStartEffect = false;
+    public bool shouldStartOrangeEffect = false;
+
+    public float transitionSpeed = 0.05f;
+    private bool isColor = false;
+    public Color ToChangeTo;
+
+    public SkeletonAnimation SpineSkeleton;
+    public VirtualJoystick joystick;
+
     //https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
 
     public override void OnStartClient()
     {
-        if (FindObjectOfType<MyNetworkRoomManager>() != null) 
-        { 
+        if (FindObjectOfType<MyNetworkRoomManager>() != null)
+        {
             nameText.text = playerName;
             nameText.color = playerColor;
         }
+
+        SpineSkeleton = GetComponentInChildren<SkeletonAnimation>();
 
         if (!isLocalPlayer)
         {
             //this.enabled = false;
             return;
         }
+
+        joystick = FindObjectOfType<VirtualJoystick>();
 
         instance = this;
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -103,19 +120,45 @@ public class PlayerController : NetworkBehaviour
         base.OnStartClient();
     }
 
+    private void UpdateColorToNewColor()
+    {
+        if (shouldStartEffect)
+        {
+            if (!isColor)
+            {
+                SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), ToChangeTo, transitionSpeed));
+
+                if (SpineSkeleton.skeleton.GetColor() == ToChangeTo)
+                {
+                    isColor = true;
+                }
+            }
+            else
+            {
+                SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), Color.white, transitionSpeed));
+
+                if (SpineSkeleton.skeleton.GetColor() == Color.white)
+                {
+                    ToChangeTo = Color.white;
+                    shouldStartEffect = false;
+                    isColor = false;
+                }
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update()
     {
 
         //INFECTION CODE AND CHECKS FOR PLAYERs
-        if(isServer)
+        if (isServer)
         {
             if (infection < 0)
             {
                 infection = 0;
             }
-            
+
             if (infection < 100)
             {
                 if (resistance == false)
@@ -139,7 +182,7 @@ public class PlayerController : NetworkBehaviour
             resetPosition();
         }
 
-        if (transform.position.y >= UpperLeftScreen.y )
+        if (transform.position.y >= UpperLeftScreen.y)
         {
             rb.velocity = Vector2.zero;
         }
@@ -152,7 +195,7 @@ public class PlayerController : NetworkBehaviour
         }
 
 
-        
+
         if (AiSwitcher || AiSwitchFromDebuff)
         {
             fuzzyLogicObject.GetComponent<FuzzyLogic>().enabled = true;
@@ -209,7 +252,7 @@ public class PlayerController : NetworkBehaviour
             GameManager.instance.feedbackButton.SetActive(true);
         }
 
-        
+
         //RESISTANCE CHECKS AND CODE FOR PLAYER
         if (resistance == false)
         {
@@ -236,10 +279,14 @@ public class PlayerController : NetworkBehaviour
                 bar.value = GameManager.instance.infectionBar.value;
             }
         }
+
+
     }
 
     private void FixedUpdate()
     {
+        UpdateColorToNewColor();
+
         if (isLocalPlayer)
         {
             if (infection < 100)
@@ -281,64 +328,60 @@ public class PlayerController : NetworkBehaviour
         isGrounded = false;
     }
 
-	void Moving()
-	{
-		if (Input.touchCount > 0)
-		{
-			Touch touch = Input.GetTouch(0);
-			if (touch.position.x < Screen.width / 2)
-			{
-				if (touch.phase == TouchPhase.Began)
-				{
-					swipeStart = touch.position;
-				}
-				else if (touch.phase == TouchPhase.Moved)
-				{
-					swipeEnd = touch.position;
-					swipeDistanceMove = (swipeEnd - swipeStart).magnitude;
-					Vector2 swipeDirection = (swipeEnd - swipeStart).normalized;
-					if (swipeDirection.x > 0)
-					{
-						//Debug.Log("Right swipe");
-						rb.velocity = (new Vector2(transform.right.x * 5, rb.velocity.y ));
-					}
-					else if (swipeDirection.x < 0)
-					{
-                        //Debug.Log("Left swipe");
-                        rb.velocity = (new Vector2(-transform.right.x *  5, rb.velocity.y));
+    void Moving()
+    {
+        if (joystick.InputDirection.x > 0 || joystick.InputDirection.x < 0)
+        {
+            transform.position += (new Vector3(joystick.InputDirection.x * 0.20f, 0));
+        }
 
-					}
-                    swipeDirection.x = 0;
-                    //done
-                }
-                else if (touch.phase == TouchPhase.Ended)
-                {
-                    //Debug.Log("STOPPEDS");
 
-                    rb.velocity = Vector2.zero;
-                }
-            }
-		}
-	}
+        //{
+        //	if (Input.touchCount > 0)
+        //	{
+        //		Touch touch = Input.GetTouch(0);
+        //		if (touch.position.x < Screen.width / 2)
+        //		{
+        //			if (touch.phase == TouchPhase.Began)
+        //			{
+        //				swipeStart = touch.position;
+        //			}
+        //			else if (touch.phase == TouchPhase.Moved)
+        //			{
+        //				swipeEnd = touch.position;
+        //				swipeDistanceMove = (swipeEnd - swipeStart).magnitude;
+        //				Vector2 swipeDirection = (swipeEnd - swipeStart).normalized;
+        //				if (swipeDirection.x > 0)
+        //				{
+        //					//Debug.Log("Right swipe");
+        //					rb.velocity = (new Vector2(transform.right.x * 5, rb.velocity.y ));
+        //				}
+        //				else if (swipeDirection.x < 0)
+        //				{
+        //                       //Debug.Log("Left swipe");
+        //                       rb.velocity = (new Vector2(-transform.right.x *  5, rb.velocity.y));
+        //				}
+        //                   swipeDirection.x = 0;
+        //                   //done
+        //               }
+        //               else if (touch.phase == TouchPhase.Ended)
+        //               {
+        //                   //Debug.Log("STOPPEDS");
+        //                   rb.velocity = Vector2.zero;
+        //               }
+        //           }
+        //	}
+    }
 
 
 	public void Jumping()
     {
-		if (Input.touchCount > 0)
-		{
-			var touch = Input.GetTouch(0);
-
-		    if (touch.position.x > Screen.width / 2)
-			{
-				if (Input.GetTouch(0).phase == TouchPhase.Began && isGrounded)
-				{
-					rb.AddForce(new Vector2(jumpForce.x, jumpForce.y));
-                   // Debug.Log("JUMPPPPPPPPPPPPING : " + NetworkConnection.LocalConnectionId);
-                    isGrounded = false;
-				}
-			}
-		}
-
+		if(joystick.InputDirection.z > 0.25f && isGrounded)
+        {
+            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y ));
+            // Debug.Log("JUMPPPPPPPPPPPPING : " + NetworkConnection.LocalConnectionId);
+            isGrounded = false;
+        }
 	}
 
 
@@ -348,6 +391,8 @@ public class PlayerController : NetworkBehaviour
         {
             if(isLocalPlayer)
             {
+                ToChangeTo = new Color(0.476415f, 1, 1, 1);
+                shouldStartEffect= true;
                 pickupScript.resistancePickupImplementation(GetComponent<NetworkIdentity>());
             }
 
@@ -401,6 +446,8 @@ public class PlayerController : NetworkBehaviour
         {
             if (isLocalPlayer)
             {
+                ToChangeTo = Color.green;
+                shouldStartEffect = true;
                 soundEffectScript.playPowerupSoundEffect();
                 pickupScript.SampleImplementation(GetComponent<NetworkIdentity>());
             }
