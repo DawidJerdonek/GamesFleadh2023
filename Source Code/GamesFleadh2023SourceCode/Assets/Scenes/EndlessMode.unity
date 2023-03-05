@@ -1576,6 +1576,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5315839097886290129, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
 --- !u!1001 &5725948484731350652
@@ -1589,6 +1593,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1958961587}
+    - target: {fileID: 1753381924, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_TagString
+      value: ShootButton
+      objectReference: {fileID: 0}
     - target: {fileID: 36655115734897735, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
       propertyPath: m_RootOrder
       value: 12

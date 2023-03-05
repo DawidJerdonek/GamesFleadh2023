@@ -24,6 +24,7 @@ TagManager:
   - OnlinePos
   - Coin
   - PlayerGun
+  - ShootButton
   layers:
   - Default
   - TransparentFX

@@ -40,7 +40,7 @@ public class BulletScript : NetworkBehaviour
 
        // rb.velocity = transform.up* bulletSpeed;
 
-        rb.velocity = new Vector3(bulletSpeed, randYMovement, 0);
+        rb.velocity = new Vector3(bulletSpeed, /*randYMovement*/ 0, 0);
 
 
     }
