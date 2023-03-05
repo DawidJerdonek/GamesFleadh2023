@@ -328,8 +328,6 @@ public class PlayerController : NetworkBehaviour
 			barHeight = 3;
 		}
 
-
-
 	}
 
 	public bool IsGrounded()
@@ -443,13 +441,16 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "Enemy")
+		if (collision.gameObject.tag == "Enemy" && !resistance)
         {
             if (isLocalPlayer)
             {
-                //DepleatHealthByAmount(GetComponent<NetworkIdentity>(),5);
-            }
-        }
+                
+				StartIncreaseAndDecreaseForSeconds();///***
+				barWidth = 3;///***
+				barHeight = 3;///***
+			}
+		}
 
         if (collision.gameObject.tag == "AiDebuff")
         {
