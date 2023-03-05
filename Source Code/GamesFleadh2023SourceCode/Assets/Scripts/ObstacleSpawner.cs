@@ -145,7 +145,7 @@ public class ObstacleSpawner : NetworkBehaviour
         {
             GameObject zombie = Instantiate(HoardPrefabs[hoardNumber].transform.GetChild(i).gameObject, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
             NetworkServer.Spawn(zombie);
-            setParentofObject(zombie.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+            //setParentofObject(zombie.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
         }
     }
 
@@ -241,7 +241,7 @@ public class ObstacleSpawner : NetworkBehaviour
         int ChunkToSpawnOn = /*Random.Range(mapgener.chunks.Count - 4, */mapgener.chunks.Count - 10/*)*/;
         enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
         NetworkServer.Spawn(enemyJumperClone);
-        setParentofObject(enemyJumperClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+        //setParentofObject(enemyJumperClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
     }
 
     public void spawnTrap()
@@ -360,7 +360,7 @@ public class ObstacleSpawner : NetworkBehaviour
         {
             enemyShooterClone = Instantiate(enemyShooterPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
             NetworkServer.Spawn(enemyShooterClone);
-            setParentofObject(enemyShooterClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+            //setParentofObject(enemyShooterClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
             targetTimeShooter = Random.Range(15.0f, 30.0f);
         }
     }

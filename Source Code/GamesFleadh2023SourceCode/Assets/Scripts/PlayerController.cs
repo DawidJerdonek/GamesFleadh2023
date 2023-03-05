@@ -106,8 +106,8 @@ public class PlayerController : NetworkBehaviour
     //private Button shootButton;
     public Animator anim;
     public States state;
-    private float barWidth = 3;
-    private float barHeight = 3;
+    private float barWidth = 2;
+    private float barHeight = 2.3f;
 	private float increaseRate = 0.05f;
 	private float decreaseRate = 0.1f;
 	private bool isIncreasing = true;
@@ -170,6 +170,7 @@ public class PlayerController : NetworkBehaviour
         }
 
         ammoDisplay = GameObject.Find("AmmoDisplay").GetComponentsInChildren<Image>().ToList();
+
         for (int i = 0; i < maxAmmo; i++)
         {
             ammoDisplay[i].enabled = false;
@@ -242,6 +243,7 @@ public class PlayerController : NetworkBehaviour
         {
             ammoDisplay[i].enabled = true;
         }
+
         for (int i = ammo; i < maxAmmo; i++)
         {
             ammoDisplay[i].enabled = false;
@@ -701,7 +703,7 @@ public class PlayerController : NetworkBehaviour
         {
             barHeight += increaseRate;
             barWidth += increaseRate;
-            if (barHeight >= 5.0f)
+            if (barHeight >= 2.7f)
             {
                 isIncreasing = false;
             }
@@ -710,7 +712,7 @@ public class PlayerController : NetworkBehaviour
         {
             barHeight -= decreaseRate;
             barWidth -= decreaseRate;
-            if (barHeight <= 3.0f)
+            if (barHeight <= 2.3f)
             {
                 isIncreasing = true;
 			}

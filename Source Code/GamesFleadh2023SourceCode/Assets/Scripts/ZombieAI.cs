@@ -37,6 +37,7 @@ public class ZombieAI : NetworkBehaviour
 
     public void FixedUpdate()
     {
+        
         if(isServer && isMoving)
         {
             if(transform.position.y <= -10)
@@ -81,7 +82,9 @@ public class ZombieAI : NetworkBehaviour
 
         col.collider.gameObject.GetComponent<PlayerController>().IncreaseInfectionByAmount(col.collider.gameObject.GetComponent<NetworkIdentity>(), 5);
 
-        Color myColor = Color.white - new Color(0, 0, 0, 0.5f);
+        Color mybaseCol = GetComponentInChildren<SpriteRenderer>().color;
+
+        Color myColor = mybaseCol - new Color(0, 0, 0, 0.5f);
 
         GetComponentInChildren<SpriteRenderer>().color = myColor;
 
@@ -99,7 +102,7 @@ public class ZombieAI : NetworkBehaviour
         }
 
         GetComponentInChildren<Animator>().SetTrigger("IsWalking");
-        GetComponentInChildren<SpriteRenderer>().color = Color.white;
+        GetComponentInChildren<SpriteRenderer>().color = mybaseCol;
 
     }
 }
