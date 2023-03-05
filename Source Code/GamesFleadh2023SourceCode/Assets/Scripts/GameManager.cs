@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI transitionText;
     public TextMeshProUGUI infectionText;
     public TextMeshProUGUI levelText;
+    public TextMeshProUGUI respawnText;
+
     public GameObject panelOne;
     public GameObject panelTwo;
 
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
     private string deviceID;
 
     public float distanceTraveled;
+    public float scoreDistance;
     private float levelGoal = 50.0f;
     private float levelLowAddOnToGoal = 50.0f;
     private float levelAddOnToGoal = 100.0f;
@@ -58,7 +61,6 @@ public class GameManager : MonoBehaviour
     {
         transitionText.text = "Some time later...";
         Application.targetFrameRate = 60;
-
         if (instance != null && instance != this)
         {
             Destroy(this.gameObject);
@@ -174,11 +176,12 @@ public class GameManager : MonoBehaviour
                 }
 
 
-
-                int distanceTextDisplay = (int)distanceTraveled;
+                
+                int distanceTextDisplay = (int)scoreDistance;
                 distanceText.text = "Distance: " + distanceTextDisplay.ToString();
                 infectionText.text = "Infection: ";
                 levelText.text = "Prestige: " + prestige.ToString() + " Level: " + currentLevel;
+
 
                 deviceID = uniqueID();
                 BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=" + deviceID + "&entry.1637826786=" + "1" + "&entry.1578808278=" + instance.highScore + " &entry.2039373689=" + instance.distanceTraveled;                               
@@ -197,30 +200,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("deviceID" + deviceID);
 
         Send();
-    }
-
-    public void RestartGame()
-    {
-        if (FindObjectOfType<MyNetworkRoomManager>() != null)
-        {
-            FindObjectOfType<MyNetworkRoomManager>().StopClient();
-            FindObjectOfType<MyNetworkRoomManager>().StopHost();
-            Destroy(FindObjectOfType<MyNetworkRoomManager>().gameObject);
-        }
-        else
-        {
-            FindObjectOfType<NetworkManager>().StopClient();
-            FindObjectOfType<NetworkManager>().StopHost();
-            Destroy(FindObjectOfType<NetworkManager>().gameObject);
-        }
-        Destroy(FindObjectOfType<GameManager>().gameObject);
-        Destroy(FindObjectOfType<MusicController>().gameObject);
-
-
-        instance.distanceTraveled = 0;
-        menuExitButton.SetActive(false);
-        feedbackButton.SetActive(false);
-        SceneManager.LoadScene("Reload");
     }
 
     public void ExitToMenu()

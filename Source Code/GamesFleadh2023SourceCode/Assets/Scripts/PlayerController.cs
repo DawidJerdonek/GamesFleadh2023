@@ -10,6 +10,8 @@ using Mirror.Examples.Basic;
 using System.ComponentModel;
 using Spine.Unity;
 using UnityEngine.PlayerLoop;
+using UnityEngine.SocialPlatforms.Impl;
+using JetBrains.Annotations;
 
 public class PlayerController : NetworkBehaviour
 {
@@ -74,6 +76,8 @@ public class PlayerController : NetworkBehaviour
     public SkeletonAnimation SpineSkeleton;
     public VirtualJoystick joystick;
 
+    public float distanceTime;
+    public float respawnTime;
     //https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
 
     public override void OnStartClient()
@@ -116,7 +120,8 @@ public class PlayerController : NetworkBehaviour
 
 
         pickupScript = GameObject.Find("basePickup").GetComponent<PickupScript>();
-
+        respawnTime = 4;
+        GameManager.instance.respawnText.enabled = false;
         base.OnStartClient();
     }
 
@@ -199,43 +204,6 @@ public class PlayerController : NetworkBehaviour
         if (AiSwitcher || AiSwitchFromDebuff)
         {
             fuzzyLogicObject.GetComponent<FuzzyLogic>().enabled = true;
-            //float rayDistance = 0.75f;
-
-            //RaycastHit2D hit = Physics2D.Raycast(rayPos.position, Vector2.right, rayDistance, rayLayer);
-            //Debug.DrawRay(rayPos.position, Vector2.right * rayDistance, Color.green);
-
-            //int test = Convert.ToInt32(hit.collider != null);
-
-            ////AI JUMP
-            ////AI JUMP
-            //// Set the input values
-            //inputs[0] = test;
-            //inputs[1] = 0;
-            //inputs[2] = 0;
-
-
-            //// Use the brain to decide whether to jump
-            //int jump = brain.FeedForward(inputs);
-            //Debug.Log("AI NUMBER : " + jump);
-
-            //if (jump == 1)
-            //{
-            //    JumpAI();
-            //}
-
-            ////AI MoveRight
-            //inputs[0] = transform.position.y - LowerRightScreen.x;
-            //inputs[1] = test;
-            //inputs[2] = 0;
-
-            ////AI MoveLeft
-            //// Use the brain to decide whether to jump
-            //int right = brain.FeedForward(inputs);
-
-            //if (right == 1)
-            //{
-            //    MoveRightAI();
-            //}
         }
 
         //timer for debuff
@@ -245,12 +213,12 @@ public class PlayerController : NetworkBehaviour
             AiSwitchFromDebuff = false;
         }
 
-
+        GameManager.instance.respawnText.text = "Respawning in\n " + (int)respawnTime;
         if (infection >= 100)
         {
-            GameManager.instance.menuExitButton.SetActive(true);
-            //GameManager.instance.feedbackButton.SetActive(true);
-            //StartCoroutine("RestartGame");
+            GameManager.instance.scoreDistance = 0;
+            GetComponentInChildren<MeshRenderer>().enabled = false;
+            StartCoroutine("RestartGame");
         }
 
 
@@ -287,12 +255,13 @@ public class PlayerController : NetworkBehaviour
     private void FixedUpdate()
     {
         UpdateColorToNewColor();
-
+        distanceTime = Time.deltaTime;
         if (isLocalPlayer)
         {
             if (infection < 100)
             {
                 GameManager.instance.distanceTraveled += Time.deltaTime * GameManager.instance.distanceMultiplier;
+                GameManager.instance.scoreDistance += distanceTime * GameManager.instance.distanceMultiplier;
             }
         }
     }
@@ -380,7 +349,6 @@ public class PlayerController : NetworkBehaviour
 		if(joystick.InputDirection.z > 0.25f && isGrounded)
         {
             rb.AddForce(new Vector2(jumpForce.x, jumpForce.y ));
-            // Debug.Log("JUMPPPPPPPPPPPPING : " + NetworkConnection.LocalConnectionId);
             isGrounded = false;
         }
 	}
@@ -497,29 +465,19 @@ public class PlayerController : NetworkBehaviour
 
     public IEnumerator RestartGame()
     {
-        yield return new WaitForSeconds(3);
-        //if (FindObjectOfType<MyNetworkRoomManager>() != null)
-        //{
-        //    FindObjectOfType<MyNetworkRoomManager>().StopClient();
-        //    FindObjectOfType<MyNetworkRoomManager>().StopHost();
-        //    Destroy(FindObjectOfType<GameManager>().gameObject);
-        //    Destroy(FindObjectOfType<MusicController>().gameObject);
-        //    //Destroy(FindObjectOfType<MyNetworkRoomManager>().gameObject);
-        //    FindObjectOfType<MyNetworkRoomManager>().StartHost();
-        //}
-        //else
-        //{
-        //    FindObjectOfType<NetworkManager>().StopClient();
-        //    FindObjectOfType<NetworkManager>().StopHost();
-        //    Destroy(FindObjectOfType<GameManager>().gameObject);
-        //    Destroy(FindObjectOfType<MusicController>().gameObject);
-        //    Destroy(FindObjectOfType<NetworkManager>().gameObject);
-        //    FindObjectOfType<NetworkManager>().StartHost();
-        //}
+        GameManager.instance.respawnText.enabled = true;
+        if (respawnTime > 0)
+        {
+            respawnTime -= Time.deltaTime * 2;
+        }
+        yield return new WaitForSeconds(1.5f);
+        infection = 0;
+        distanceTime = 0;
+        GameManager.instance.scoreDistance = 0;
+        respawnTime = 4;
 
+        GetComponentInChildren<MeshRenderer>().enabled = true;
+        GameManager.instance.respawnText.enabled = false;
 
-        //SceneManager.LoadScene("Menu");
-
-   
     }
 }
