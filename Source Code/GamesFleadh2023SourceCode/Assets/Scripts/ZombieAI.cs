@@ -55,9 +55,8 @@ public class ZombieAI : NetworkBehaviour
     public bool isMoving = true;
 
     // Start is called before the first frame update
-    private IEnumerator Start()
+    private void Start()
     {
-        yield return new WaitForSeconds(0.7f);
         ray = transform.FindChild("AIRay").transform;
         MapGenerator = FindObjectOfType<MapGen>().gameObject;
     }
@@ -290,8 +289,10 @@ public class ZombieAI : NetworkBehaviour
 
         foreach (var item in list)
         {
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), true);
         }
+
+        col.collider.gameObject.GetComponent<PlayerController>().IncreaseInfectionByAmount(col.collider.gameObject.GetComponent<NetworkIdentity>(), 5);
 
         Color myColor = Color.white - new Color(0, 0, 0, 0.5f);
 
@@ -304,6 +305,11 @@ public class ZombieAI : NetworkBehaviour
         yield return new WaitForSeconds(3);
 
         isMoving = true;
+
+        foreach (var item in list)
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), false);
+        }
 
         GetComponentInChildren<Animator>().SetTrigger("IsWalking");
         GetComponentInChildren<SpriteRenderer>().color = Color.white;

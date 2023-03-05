@@ -43,6 +43,7 @@ Transform:
   - {fileID: 4401631990470648943}
   - {fileID: 7944071750052751093}
   - {fileID: 1552300002591545552}
+  - {fileID: 8387923642259519226}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,7 +74,7 @@ MonoBehaviour:
   pickupScript: {fileID: 0}
   m_cameraMain: {fileID: 0}
   speed: 0.1
-  jumpForce: {x: -25, y: 850}
+  jumpForce: {x: -0.5, y: 5}
   mindDebuffCollected: 0
   testAIisOn: 0
   onlineInfection: {fileID: 3694200031796571811, guid: e99f4679dc8b2504c827572519076cf2, type: 3}
@@ -92,6 +93,10 @@ MonoBehaviour:
   joystick: {fileID: 0}
   distanceTime: 0
   respawnTime: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 64
+  GroundCast: {fileID: 8387923642259519226}
   anim: {fileID: 9193780252542597674}
   state: 0
 --- !u!61 &628449253120534092
@@ -111,8 +116,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.67, y: 5.564795}
-    newSize: {x: 5.67, y: 5.564795}
+    oldSize: {x: 5.62, y: 5.1908116}
+    newSize: {x: 5.62, y: 5.1908116}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -204,8 +209,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.67, y: 5.564795}
-    newSize: {x: 5.67, y: 5.564795}
+    oldSize: {x: 5.62, y: 5.1908116}
+    newSize: {x: 5.62, y: 5.1908116}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -274,15 +279,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1075707146, guid: 4390057eaa02fd342bbaa208e55f9605, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.67, y: 5.564795}
+  m_Size: {x: 5.62, y: 5.1908116}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &2898700902371481297
@@ -537,6 +542,37 @@ MonoBehaviour:
   _animationName: running
   loop: 1
   timeScale: 1
+--- !u!1 &2966348851889378434
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8387923642259519226}
+  m_Layer: 7
+  m_Name: Playeraycastground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8387923642259519226
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2966348851889378434}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -2.494, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 628449253120534097}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3914354652327328356
 GameObject:
   m_ObjectHideFlags: 0
