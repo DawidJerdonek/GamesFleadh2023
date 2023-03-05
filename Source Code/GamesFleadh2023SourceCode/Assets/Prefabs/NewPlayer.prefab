@@ -72,14 +72,15 @@ MonoBehaviour:
   debuffParticleSystem: {fileID: 5712782009134916241, guid: 32195bfdc838ee14d98d850f6c0e0085, type: 3}
   pickupScript: {fileID: 0}
   m_cameraMain: {fileID: 0}
-  speed: 0.04
-  jumpForce: {x: -25, y: 650}
+  speed: 0.1
+  jumpForce: {x: -25, y: 850}
   mindDebuffCollected: 0
   testAIisOn: 0
   onlineInfection: {fileID: 3694200031796571811, guid: e99f4679dc8b2504c827572519076cf2, type: 3}
   nameText: {fileID: 2346964893344361753}
   infectionText: {fileID: 4745393784684640647, guid: e99f4679dc8b2504c827572519076cf2, type: 3}
   infection: 0
+  ammo: 20
   resistance: 0
   playerColor: {r: 1, g: 1, b: 1, a: 1}
   playerName: Player
@@ -89,6 +90,8 @@ MonoBehaviour:
   ToChangeTo: {r: 0, g: 0, b: 0, a: 0}
   SpineSkeleton: {fileID: 0}
   joystick: {fileID: 0}
+  distanceTime: 0
+  respawnTime: 0
   anim: {fileID: 9193780252542597674}
   state: 0
 --- !u!61 &628449253120534092

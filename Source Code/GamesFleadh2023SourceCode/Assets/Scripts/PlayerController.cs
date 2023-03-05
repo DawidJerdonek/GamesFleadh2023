@@ -47,8 +47,8 @@ public class PlayerController : NetworkBehaviour
 
     public Camera m_cameraMain;
 
-    public float speed = 10f;
-    public Vector2 jumpForce = new Vector2(-100, 1000);
+    public float speed = 0.1f;
+    public Vector2 jumpForce = new Vector2(-100, 850);
     private bool isGrounded = false;
     private Vector2 swipeStart;
     private float swipeDistanceMove = 0.0f;
@@ -59,10 +59,13 @@ public class PlayerController : NetworkBehaviour
     public GameObject onlineInfection;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI infectionText;
+
     private Slider bar;
 
     [SyncVar]
     public float infection = 0.0f;
+
+    public int ammo = 20;
 
     [SyncVar]
     public bool resistance = false;
@@ -138,6 +141,8 @@ public class PlayerController : NetworkBehaviour
         pickupScript = GameObject.Find("basePickup").GetComponent<PickupScript>();
         respawnTime = 4;
         GameManager.instance.respawnText.enabled = false;
+        ammo = 20;
+
         base.OnStartClient();
     }
 
@@ -230,6 +235,7 @@ public class PlayerController : NetworkBehaviour
         }
 
         GameManager.instance.respawnText.text = "Respawning in\n " + (int)respawnTime;
+        GameManager.instance.ammoText.text = "Ammo: " + ammo;
         if (infection >= 100)
         {
             playerDied = true;
@@ -440,6 +446,20 @@ public class PlayerController : NetworkBehaviour
                 shouldStartEffect = true;
                 soundEffectScript.playPowerupSoundEffect();
                 pickupScript.SampleImplementation(GetComponent<NetworkIdentity>());
+            }
+
+            if (isServer)
+            {
+                //infection -= 10;
+                NetworkServer.Destroy(collision.gameObject);
+            }
+        }
+        if (collision.gameObject.tag == "Ammo")
+        {
+            if (isLocalPlayer)
+            {
+                soundEffectScript.playPowerupSoundEffect();
+                pickupScript.AmmoImplementation(GetComponent<NetworkIdentity>());
             }
 
             if (isServer)
