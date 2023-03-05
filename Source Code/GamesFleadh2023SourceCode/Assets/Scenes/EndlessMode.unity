@@ -905,6 +905,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8251515554183704497, guid: 05f7c92a96fb73145b1fb64674996ac1, type: 3}
     - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
+      propertyPath: ammoPillPrefab
+      value: 
+      objectReference: {fileID: 2479776089854383110, guid: 9759fbd1fd0cfc8429c1233792930f3f, type: 3}
+    - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: shroomGuyNoJump
       value: 
       objectReference: {fileID: 2698132178557220745, guid: 6c67ffa06381ab343a5c22294f328e98, type: 3}
