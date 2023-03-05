@@ -35,9 +35,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI respawnText;
     public TextMeshProUGUI ammoText;
 
-    public GameObject panelOne;
-    public GameObject panelTwo;
-
     public Canvas bgCanvas;
     public PlayerController[] players;
     public float targetTime = 10.0f;
@@ -112,12 +109,6 @@ public class GameManager : MonoBehaviour
                     wasLevel0Exited = true;
                     currentLevel++;
                     mapGeneratorScript.changeLevel(currentLevel);
-                }
-                if(distanceTraveled > 10)
-                {
-                    panelOne.SetActive(false);
-                    panelTwo.SetActive(false);
-                    
                 }
 
                 if(currentLevel == 4)

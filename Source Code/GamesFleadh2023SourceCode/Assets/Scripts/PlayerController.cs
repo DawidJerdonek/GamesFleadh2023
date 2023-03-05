@@ -12,7 +12,7 @@ using Spine.Unity;
 using UnityEngine.PlayerLoop;
 using UnityEngine.SocialPlatforms.Impl;
 using JetBrains.Annotations;
-
+using System.Linq;
 
 public enum States
 {
@@ -38,12 +38,14 @@ public class PlayerController : NetworkBehaviour
 
     public Brain brain;
     private float[] inputs = new float[3];
-
     public bool AiSwitcher = false;
     public bool AiSwitchFromDebuff = false;
     private float timeForDebuffAI = 0.0f;
     public GameObject debuffParticleSystem;
     public PickupScript pickupScript;
+
+    public List<Image> ammoDisplay = new List<Image>();
+
 
     public Camera m_cameraMain;
 
@@ -65,6 +67,7 @@ public class PlayerController : NetworkBehaviour
     public float infection = 0.0f;
 
     public int ammo = 20;
+    private int maxAmmo = 30;
 
     [SyncVar]
     public bool resistance = false;
@@ -98,7 +101,6 @@ public class PlayerController : NetworkBehaviour
     public Animator anim;
 	public States state;
 
-	//https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
 
 	public override void OnStartClient()
     {
@@ -107,7 +109,7 @@ public class PlayerController : NetworkBehaviour
             nameText.text = playerName;
             nameText.color = playerColor;
         }
-
+        
         shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
         shootButton.onClick.AddListener(() => DecreaseAmmo());
         SpineSkeleton = GetComponentInChildren<SkeletonAnimation>();
@@ -139,6 +141,12 @@ public class PlayerController : NetworkBehaviour
             infectionText.text = nameText.text;
             infectionText.color = nameText.color;
             gameObject.GetComponentInChildren<Canvas>().enabled = true;
+        }
+
+        ammoDisplay = GameObject.Find("AmmoDisplay").GetComponentsInChildren<Image>().ToList();
+        for (int i = 0; i < maxAmmo; i++)
+        {
+            ammoDisplay[i].enabled = false;
         }
 
 
@@ -199,6 +207,20 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
+        if (ammo >= maxAmmo)
+        {
+            ammo = maxAmmo;
+        }
+
+        for (int i = 0; i < ammo; i++)
+        {
+            ammoDisplay[i].enabled = true;
+        }
+        for (int i = ammo; i < maxAmmo; i++)
+        {
+            ammoDisplay[i].enabled = false;
+        }
+
         if (ammo <= 0)
         {
             ammo = 0;
@@ -208,6 +230,8 @@ public class PlayerController : NetworkBehaviour
         {
             shootButton.interactable = true;
         }
+
+
 
         if (!isLocalPlayer)
         {
@@ -251,7 +275,6 @@ public class PlayerController : NetworkBehaviour
         }
 
         GameManager.instance.respawnText.text = "Respawning in\n " + (int)respawnTime;
-        GameManager.instance.ammoText.text = "Ammo: " + ammo;
         if (infection >= 100)
         {
             playerDied = true;
