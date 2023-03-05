@@ -7,10 +7,6 @@ public class ZombieDeath : MonoBehaviour
     public void KillZombie()
     {
         ZombieAI ai = transform.GetComponentInParent<ZombieAI>();
-
-        if (ai.isMoving)
-        {
-            ai.killZombie();
-        }
+        ai.killZombie();
     }
 }

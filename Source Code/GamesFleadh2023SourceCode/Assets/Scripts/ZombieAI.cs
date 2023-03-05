@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class ZombieAI : NetworkBehaviour
 {
@@ -17,7 +18,7 @@ public class ZombieAI : NetworkBehaviour
 
     public bool isMoving = true;
 
-
+    public bool alive = true;
 
     // Start is called before the first frame update
     private void Start()
@@ -72,7 +73,8 @@ public class ZombieAI : NetworkBehaviour
 
     public void triggerKillAnim()
     {
-        GetComponentInChildren<BoxCollider2D>().enabled= false;
+        alive = false;
+        GetComponent<BoxCollider2D>().enabled= false;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         GetComponentInChildren<Animator>().SetTrigger("Death");
     }
@@ -87,39 +89,43 @@ public class ZombieAI : NetworkBehaviour
 
     private IEnumerator stunZombie(Collision2D col)
     {
-        isMoving = false;
-
-        List<PlayerController> list = new List<PlayerController>();
-
-        list = GameObject.FindObjectsOfType<PlayerController>().ToList();
-
-        foreach (var item in list)
+        if (alive)
         {
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), true);
+            if (isMoving)
+            {
+                isMoving = false;
+
+                List<PlayerController> list = new List<PlayerController>();
+
+                list = GameObject.FindObjectsOfType<PlayerController>().ToList();
+
+                foreach (var item in list)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), true);
+                }
+
+                col.collider.gameObject.GetComponent<PlayerController>().IncreaseInfectionByAmount(col.collider.gameObject.GetComponent<NetworkIdentity>(), 5);
+
+                Color mybaseCol = GetComponentInChildren<SpriteRenderer>().color;
+
+                Color myColor = mybaseCol - new Color(0, 0, 0, 0.5f);
+
+                GetComponentInChildren<SpriteRenderer>().color = myColor;
+
+                GetComponentInChildren<Animator>().SetTrigger("IsIdle");
+
+                yield return new WaitForSeconds(3);
+
+                isMoving = true;
+
+                foreach (var item in list)
+                {
+                    Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), false);
+                }
+
+                GetComponentInChildren<Animator>().SetTrigger("IsWalking");
+                GetComponentInChildren<SpriteRenderer>().color = mybaseCol;
+            }
         }
-
-        col.collider.gameObject.GetComponent<PlayerController>().IncreaseInfectionByAmount(col.collider.gameObject.GetComponent<NetworkIdentity>(), 5);
-
-        Color mybaseCol = GetComponentInChildren<SpriteRenderer>().color;
-
-        Color myColor = mybaseCol - new Color(0, 0, 0, 0.5f);
-
-        GetComponentInChildren<SpriteRenderer>().color = myColor;
-
-        GetComponentInChildren<Animator>().SetTrigger("IsIdle");
-
-
-        yield return new WaitForSeconds(3);
-
-        isMoving = true;
-
-        foreach (var item in list)
-        {
-            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), false);
-        }
-
-        GetComponentInChildren<Animator>().SetTrigger("IsWalking");
-        GetComponentInChildren<SpriteRenderer>().color = mybaseCol;
-
     }
 }

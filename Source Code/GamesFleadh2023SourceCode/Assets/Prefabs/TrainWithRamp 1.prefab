@@ -737,7 +737,7 @@ MonoBehaviour:
   - {fileID: 8632878717910752861}
   - {fileID: 3608588600415474527}
   - {fileID: 8900838711225206434}
-  pickup: {fileID: 8780081029477162712, guid: 5b186501c889b4045afdaf1aa7e3f153, type: 3}
+  pickup: {fileID: 2479776089854383110, guid: 9759fbd1fd0cfc8429c1233792930f3f, type: 3}
   pickupTop: {fileID: 3045295179145117772}
   pickupBottom: {fileID: 5653151406580612589}
   randPickupChance: 0

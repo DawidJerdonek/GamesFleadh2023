@@ -12,6 +12,7 @@ public class ZombieHeadController : MonoBehaviour
             
             if(ai.isMoving)
             {
+                Debug.Log("Killing NPC");
                 ai.triggerKillAnim();
             }
         }
