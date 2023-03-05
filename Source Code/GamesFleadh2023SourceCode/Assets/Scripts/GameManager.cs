@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
 
 
 
-    private float maxSize = 80.2f;
+    private float maxSize = 75.2f;
     private float minSize = 52.0f;
     private float expandSpeed = 40.0f;
     private float shrinkSpeed = 40.0f;
@@ -214,7 +214,7 @@ public class GameManager : MonoBehaviour
 				{
                     distanceText.fontSize = 50.0f;
 
-						targetTimeToText = 5.0f;
+						targetTimeToText = 3.0f;
 				}
 
 
