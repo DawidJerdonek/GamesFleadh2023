@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 using Mirror;
 using Mirror.Examples.Basic;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class GameManager : MonoBehaviour
 {
@@ -52,15 +53,22 @@ public class GameManager : MonoBehaviour
 
 
 
-    private float maxSize = 100.2f;
-    private float minSize = 20.0f;
-    private float expandSpeed = 2.0f;
-    private float shrinkSpeed = 1.0f;
+    private float maxSize = 80.2f;
+    private float minSize = 50.0f;
+    private float expandSpeed = 40.0f;
+    private float shrinkSpeed = 40.0f;
 
     private bool isExpanding = true;
 
 
-    [SerializeField]
+
+	private bool shouldShrink = false;
+	private float originalFontSize;
+	public float duration = 1f;
+	private bool isScalingUp = false;
+
+
+	[SerializeField]
     private string BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=";
 
     // Start is called before the first frame update
@@ -180,31 +188,34 @@ public class GameManager : MonoBehaviour
                     BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=" + deviceID + "&entry.1637826786=" + "1" + "&entry.1578808278=" + instance.highScore + " &entry.2039373689=" + instance.distanceTraveled;
 
 
-				//if (scoreDistance >= 3)
-				//{
+
+				if (Mathf.RoundToInt(scoreDistance) % 50 == 0 && !shouldShrink)
+				{
 					if (isExpanding)
-					{
-						distanceText.fontSize += expandSpeed * Time.deltaTime;
+                    {
+                        distanceText.fontSize += expandSpeed * Time.deltaTime;
 
-						if (distanceText.fontSize >= maxSize)
-						{
-						Debug.Log("Bruh TEXT");
+                        if (distanceText.fontSize >= maxSize)
+                        {
+                            Debug.Log("Bruh TEXT");
 
-						isExpanding = false;
-						}
-					}
-					//else
-					//{
-					//	distanceText.fontSize -= shrinkSpeed * Time.deltaTime;
+                            isExpanding = false;
+                        }
+                    }
+                    else
+                    {
+                        distanceText.fontSize -= shrinkSpeed * Time.deltaTime;
 
-					//	if (distanceText.fontSize <= minSize)
-					//	{
-					//		isExpanding = true;
-					//	}
-					//}
-				//}
+                        if (distanceText.fontSize <= minSize)
+                        {
+                            isExpanding = true;
+                        }
+                    }
+                }
 
-				if (Input.GetKey(KeyCode.Escape))
+
+
+                if (Input.GetKey(KeyCode.Escape))
                 {
                     Application.Quit();
                 }
@@ -249,4 +260,5 @@ public class GameManager : MonoBehaviour
 		string uid = z1 + "/" + z2;
 		return uid;
 	}
+
 }
