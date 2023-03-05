@@ -773,7 +773,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2145174150472662738, guid: 1d5240be2b0ad8141ba717c123b7e00c, type: 3}
       propertyPath: ShapeModule.m_Rotation.z
-      value: 140
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 2145174150472662738, guid: 1d5240be2b0ad8141ba717c123b7e00c, type: 3}
       propertyPath: EmissionModule.m_BurstCount

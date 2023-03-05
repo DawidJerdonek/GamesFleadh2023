@@ -59,7 +59,7 @@ public class ObstacleSpawner : NetworkBehaviour
 
     public List<GameObject> HoardPrefabs = new List<GameObject>();
 
-    private float hoardTimeToSpawn = 15.0f;
+    private float hoardTimeToSpawn = 10.0f;
     private float hoardTimeLeft = 0;
 
     public override void OnStartServer()

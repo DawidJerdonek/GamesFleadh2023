@@ -17,6 +17,8 @@ public class ZombieAI : NetworkBehaviour
 
     public bool isMoving = true;
 
+
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -85,6 +87,8 @@ public class ZombieAI : NetworkBehaviour
 
     private IEnumerator stunZombie(Collision2D col)
     {
+        isMoving = false;
+
         List<PlayerController> list = new List<PlayerController>();
 
         list = GameObject.FindObjectsOfType<PlayerController>().ToList();
@@ -104,7 +108,6 @@ public class ZombieAI : NetworkBehaviour
 
         GetComponentInChildren<Animator>().SetTrigger("IsIdle");
 
-        isMoving = false;
 
         yield return new WaitForSeconds(3);
 
