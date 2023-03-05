@@ -46,7 +46,7 @@ public class ZombieAI : NetworkBehaviour
     public double m_decision = 0;
     
     public float speed;
-    public float jumpForce = 650;
+    private float jumpForce = 2;
     public LayerMask ground;
 
     public bool HasCollidedPlayer;
@@ -269,7 +269,7 @@ public class ZombieAI : NetworkBehaviour
         if (hit.collider != null)
         {
             // Apply the force to the rigidbody.
-            GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpForce);
+            GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpForce,ForceMode2D.Impulse);
         }
     }
 

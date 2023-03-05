@@ -57,6 +57,11 @@ public class ObstacleSpawner : NetworkBehaviour
     private float timeTrainSpawn = 1.0f;
     MapGen mapgener;
 
+    public List<GameObject> HoardPrefabs = new List<GameObject>();
+
+    private float hoardTimeToSpawn = 15.0f;
+    private float hoardTimeLeft = 0;
+
     public override void OnStartServer()
     {
         timeLeft = timeObstacleSpawn;
@@ -74,7 +79,19 @@ public class ObstacleSpawner : NetworkBehaviour
         {
             return;
         }
-        
+
+        if (GameManager.instance.currentLevel == 1 || GameManager.instance.currentLevel == 3)
+        {
+            hoardTimeLeft += Time.deltaTime;
+
+            if(hoardTimeLeft >= hoardTimeToSpawn)
+            {
+                spawnHoard(Random.Range(0, HoardPrefabs.Count));
+                hoardTimeLeft = 0; ;
+            }
+        }
+
+
         switch (GameManager.instance.currentLevel)
         {
             case 1:
@@ -118,6 +135,15 @@ public class ObstacleSpawner : NetworkBehaviour
         {
             spawnScreenDebuff();
         }
+    }
+
+    private void spawnHoard(int hoardNumber)
+    {
+        int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 1);
+
+        GameObject hoard = Instantiate(HoardPrefabs[hoardNumber], mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 4.0f, 0),Quaternion.identity);
+        NetworkServer.Spawn(hoard);
+        setParentofObject(hoard.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
     }
 
     [Server]
