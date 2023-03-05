@@ -416,6 +416,14 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
+        if (collision.gameObject.tag == "Enemy")
+        {
+            if (isLocalPlayer)
+            {
+                DepleatHealthByAmount(GetComponent<NetworkIdentity>(),5);
+            }
+        }
+
         if (collision.gameObject.tag == "AiDebuff")
         {
 

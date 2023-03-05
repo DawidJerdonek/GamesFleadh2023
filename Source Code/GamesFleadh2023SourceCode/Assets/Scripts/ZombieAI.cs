@@ -77,15 +77,12 @@ public class ZombieAI : NetworkBehaviour
             m_obstacleCount = 0;
             m_distance = 0;
 
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.right, 6.0f, ground);
-            Debug.DrawRay(transform.position, -Vector2.up * 6.0f, Color.green);
+            RaycastHit2D hit = Physics2D.Raycast(ray.transform.position, -Vector2.right, 6.0f, ground);
+            Debug.DrawRay(ray.transform.position, -Vector2.right * 6.0f, Color.green);
 
             if (hit.collider != null)
             {
-                if (hit.collider.gameObject.layer == ground.value)
-                {
-                    obstacles.Add(hit.collider.gameObject);
-                }
+                obstacles.Add(hit.collider.gameObject);
             }
 
             for (int i = 0; i < obstacles.Count - 1; i++)
@@ -281,11 +278,11 @@ public class ZombieAI : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(stunZombie());
+            StartCoroutine(stunZombie(collision));
         }
     }
 
-    private IEnumerator stunZombie()
+    private IEnumerator stunZombie(Collision2D col)
     {
         List<PlayerController> list = new List<PlayerController>();
 
