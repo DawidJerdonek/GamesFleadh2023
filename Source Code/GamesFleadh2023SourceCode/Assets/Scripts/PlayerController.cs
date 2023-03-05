@@ -106,10 +106,15 @@ public class PlayerController : NetworkBehaviour
     //private Button shootButton;
     public Animator anim;
     public States state;
-    private float barWidth = 2;
-    private float barHeight = 2.3f;
-	private float increaseRate = 0.05f;
-	private float decreaseRate = 0.1f;
+
+    private float barWidth;
+    private float barHeight ;
+
+    private float barWidthToChange = 2.0f;
+	private float barHeightToChange = 2.0f;
+
+	private float increaseRate = 0.15f;
+	private float decreaseRate = 0.15f;
 	private bool isIncreasing = true;
 	private bool barIncreasedAndDecreased = false;
 	private bool twnfiveCheck = false;
@@ -144,8 +149,9 @@ public class PlayerController : NetworkBehaviour
 
         brain = new Brain();
         brain.Init(3, 5, 1);
-
-        fuzzyLogicObject = GameObject.Find("FuzzyAI");
+        barWidth = barWidthToChange;
+        barHeight = barHeightToChange;
+		fuzzyLogicObject = GameObject.Find("FuzzyAI");
 
         if (isServer)
         {
@@ -350,25 +356,27 @@ public class PlayerController : NetworkBehaviour
             // DO all lines of code with *** to reproduce bar increaqse and decrease
             StartIncreaseAndDecreaseForSeconds();///***
 			twnfiveCheck = true;
-			barWidth = 3;///***
-			barHeight = 3;///***
+			barWidth = barWidthToChange;
+			barHeight = barHeightToChange;
 		}
 
 		if (infection > 49 && infection < 60.0f && !fivezerCheck)
         {
 			StartIncreaseAndDecreaseForSeconds();
 			fivezerCheck = true;
-			barWidth = 3;
-			barHeight = 3;
+			barWidth = barWidthToChange;
+			barHeight = barHeightToChange;
 		}
 		if (infection > 74 && infection < 81.0f && !svnfiveCheck)
 		{
 			StartIncreaseAndDecreaseForSeconds();
 			svnfiveCheck = true;
-			barWidth = 3;
-			barHeight = 3;
+			barWidth = barWidthToChange;
+			barHeight = barHeightToChange;
 		}
 
+
+        Debug.Log("resistance is " + resistance);
 	}
 
     public bool IsGrounded()
@@ -499,8 +507,8 @@ public class PlayerController : NetworkBehaviour
             {
                 
 				StartIncreaseAndDecreaseForSeconds();///***
-				barWidth = 3;///***
-				barHeight = 3;///***
+				barWidth = barWidthToChange;
+				barHeight = barHeightToChange;
 			}
 		}
 
@@ -612,8 +620,12 @@ public class PlayerController : NetworkBehaviour
         nameText.enabled = true;
         playerDied = false;
 
+	    twnfiveCheck = false;
+	    fivezerCheck = false;
+	    svnfiveCheck = false;
 
-    }
+
+}
 
     //////public enum States
     //////{
@@ -703,7 +715,7 @@ public class PlayerController : NetworkBehaviour
         {
             barHeight += increaseRate;
             barWidth += increaseRate;
-            if (barHeight >= 2.7f)
+            if (barHeight >= 5.0f)
             {
                 isIncreasing = false;
             }
@@ -712,7 +724,7 @@ public class PlayerController : NetworkBehaviour
         {
             barHeight -= decreaseRate;
             barWidth -= decreaseRate;
-            if (barHeight <= 2.3f)
+            if (barHeight <= barHeightToChange)
             {
                 isIncreasing = true;
 			}
@@ -735,7 +747,7 @@ public class PlayerController : NetworkBehaviour
 	// Call this function to start the coroutine for 3 seconds
 	public void StartIncreaseAndDecreaseForSeconds()
 	{
-		StartCoroutine(CallFunctionForTime(1.0f));
+		StartCoroutine(CallFunctionForTime(0.7f));
 	}
 
 
