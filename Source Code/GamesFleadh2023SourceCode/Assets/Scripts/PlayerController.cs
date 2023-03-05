@@ -232,55 +232,46 @@ public class PlayerController : NetworkBehaviour
         GameManager.instance.respawnText.text = "Respawning in\n " + (int)respawnTime;
         if (infection >= 100)
         {
-
-            GameManager.instance.menuExitButton.SetActive(true);
-            //GameManager.instance.feedbackButton.SetActive(true);
-            //StartCoroutine("RestartGame");
             playerDied = true;
+			GameManager.instance.scoreDistance = 0;
+			StartCoroutine("RestartGame");
+			//resetPosition();
+
 
 		}
 
-            GameManager.instance.scoreDistance = 0;
-            GetComponentInChildren<MeshRenderer>().enabled = false;
-            StartCoroutine("RestartGame");
-            resetPosition();
-        }
+		//RESISTANCE CHECKS AND CODE FOR PLAYER
+		if (resistance == false)
+		{
+			GameManager.instance.targetTime = 10.0f;
+			GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.red;
+		}
+		else if (resistance == true)
+		{
+			GameManager.instance.targetTime -= Time.deltaTime;
+			GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.cyan;
 
+			if (GameManager.instance.targetTime <= 0.0f)
+			{
+				resetResistanceCMD();
+				GameManager.instance.targetTime = 10.0f;
+			}
+		}
 
+		if (infection < 100)
+		{
+			GameManager.instance.infectionBar.value = infection;
+			if (FindObjectOfType<MyNetworkRoomManager>() != null)
+			{
+				bar.value = GameManager.instance.infectionBar.value;
+			}
+		}
 
-        //RESISTANCE CHECKS AND CODE FOR PLAYER
-        if (resistance == false)
-        {
-            GameManager.instance.targetTime = 10.0f;
-            GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.red;
-        }
-        else if (resistance == true)
-        {
-            GameManager.instance.targetTime -= Time.deltaTime;
-            GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.cyan;
-
-            if (GameManager.instance.targetTime <= 0.0f)
-            {
-                resetResistanceCMD();
-                GameManager.instance.targetTime = 10.0f;
-            }
-        }
-
-        if (infection < 100)
-        {
-            GameManager.instance.infectionBar.value = infection;
-            if (FindObjectOfType<MyNetworkRoomManager>() != null)
-            {
-                bar.value = GameManager.instance.infectionBar.value;
-            }
-        }
-
-        checkStatesForAnimator();
-
-
-
+		checkStatesForAnimator();
 
 	}
+
+
 
 	private void FixedUpdate()
     {
@@ -504,13 +495,15 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(1.5f);
         infection = 0;
         distanceTime = 0;
-        GameManager.instance.scoreDistance = 0;
+		GameManager.instance.scoreDistance = 0;
         respawnTime = 4;
-        GetComponentInChildren<MeshRenderer>().enabled = true;
+        GetComponentInChildren<SpriteRenderer>().enabled = true;
         GameManager.instance.respawnText.enabled = false;
         nameText.enabled = true;
-        
-    }
+		playerDied = false;
+
+
+	}
 
 	//////public enum States
 	//////{
@@ -578,26 +571,20 @@ public class PlayerController : NetworkBehaviour
 		}
 
 
+        if (state == States.Die)
+        {
+            if (!playerDied)
+            {
+                state = States.Run;
 
+            }
 
-		//////
-		///LEave it hERE DONT TOUCH THIS OR HANDS WILL BE THROWN
-		//////
-		anim.SetInteger("State", (int)state);
+        }
+
+			//////
+			///LEave it hERE DONT TOUCH THIS OR HANDS WILL BE THROWN
+			//////
+			anim.SetInteger("State", (int)state);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
