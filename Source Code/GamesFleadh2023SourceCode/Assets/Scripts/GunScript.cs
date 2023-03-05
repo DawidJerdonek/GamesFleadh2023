@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UI;
 
 public class GunScript : MonoBehaviour
@@ -16,6 +17,7 @@ public class GunScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
         shootButton.onClick.AddListener(() => shootGun());
         soundEffectScript = GameObject.Find("SoundEffectManager").GetComponent<SoundEffectScript>();

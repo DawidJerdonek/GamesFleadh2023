@@ -92,8 +92,8 @@ public class PlayerController : NetworkBehaviour
     public float respawnTime;
     //https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
 
-
-	public Animator anim;
+    private Button shootButton;
+    public Animator anim;
 	public States state;
 
 	//https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
@@ -106,6 +106,8 @@ public class PlayerController : NetworkBehaviour
             nameText.color = playerColor;
         }
 
+        shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
+        shootButton.onClick.AddListener(() => DecreaseAmmo());
         SpineSkeleton = GetComponentInChildren<SkeletonAnimation>();
 
         if (!isLocalPlayer)
@@ -192,6 +194,16 @@ public class PlayerController : NetworkBehaviour
                     infection += Time.deltaTime / 3;
                 }
             }
+        }
+
+        if (ammo <= 0)
+        {
+            ammo = 0;
+            shootButton.interactable = false;
+        }
+        else
+        {
+            shootButton.interactable = true;
         }
 
         if (!isLocalPlayer)
@@ -615,4 +627,8 @@ public class PlayerController : NetworkBehaviour
 			anim.SetInteger("State", (int)state);
 	}
 
+    public void DecreaseAmmo()
+    {
+        ammo--;
+    }
 }
