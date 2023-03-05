@@ -141,9 +141,12 @@ public class ObstacleSpawner : NetworkBehaviour
     {
         int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 1);
 
-        GameObject hoard = Instantiate(HoardPrefabs[hoardNumber], mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 4.0f, 0),Quaternion.identity);
-        NetworkServer.Spawn(hoard);
-        setParentofObject(hoard.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+        for (int i = 0; i < HoardPrefabs[hoardNumber].transform.childCount - 1; i++)
+        {
+            GameObject zombie = Instantiate(HoardPrefabs[hoardNumber].transform.GetChild(i).gameObject, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+            NetworkServer.Spawn(zombie);
+            setParentofObject(zombie.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+        }
     }
 
     [Server]

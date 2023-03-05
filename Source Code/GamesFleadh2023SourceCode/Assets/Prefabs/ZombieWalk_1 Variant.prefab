@@ -17,7 +17,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 721448008600332173, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
       propertyPath: speed
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2136123242298594064, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
       propertyPath: m_RootOrder
@@ -63,10 +63,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2136123242298594067, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
     - target: {fileID: 2136123242298594068, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
       propertyPath: m_Name
       value: ZombieWalk_1 Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 2136123242298594071, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
     - target: {fileID: 4257898077624777416, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
       propertyPath: sceneId
       value: 0

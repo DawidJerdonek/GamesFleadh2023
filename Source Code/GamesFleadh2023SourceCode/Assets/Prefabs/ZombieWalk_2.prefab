@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 6592688261683674610}
   - component: {fileID: 7667907854848188599}
   - component: {fileID: 7494010624099643908}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ZombieWalk_2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -183,7 +183,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 9065728938940535854}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -216,7 +216,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -253,15 +253,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  obstacles: []
-  MapGenerator: {fileID: 0}
-  m_low: 0.73
-  m_medium: 0.17
-  m_high: 0.17
-  m_obstacleCount: 0
-  m_distance: 1
-  m_decision: 0
-  speed: 2
+  speed: 5
   ground:
     serializedVersion: 2
     m_Bits: 64
