@@ -103,8 +103,8 @@ public class MapGen : NetworkBehaviour
                 if (targetTime2 <= 0.0f)
                 {
                     MaxTiles = 2;
-                    targetTime = Random.Range(3.0f, 10.0f);
-                    targetTime2 = Random.Range(1.0f, 3.0f);
+                    targetTime = Random.Range(3.0f, 3.0f);
+                    targetTime2 = Random.Range(1.0f, 2.0f);
                 }
             }
         }

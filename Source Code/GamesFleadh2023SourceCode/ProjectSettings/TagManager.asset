@@ -22,6 +22,8 @@ TagManager:
   - Audio
   - Chunk
   - OnlinePos
+  - Coin
+  - PlayerGun
   layers:
   - Default
   - TransparentFX
