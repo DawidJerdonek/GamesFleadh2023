@@ -289,7 +289,7 @@ public class PlayerController : NetworkBehaviour
 
         if (!AiSwitcher && !AiSwitchFromDebuff)
         {
-            fuzzyLogicObject.GetComponent<FuzzyLogic>().enabled = false;
+            //fuzzyLogicObject.GetComponent<FuzzyLogic>().enabled = false;
             Moving();
             Jumping();
         }
