@@ -11,6 +11,15 @@ using System.ComponentModel;
 using Spine.Unity;
 using UnityEngine.PlayerLoop;
 
+
+public enum States
+{
+	Run = 1,
+	Jump = 2,
+	JumpShoot = 3,
+	Die = 4
+}
+
 public class PlayerController : NetworkBehaviour
 {
     //added to main
@@ -22,7 +31,7 @@ public class PlayerController : NetworkBehaviour
     public Transform rayPos;
     public LayerMask rayLayer;
     private GameObject fuzzyLogicObject;
-
+    private bool playerDied = false;
     private SoundEffectScript soundEffectScript;
 
     public Brain brain;
@@ -74,9 +83,13 @@ public class PlayerController : NetworkBehaviour
     public SkeletonAnimation SpineSkeleton;
     public VirtualJoystick joystick;
 
-    //https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
 
-    public override void OnStartClient()
+	public Animator anim;
+	public States state;
+
+	//https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
+
+	public override void OnStartClient()
     {
         if (FindObjectOfType<MyNetworkRoomManager>() != null)
         {
@@ -98,8 +111,9 @@ public class PlayerController : NetworkBehaviour
         rb = gameObject.GetComponent<Rigidbody2D>();
         m_cameraMain = Camera.main;
         soundEffectScript = GameObject.Find("SoundEffectManager").GetComponent<SoundEffectScript>();
+		state = States.Run;
 
-        brain = new Brain();
+		brain = new Brain();
         brain.Init(3, 5, 1);
 
         fuzzyLogicObject = GameObject.Find("FuzzyAI");
@@ -126,23 +140,23 @@ public class PlayerController : NetworkBehaviour
         {
             if (!isColor)
             {
-                SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), ToChangeTo, transitionSpeed));
+               //// SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), ToChangeTo, transitionSpeed));
 
-                if (SpineSkeleton.skeleton.GetColor() == ToChangeTo)
-                {
-                    isColor = true;
-                }
+               // if (SpineSkeleton.skeleton.GetColor() == ToChangeTo)
+               // {
+               //     isColor = true;
+               // }
             }
             else
             {
-                SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), Color.white, transitionSpeed));
+                //SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), Color.white, transitionSpeed));
 
-                if (SpineSkeleton.skeleton.GetColor() == Color.white)
-                {
-                    ToChangeTo = Color.white;
-                    shouldStartEffect = false;
-                    isColor = false;
-                }
+                //if (SpineSkeleton.skeleton.GetColor() == Color.white)
+                //{
+                //    ToChangeTo = Color.white;
+                //    shouldStartEffect = false;
+                //    isColor = false;
+                //}
             }
         }
     }
@@ -251,7 +265,9 @@ public class PlayerController : NetworkBehaviour
             GameManager.instance.menuExitButton.SetActive(true);
             //GameManager.instance.feedbackButton.SetActive(true);
             //StartCoroutine("RestartGame");
-        }
+            playerDied = true;
+
+		}
 
 
         //RESISTANCE CHECKS AND CODE FOR PLAYER
@@ -281,10 +297,14 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
+        checkStatesForAnimator();
 
-    }
 
-    private void FixedUpdate()
+
+
+	}
+
+	private void FixedUpdate()
     {
         UpdateColorToNewColor();
 
@@ -522,4 +542,93 @@ public class PlayerController : NetworkBehaviour
 
    
     }
+
+	//////public enum States
+	//////{
+	//////	Run = 1,
+	//////	Jump = 2,
+	//////	JumpShoot = 3,
+	//////	Die = 4
+	//////}
+
+
+	void checkStatesForAnimator()
+	{
+		//////
+		///Idle animations Conrolls
+		//////
+		if (state == States.Run)
+		{
+			if (joystick.InputDirection.z > 0.25f)
+			{
+				state = States.Jump;
+                Debug.Log("Change of state to Jump");
+			}
+            if (playerDied)
+            {
+				state = States.Die;
+
+			}
+
+
+		}
+		if (state == States.Jump)
+		{
+			if (isGrounded)
+			{
+				state = States.Run;
+			}
+
+            if (10 == 19) // if p;ayer shgot
+            {
+				state = States.JumpShoot;
+			}
+
+			if (playerDied)
+			{
+				state = States.Die;
+
+			}
+
+		}
+
+
+        if (state == States.JumpShoot)
+        {
+			if (isGrounded)
+			{
+				state = States.Run;
+			}
+
+			if (playerDied)
+			{
+				state = States.Die;
+
+			}
+
+		}
+
+
+
+
+		//////
+		///LEave it hERE DONT TOUCH THIS OR HANDS WILL BE THROWN
+		//////
+		anim.SetInteger("State", (int)state);
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

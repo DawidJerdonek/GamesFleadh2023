@@ -1082,6 +1082,10 @@ PrefabInstance:
       value: Assets/Scenes/Lobby Room.unity
       objectReference: {fileID: 0}
     - target: {fileID: 1965542256, guid: 122fceb59adb6614db58c51adde8d543, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 628449253120534090, guid: 962b9776f28b2944ab18f689c45e2078, type: 3}
+    - target: {fileID: 1965542256, guid: 122fceb59adb6614db58c51adde8d543, type: 3}
       propertyPath: maxConnections
       value: 4
       objectReference: {fileID: 0}

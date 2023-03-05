@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class NewBulletScript : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	public float speed = 10f; 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	void Start()
+	{
+		GetComponent<Rigidbody2D>().velocity = transform.right * speed;
+	}
+
+	// Called when the bullet hits something
+	void OnTriggerEnter2D(Collider2D collision)
+	{
+		// Destroy the bullet when it hits something
+		Destroy(gameObject);
+	}
 }
