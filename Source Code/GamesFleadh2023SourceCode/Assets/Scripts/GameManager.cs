@@ -54,18 +54,13 @@ public class GameManager : MonoBehaviour
 
 
     private float maxSize = 80.2f;
-    private float minSize = 50.0f;
+    private float minSize = 52.0f;
     private float expandSpeed = 40.0f;
     private float shrinkSpeed = 40.0f;
 
     private bool isExpanding = true;
 
-
-
-	private bool shouldShrink = false;
-	private float originalFontSize;
-	public float duration = 1f;
-	private bool isScalingUp = false;
+	public float targetTimeToText = 5.0f;
 
 
 	[SerializeField]
@@ -177,8 +172,8 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
-
-                    int distanceTextDisplay = (int)scoreDistance;
+			
+				int distanceTextDisplay = (int)scoreDistance;
                     distanceText.text = "Distance: " + distanceTextDisplay.ToString();
                     infectionText.text = "Infection: ";
                     levelText.text = "Prestige: " + prestige.ToString() + " Level: " + currentLevel;
@@ -189,7 +184,7 @@ public class GameManager : MonoBehaviour
 
 
 
-				if (Mathf.RoundToInt(scoreDistance) % 50 == 0 && !shouldShrink)
+				if (Mathf.RoundToInt(scoreDistance) % 50 == 0 && scoreDistance > 5)
 				{
 					if (isExpanding)
                     {
@@ -213,9 +208,18 @@ public class GameManager : MonoBehaviour
                     }
                 }
 
+				targetTimeToText -= Time.deltaTime;
+
+				if (targetTimeToText <= 0.0f)
+				{
+                    distanceText.fontSize = 50.0f;
+
+						targetTimeToText = 5.0f;
+				}
 
 
-                if (Input.GetKey(KeyCode.Escape))
+
+				if (Input.GetKey(KeyCode.Escape))
                 {
                     Application.Quit();
                 }

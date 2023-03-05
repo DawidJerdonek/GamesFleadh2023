@@ -718,7 +718,7 @@ public class PlayerController : NetworkBehaviour
         {
             barHeight += increaseRate;
             barWidth += increaseRate;
-            if (barHeight >= 5.0f)
+            if (barHeight >= 4.0f)
             {
                 isIncreasing = false;
             }
