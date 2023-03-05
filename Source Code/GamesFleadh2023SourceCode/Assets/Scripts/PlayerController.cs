@@ -108,8 +108,8 @@ public class PlayerController : NetworkBehaviour
     public States state;
     private float barWidth = 3;
     private float barHeight = 3;
-	private float increaseRate = 0.05f;
-	private float decreaseRate = 0.1f;
+	private float increaseRate = 0.07f;
+	private float decreaseRate = 0.07f;
 	private bool isIncreasing = true;
 	private bool barIncreasedAndDecreased = false;
 	private bool twnfiveCheck = false;
@@ -367,6 +367,8 @@ public class PlayerController : NetworkBehaviour
 			barHeight = 3;
 		}
 
+
+        Debug.Log("resistance is " + resistance);
 	}
 
     public bool IsGrounded()
@@ -610,8 +612,12 @@ public class PlayerController : NetworkBehaviour
         nameText.enabled = true;
         playerDied = false;
 
+	    twnfiveCheck = false;
+	    fivezerCheck = false;
+	    svnfiveCheck = false;
 
-    }
+
+}
 
     //////public enum States
     //////{
@@ -733,7 +739,7 @@ public class PlayerController : NetworkBehaviour
 	// Call this function to start the coroutine for 3 seconds
 	public void StartIncreaseAndDecreaseForSeconds()
 	{
-		StartCoroutine(CallFunctionForTime(1.0f));
+		StartCoroutine(CallFunctionForTime(0.7f));
 	}
 
 
