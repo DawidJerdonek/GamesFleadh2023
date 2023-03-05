@@ -22,8 +22,8 @@ public class MapGen : NetworkBehaviour
     public float speedIncreateTimeRate = 5.0f;
     public float level2ChunkDestroyerDeviation;
     public float startChunksCount = 35;
-    public float targetTime = 3.0f;
-    public float targetTime2 = 3.0f;
+    private float targetTime = 1.0f;
+	private float targetTime2 = 1.0f;
     public int LEVEL_1_MAX_TILE_COUNT = 3;
     public int level1TileCount = 3;
     public int level1MapDeviation = 0;
@@ -103,8 +103,8 @@ public class MapGen : NetworkBehaviour
                 if (targetTime2 <= 0.0f)
                 {
                     MaxTiles = 2;
-                    targetTime = Random.Range(3.0f, 3.0f);
-                    targetTime2 = Random.Range(1.0f, 2.0f);
+                    targetTime = Random.Range(1.0f, 2.0f);
+                    targetTime2 = Random.Range(1.0f, 3.0f);
                 }
             }
         }
