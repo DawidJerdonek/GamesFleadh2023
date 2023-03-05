@@ -219,6 +219,7 @@ public class PlayerController : NetworkBehaviour
             GameManager.instance.scoreDistance = 0;
             GetComponentInChildren<MeshRenderer>().enabled = false;
             StartCoroutine("RestartGame");
+            resetPosition();
         }
 
 
@@ -466,6 +467,7 @@ public class PlayerController : NetworkBehaviour
     public IEnumerator RestartGame()
     {
         GameManager.instance.respawnText.enabled = true;
+        nameText.enabled = false;
         if (respawnTime > 0)
         {
             respawnTime -= Time.deltaTime * 2;
@@ -475,9 +477,9 @@ public class PlayerController : NetworkBehaviour
         distanceTime = 0;
         GameManager.instance.scoreDistance = 0;
         respawnTime = 4;
-
         GetComponentInChildren<MeshRenderer>().enabled = true;
         GameManager.instance.respawnText.enabled = false;
-
+        nameText.enabled = true;
+        
     }
 }
