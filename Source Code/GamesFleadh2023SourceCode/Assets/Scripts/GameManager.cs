@@ -50,6 +50,16 @@ public class GameManager : MonoBehaviour
     public float distanceMultiplier = 1.2f;
     private bool wasLevel0Exited = false;
 
+
+
+    private float maxSize = 100.2f;
+    private float minSize = 20.0f;
+    private float expandSpeed = 2.0f;
+    private float shrinkSpeed = 1.0f;
+
+    private bool isExpanding = true;
+
+
     [SerializeField]
     private string BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=";
 
@@ -103,14 +113,14 @@ public class GameManager : MonoBehaviour
             {
                 highScore = (int)distanceTraveled;
 
-                if (distanceTraveled >=  0 && distanceTraveled <= 0.2 && wasLevel0Exited == false)
+                if (distanceTraveled >= 0 && distanceTraveled <= 0.2 && wasLevel0Exited == false)
                 {
                     wasLevel0Exited = true;
                     currentLevel++;
                     mapGeneratorScript.changeLevel(currentLevel);
                 }
 
-                if(currentLevel == 4)
+                if (currentLevel == 4)
                 {
                     lightningEffect.SetActive(true);
                 }
@@ -123,7 +133,7 @@ public class GameManager : MonoBehaviour
                 {
                     highScore = (int)distanceTraveled;
                 }
-                
+
                 if (transition == true)
                 {
                     //transitionScreen.color = Color.Lerp(transitionScreen.color, new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f), 0.3f);
@@ -141,7 +151,7 @@ public class GameManager : MonoBehaviour
 
                     if (distanceTraveled >= 500 && distanceTraveled <= 1000)
                     { levelGoal += levelAddOnToGoal; }
-                    
+
                     if (distanceTraveled > 1000)
                     { levelGoal += highLevelAddOn; }
 
@@ -160,59 +170,83 @@ public class GameManager : MonoBehaviour
                 }
 
 
-                
-                int distanceTextDisplay = (int)scoreDistance;
-                distanceText.text = "Distance: " + distanceTextDisplay.ToString();
-                infectionText.text = "Infection: ";
-                levelText.text = "Prestige: " + prestige.ToString() + " Level: " + currentLevel;
+                    int distanceTextDisplay = (int)scoreDistance;
+                    distanceText.text = "Distance: " + distanceTextDisplay.ToString();
+                    infectionText.text = "Infection: ";
+                    levelText.text = "Prestige: " + prestige.ToString() + " Level: " + currentLevel;
 
 
-                deviceID = uniqueID();
-                BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=" + deviceID + "&entry.1637826786=" + "1" + "&entry.1578808278=" + instance.highScore + " &entry.2039373689=" + instance.distanceTraveled;                               
+                    deviceID = uniqueID();
+                    BASE_URL = "https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=" + deviceID + "&entry.1637826786=" + "1" + "&entry.1578808278=" + instance.highScore + " &entry.2039373689=" + instance.distanceTraveled;
+
+
+				//if (scoreDistance >= 3)
+				//{
+					if (isExpanding)
+					{
+						distanceText.fontSize += expandSpeed * Time.deltaTime;
+
+						if (distanceText.fontSize >= maxSize)
+						{
+						Debug.Log("Bruh TEXT");
+
+						isExpanding = false;
+						}
+					}
+					//else
+					//{
+					//	distanceText.fontSize -= shrinkSpeed * Time.deltaTime;
+
+					//	if (distanceText.fontSize <= minSize)
+					//	{
+					//		isExpanding = true;
+					//	}
+					//}
+				//}
+
+				if (Input.GetKey(KeyCode.Escape))
+                {
+                    Application.Quit();
+                }
             }
-
-            if (Input.GetKey(KeyCode.Escape))
-            {
-                Application.Quit();
-            }
         }
+
+    
     }
+	public void SendFeedback()
+	{
+		Application.OpenURL(BASE_URL);
+		Debug.Log("deviceID" + deviceID);
 
-    public void SendFeedback()
-    {
-        Application.OpenURL(BASE_URL);
-        Debug.Log("deviceID" + deviceID);
+		Send();
+	}
 
-        Send();
-    }
+	public void ExitToMenu()
+	{
+		if (FindObjectOfType<MyNetworkRoomManager>() != null)
+		{
+			FindObjectOfType<MyNetworkRoomManager>().StopClient();
+			FindObjectOfType<MyNetworkRoomManager>().StopHost();
+			Destroy(FindObjectOfType<MyNetworkRoomManager>().gameObject);
+		}
+		else
+		{
+			FindObjectOfType<NetworkManager>().StopClient();
+			FindObjectOfType<NetworkManager>().StopHost();
+			Destroy(FindObjectOfType<NetworkManager>().gameObject);
+		}
+		Destroy(FindObjectOfType<GameManager>().gameObject);
+		Destroy(FindObjectOfType<MusicController>().gameObject);
 
-    public void ExitToMenu()
-    {
-        if (FindObjectOfType<MyNetworkRoomManager>() != null)
-        {
-            FindObjectOfType<MyNetworkRoomManager>().StopClient();
-            FindObjectOfType<MyNetworkRoomManager>().StopHost();
-            Destroy(FindObjectOfType<MyNetworkRoomManager>().gameObject);
-        }
-        else
-        {
-            FindObjectOfType<NetworkManager>().StopClient();
-            FindObjectOfType<NetworkManager>().StopHost();
-            Destroy(FindObjectOfType<NetworkManager>().gameObject);
-        }
-        Destroy(FindObjectOfType<GameManager>().gameObject);
-        Destroy(FindObjectOfType<MusicController>().gameObject);
+		SceneManager.LoadScene("Menu");
+	}
 
-        SceneManager.LoadScene("Menu");
-    }
+	string uniqueID()
+	{
 
-    string uniqueID()
-    {
-
-        int z1 = UnityEngine.Random.Range(0, 1000000);
-        int z2 = UnityEngine.Random.Range(0, 1000000);
-        string uid = z1 + "/" + z2;
-        return uid;
-    }
-
+		int z1 = UnityEngine.Random.Range(0, 1000000);
+		int z2 = UnityEngine.Random.Range(0, 1000000);
+		string uid = z1 + "/" + z2;
+		return uid;
+	}
 }

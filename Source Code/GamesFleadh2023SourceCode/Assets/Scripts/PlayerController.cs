@@ -41,7 +41,7 @@ public class PlayerController : NetworkBehaviour
     private float[] inputs = new float[3];
     public bool AiSwitcher = false;
     public bool AiSwitchFromDebuff = false;
-    private float timeForDebuffAI = 0.0f;
+    private float timeForDebuffAI = 5.0f;
     public GameObject debuffParticleSystem;
     public PickupScript pickupScript;
 
@@ -305,8 +305,12 @@ public class PlayerController : NetworkBehaviour
         timeForDebuffAI -= Time.deltaTime;
         if (timeForDebuffAI < 0.0f)
         {
-            AiSwitchFromDebuff = false;
-        }
+			//AiSwitchFromDebuff = false;
+			barWidth = barWidthToChange;
+			barHeight = barHeightToChange;
+			timeForDebuffAI = 5.0f;
+
+		}
 
         GameManager.instance.respawnText.text = "Respawning in\n " + (int)respawnTime;
         if (infection >= 100)
@@ -376,7 +380,6 @@ public class PlayerController : NetworkBehaviour
 		}
 
 
-        Debug.Log("resistance is " + resistance);
 	}
 
     public bool IsGrounded()
@@ -427,7 +430,7 @@ public class PlayerController : NetworkBehaviour
     {
         if (mindDebuffCollected)
         {
-            timeForDebuffAI = 5.0f;
+          //  timeForDebuffAI = 5.0f;
             AiSwitchFromDebuff = true;
             mindDebuffCollected = false;
         }
@@ -744,7 +747,6 @@ public class PlayerController : NetworkBehaviour
 		}
 	}
 
-	// Call this function to start the coroutine for 3 seconds
 	public void StartIncreaseAndDecreaseForSeconds()
 	{
 		StartCoroutine(CallFunctionForTime(0.7f));
