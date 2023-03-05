@@ -1,9 +1,11 @@
+using Mirror;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public class ZombieAI : MonoBehaviour
+public class ZombieAI : NetworkBehaviour
 {
     /// <summary>
     /// Threat Level Matrix
@@ -47,39 +49,34 @@ public class ZombieAI : MonoBehaviour
     public float jumpForce = 650;
     public LayerMask ground;
 
-
+    public bool HasCollidedPlayer;
     float timer;
+
+    public bool isMoving = true;
 
     // Start is called before the first frame update
     private IEnumerator Start()
     {
         yield return new WaitForSeconds(0.7f);
-        ray = transform.Find("AIRay").transform;
+        ray = transform.FindChild("AIRay").transform;
+        MapGenerator = FindObjectOfType<MapGen>().gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
-        if (timer > 0.4f)
+
+        if (timer > 0.4f && isServer)
         {
             int closestIndexValue = 0;
             float checkIfCloser = 1000;
             bool closest = false;
+
             obstacles.Clear();
             m_obstacleCount = 0;
             m_distance = 0;
-            foreach (GameObject obstacle in GameObject.FindGameObjectsWithTag("obstacle"))
-            {
-                obstacles.Add(obstacle);
-            }
-            foreach (GameObject obstacle in GameObject.FindGameObjectsWithTag("Enemy"))
-            {
-                if (obstacle.transform.position.y < transform.position.y + 1.5)
-                {
-                    obstacles.Add(obstacle);
-                }
-            }
+
             foreach (GameObject obstacle in GameObject.FindGameObjectsWithTag("Ground"))
             {
                 if (obstacle.transform.position.y > -6 && obstacle.transform.position.y < transform.position.y + 1.5)
@@ -90,16 +87,20 @@ public class ZombieAI : MonoBehaviour
 
             for (int i = 0; i < obstacles.Count - 1; i++)
             {
-                if (obstacles[i].transform.position.x > transform.position.x)
+                if (obstacles[i] != null)
                 {
-                    if (ray.transform.position.y < obstacles[i].transform.position.y)
+                    if (obstacles[i].transform.position.x < transform.position.x)
                     {
-                        if (obstacles[i].transform.position.x - transform.position.x < checkIfCloser)
+                        if (ray.transform.position.y > obstacles[i].transform.position.y)
                         {
-                            closestIndexValue = i;
-                            checkIfCloser = Math.Abs(obstacles[i].transform.position.x - transform.position.x);
+                            if (Math.Abs(obstacles[i].transform.position.x - transform.position.x) > checkIfCloser)
+                            {
+                                closestIndexValue = i;
+                                checkIfCloser = Math.Abs(obstacles[i].transform.position.x - transform.position.x);
+                            }
+
+                            m_obstacleCount++;
                         }
-                        m_obstacleCount++;
                     }
                 }
             }
@@ -123,7 +124,7 @@ public class ZombieAI : MonoBehaviour
         m_close = fuzzyTriangle(m_distance, 0, 2, 3);
 
         m_midRange = fuzzyTrapezoid(m_distance, 3, 7, 11, 13);
-
+        
         m_far = fuzzyGrade(m_distance, 11, 25);
 
         /// <summary>
@@ -144,19 +145,23 @@ public class ZombieAI : MonoBehaviour
         m_high = fuzzyOR(fuzzyOR(m_close, m_lots), fuzzyAND(m_midRange, m_moderate));
 
         m_decision = (m_low * 10 + m_medium * 30 + m_high * 50) / (m_low + m_medium + m_high);
-
-        if (m_decision >= 10 && m_decision < 30)
+        
+        if (m_decision >= 50 && isMoving)
         {
-            transform.position -= new Vector3(0,(speed * 2) * Time.deltaTime);
-        }
-        else if (m_decision >= 30 && m_decision < 50)
-        {
-            transform.position -= new Vector3(0, speed * Time.deltaTime);
-        }
-        else if (m_decision >= 50)
-        {
-
             makeNPCJump();
+        }
+    }
+
+    public void FixedUpdate()
+    {
+        if(isServer && isMoving)
+        {
+            if(transform.position.y <= -10)
+            {
+                NetworkServer.Destroy(gameObject);
+            }
+
+            transform.position -= new Vector3(speed * Time.deltaTime, 0);
         }
     }
 
@@ -253,11 +258,48 @@ public class ZombieAI : MonoBehaviour
     void makeNPCJump() 
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.up, 0.25f, ground);
+        Debug.DrawRay(transform.position, -Vector2.up * 0.25f, Color.red);
 
         if (hit.collider != null)
         {
             // Apply the force to the rigidbody.
             GetComponent<Rigidbody2D>().AddForce(Vector3.up * jumpForce);
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            StartCoroutine(stunZombie());
+        }
+    }
+
+    private IEnumerator stunZombie()
+    {
+        List<PlayerController> list = new List<PlayerController>();
+
+        list = GameObject.FindObjectsOfType<PlayerController>().ToList();
+
+        foreach (var item in list)
+        {
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>());
+        }
+
+        Color myColor = Color.white - new Color(0, 0, 0, 0.5f);
+
+        GetComponentInChildren<SpriteRenderer>().color = myColor;
+
+        GetComponentInChildren<Animator>().SetTrigger("IsIdle");
+
+        isMoving = false;
+
+        yield return new WaitForSeconds(3);
+
+        isMoving = true;
+
+        GetComponentInChildren<Animator>().SetTrigger("IsWalking");
+        GetComponentInChildren<SpriteRenderer>().color = Color.white;
+
     }
 }
