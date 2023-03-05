@@ -1781,7 +1781,8 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 742973186, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
 --- !u!114 &5725948484731350653 stripped
 MonoBehaviour:
