@@ -61,7 +61,13 @@ public class BulletScript : NetworkBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             soundEffectScript.playEnemyHitSoundEffect();
-            collision.GetComponent<ZombieAI>().triggerKillAnim();
+
+            ZombieAI ai = collision.GetComponent<ZombieAI>();
+
+            if (ai.isMoving) 
+            { 
+                ai.triggerKillAnim();
+            }
         }
     }
 
