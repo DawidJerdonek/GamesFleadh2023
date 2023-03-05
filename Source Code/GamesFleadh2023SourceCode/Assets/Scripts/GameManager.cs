@@ -136,20 +136,13 @@ public class GameManager : MonoBehaviour
                 
                 if (transition == true)
                 {
-                    transitionScreen.color = Color.Lerp(transitionScreen.color, new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f), 0.3f);
-                    transitionText.color = Color.Lerp(transitionText.color, Color.white, 0.3f);
-                    if (transitionScreen.color == new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f))
-                    {
-                        transition = false;
-                        background.sprite = levelBackgrounds[currentLevel - 1];
-                    }
-                }
-                else if(transition == false)
-                {
-                    transitionScreen.color = Color.Lerp(transitionScreen.color, new Color( 0.0f,0.0f,0.0f,0.0f), 0.1f);
-                    transitionText.color = Color.Lerp(transitionText.color, new Color(0.0f, 0.0f, 0.0f, 0.0f), 0.1f);
+                    //transitionScreen.color = Color.Lerp(transitionScreen.color, new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f), 0.3f);
+                    //if (transitionScreen.color == new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f))
+                    transition = false;
+                    background.sprite = levelBackgrounds[currentLevel - 1];
 
                 }
+
 
                 if (distanceTraveled > levelGoal)
                 {
