@@ -25,6 +25,7 @@ TagManager:
   - Coin
   - PlayerGun
   - Ammo
+  - ShootButton
   layers:
   - Default
   - TransparentFX
