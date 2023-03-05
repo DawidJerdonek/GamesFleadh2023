@@ -49,7 +49,6 @@ public class PlayerController : NetworkBehaviour
 
     public float speed = 0.1f;
     public Vector2 jumpForce = new Vector2(-100, 850);
-    private bool isGrounded = false;
     private Vector2 swipeStart;
     private float swipeDistanceMove = 0.0f;
     Vector2 swipeEnd;
@@ -91,9 +90,11 @@ public class PlayerController : NetworkBehaviour
     public float distanceTime;
     public float respawnTime;
     //https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
+    public LayerMask ground;
+    public Transform GroundCast;
+    private float groundCastDist = 0.25f;
 
-
-	public Animator anim;
+    public Animator anim;
 	public States state;
 
 	//https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
@@ -176,6 +177,7 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.DrawRay(GroundCast.position, -Vector2.up * groundCastDist, Color.red);
 
         //INFECTION CODE AND CHECKS FOR PLAYERs
         if (isServer)
@@ -198,6 +200,7 @@ public class PlayerController : NetworkBehaviour
         {
             return;
         }
+
 
         Vector3 LowerLeftScreen = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Vector3 LowerRightScreen = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0));
@@ -239,47 +242,58 @@ public class PlayerController : NetworkBehaviour
         if (infection >= 100)
         {
             playerDied = true;
-			GameManager.instance.scoreDistance = 0;
-			StartCoroutine("RestartGame");
-			//resetPosition();
+            GameManager.instance.scoreDistance = 0;
+            StartCoroutine("RestartGame");
+            //resetPosition();
 
 
-		}
+        }
 
-		//RESISTANCE CHECKS AND CODE FOR PLAYER
-		if (resistance == false)
-		{
-			GameManager.instance.targetTime = 10.0f;
-			GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.red;
-		}
-		else if (resistance == true)
-		{
-			GameManager.instance.targetTime -= Time.deltaTime;
-			GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.cyan;
+        //RESISTANCE CHECKS AND CODE FOR PLAYER
+        if (resistance == false)
+        {
+            GameManager.instance.targetTime = 10.0f;
+            GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.red;
+        }
+        else if (resistance == true)
+        {
+            GameManager.instance.targetTime -= Time.deltaTime;
+            GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.cyan;
 
-			if (GameManager.instance.targetTime <= 0.0f)
-			{
-				resetResistanceCMD();
-				GameManager.instance.targetTime = 10.0f;
-			}
-		}
+            if (GameManager.instance.targetTime <= 0.0f)
+            {
+                resetResistanceCMD();
+                GameManager.instance.targetTime = 10.0f;
+            }
+        }
 
-		if (infection < 100)
-		{
-			GameManager.instance.infectionBar.value = infection;
-			if (FindObjectOfType<MyNetworkRoomManager>() != null)
-			{
-				bar.value = GameManager.instance.infectionBar.value;
-			}
-		}
+        if (infection < 100)
+        {
+            GameManager.instance.infectionBar.value = infection;
+            if (FindObjectOfType<MyNetworkRoomManager>() != null)
+            {
+                bar.value = GameManager.instance.infectionBar.value;
+            }
+        }
 
-		checkStatesForAnimator();
+        checkStatesForAnimator();
 
-	}
+    }
+
+    public bool IsGrounded()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(GroundCast.position, -Vector2.up, groundCastDist, ground);
+
+        if (hit.collider != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
 
-
-	private void FixedUpdate()
+    private void FixedUpdate()
     {
         UpdateColorToNewColor();
         distanceTime = Time.deltaTime;
@@ -310,19 +324,18 @@ public class PlayerController : NetworkBehaviour
     }
 
 
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Ground")
-        {
-            isGrounded = true;
-        }
-    }
+    //public void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.tag == "Ground")
+    //    {
+    //        isGrounded = true;
+    //    }
+    //}
 
     public void resetPosition()
     {
         transform.position = new Vector3(0, 0, 0);
         rb.velocity = Vector2.zero;
-        isGrounded = false;
     }
 
     void Moving()
@@ -373,10 +386,9 @@ public class PlayerController : NetworkBehaviour
 
 	public void Jumping()
     {
-		if(joystick.InputDirection.z > 0.25f && isGrounded)
+		if(joystick.InputDirection.z > 0.25f && IsGrounded())
         {
-            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y ));
-            isGrounded = false;
+            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y), ForceMode2D.Impulse);
         }
 	}
 
@@ -420,7 +432,7 @@ public class PlayerController : NetworkBehaviour
         {
             if (isLocalPlayer)
             {
-                DepleatHealthByAmount(GetComponent<NetworkIdentity>(),5);
+                //DepleatHealthByAmount(GetComponent<NetworkIdentity>(),5);
             }
         }
 
@@ -479,17 +491,19 @@ public class PlayerController : NetworkBehaviour
     }
 
     [Command]
-    void DepleatHealthByAmount(NetworkIdentity toDepleat, int t_amount)
+    public void IncreaseInfectionByAmount(NetworkIdentity toDepleat, int t_amount)
     {
-        toDepleat.GetComponent<PlayerController>().infection -= t_amount;
+        if (!toDepleat.GetComponent<PlayerController>().resistance)
+        {
+            toDepleat.GetComponent<PlayerController>().infection += t_amount;
+        }
     }
 
     public void JumpAI()
     {
-        if (isGrounded)
+        if (IsGrounded())
         {
             rb.AddForce(new Vector2(jumpForce.x, jumpForce.y));
-            isGrounded = false;
         }
     }
 
@@ -564,7 +578,7 @@ public class PlayerController : NetworkBehaviour
 		}
 		if (state == States.Jump)
 		{
-			if (isGrounded)
+			if (IsGrounded())
 			{
 				state = States.Run;
 			}
@@ -585,7 +599,7 @@ public class PlayerController : NetworkBehaviour
 
         if (state == States.JumpShoot)
         {
-			if (isGrounded)
+			if (IsGrounded())
 			{
 				state = States.Run;
 			}
