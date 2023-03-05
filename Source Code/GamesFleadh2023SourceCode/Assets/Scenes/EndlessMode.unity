@@ -1556,6 +1556,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundEffectManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5315839097886290125, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: hitClip
+      value: 
+      objectReference: {fileID: 8300000, guid: ea7351b59d7bc0b448545cb2480e46f8, type: 3}
+    - target: {fileID: 5315839097886290125, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: powerupClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 26522c957ba51634ebaa3a1caa3a7773, type: 3}
+    - target: {fileID: 5315839097886290125, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: enemyHitClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 92776d9524f0f6e45b3a43fa8899740c, type: 3}
+    - target: {fileID: 5315839097886290125, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: gunShootClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 78f145772a7e2034b996b3854c1fd4be, type: 3}
     - target: {fileID: 5315839097886290128, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -1600,10 +1616,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5315839097886290129, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
-      propertyPath: m_Volume
-      value: 0.1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
 --- !u!1001 &5725948484731350652
@@ -1617,6 +1629,50 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1958961587}
+    - target: {fileID: 794820017, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 794820018, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 794820018, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794820018, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794820020, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 69b68ef5e1b4cc64999b125598ec29df, type: 3}
+    - target: {fileID: 794820020, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_Color.a
+      value: 0.88235295
+      objectReference: {fileID: 0}
+    - target: {fileID: 794820020, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794820020, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_Color.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794820020, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_Color.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 794820020, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753381926, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 40098814378859790, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
       propertyPath: sceneId
       value: 159548589
@@ -1709,8 +1765,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD Canvas
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 742973186, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+    - target: {fileID: 5725948485875830562, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
 --- !u!114 &5725948484731350653 stripped
 MonoBehaviour:

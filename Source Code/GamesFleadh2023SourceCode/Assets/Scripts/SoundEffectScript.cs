@@ -8,25 +8,36 @@ public class SoundEffectScript : MonoBehaviour
     public AudioSource gunSoundEffect;
     public AudioSource powerupSoundEffect;
     public AudioSource enemyHitSoundEffect;
+    public AudioSource reloadSoundEffect;
+
+    public AudioClip gunShootClip;
+    public AudioClip hitClip;
+    public AudioClip powerupClip;
+    public AudioClip enemyHitClip;
 
 
     public void playHitSoundEffect()
     {
-        hitSoundEffect.Play();
+        hitSoundEffect.PlayOneShot(hitClip, 1);
     }
 
     public void playGunSoundEffect()
     {
-        gunSoundEffect.Play();
+        gunSoundEffect.PlayOneShot(gunShootClip, 1.0f);
     }
 
     public void playPowerupSoundEffect()
     {
-        powerupSoundEffect.Play();
+        powerupSoundEffect.PlayOneShot(powerupClip, 0.2f);
     }
 
     public void playEnemyHitSoundEffect()
     {
-        enemyHitSoundEffect.Play();
+        enemyHitSoundEffect.PlayOneShot(enemyHitClip, 1);
+    }
+
+    public void PlayReloadSoundEffect()
+    {
+        reloadSoundEffect.Play();
     }
 }

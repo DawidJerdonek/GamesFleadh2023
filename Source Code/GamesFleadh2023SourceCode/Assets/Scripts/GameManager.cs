@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI infectionText;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI respawnText;
-    public TextMeshProUGUI ammoText;
 
     public Canvas bgCanvas;
     public PlayerController[] players;

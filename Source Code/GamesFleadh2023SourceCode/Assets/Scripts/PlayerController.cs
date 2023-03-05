@@ -554,7 +554,7 @@ public class PlayerController : NetworkBehaviour
         {
             if (isLocalPlayer)
             {
-                soundEffectScript.playPowerupSoundEffect();
+                soundEffectScript.PlayReloadSoundEffect();
                 pickupScript.AmmoImplementation(GetComponent<NetworkIdentity>());
             }
 
@@ -755,6 +755,7 @@ public class PlayerController : NetworkBehaviour
     {
         newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
         gunParticle.Play();
+        Handheld.Vibrate();
         NetworkServer.Spawn(newBulletObject);
         soundEffectScript.playGunSoundEffect();
     }
@@ -764,6 +765,7 @@ public class PlayerController : NetworkBehaviour
     {
         newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
         gunParticle.Play();
+        Handheld.Vibrate();
         NetworkServer.Spawn(newBulletObject);
         soundEffectScript.playGunSoundEffect();
     }
