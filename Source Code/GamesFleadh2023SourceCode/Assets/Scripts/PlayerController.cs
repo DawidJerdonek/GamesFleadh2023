@@ -100,7 +100,7 @@ public class PlayerController : NetworkBehaviour
     public Transform GroundCast;
     private float groundCastDist = 0.25f;
 
-    private Button shootButton;
+    //private Button shootButton;
     public Animator anim;
     public States state;
     private float barWidth = 3;
@@ -359,17 +359,17 @@ public class PlayerController : NetworkBehaviour
         return false;
     }
 
-	public bool IsGrounded()
-    {
-        RaycastHit2D hit = Physics2D.Raycast(GroundCast.position, -Vector2.up, groundCastDist, ground);
+	//public bool IsGrounded()
+ //   {
+ //       RaycastHit2D hit = Physics2D.Raycast(GroundCast.position, -Vector2.up, groundCastDist, ground);
 
-        if (hit.collider != null)
-        {
-            return true;
-        }
+ //       if (hit.collider != null)
+ //       {
+ //           return true;
+ //       }
 
-        return false;
-    }
+ //       return false;
+ //   }
 
     private void FixedUpdate()
     {
