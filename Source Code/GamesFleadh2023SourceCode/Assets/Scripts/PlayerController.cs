@@ -35,6 +35,7 @@ public class PlayerController : NetworkBehaviour
     private GameObject fuzzyLogicObject;
     private bool playerDied = false;
     private SoundEffectScript soundEffectScript;
+    public ParticleSystem gunParticle;
 
     public Brain brain;
     private float[] inputs = new float[3];
@@ -60,7 +61,11 @@ public class PlayerController : NetworkBehaviour
     public TextMeshProUGUI infectionText;
   
 
-	private Slider bar;
+    private Button shootButton;
+    private GameObject newBulletObject;
+    public GameObject bullet;
+
+    private Slider bar;
 
     [SyncVar]
     public float infection = 0.0f;
@@ -108,9 +113,7 @@ public class PlayerController : NetworkBehaviour
 	private bool fivezerCheck = false;
 	private bool svnfiveCheck = false;
 
-	//https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
-
-	public override void OnStartClient()
+    public override void OnStartClient()
     {
         if (FindObjectOfType<MyNetworkRoomManager>() != null)
         {
@@ -118,6 +121,7 @@ public class PlayerController : NetworkBehaviour
             nameText.color = playerColor;
         }
 
+        soundEffectScript = GameObject.Find("SoundEffectManager").GetComponent<SoundEffectScript>();
         shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
         shootButton.onClick.AddListener(() => DecreaseAmmo());
         SpineSkeleton = GetComponentInChildren<SkeletonAnimation>();
@@ -133,13 +137,24 @@ public class PlayerController : NetworkBehaviour
         instance = this;
         rb = gameObject.GetComponent<Rigidbody2D>();
         m_cameraMain = Camera.main;
-        soundEffectScript = GameObject.Find("SoundEffectManager").GetComponent<SoundEffectScript>();
         state = States.Run;
 
         brain = new Brain();
         brain.Init(3, 5, 1);
 
         fuzzyLogicObject = GameObject.Find("FuzzyAI");
+
+        if (isServer)
+        {
+            shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
+            shootButton.onClick.AddListener(() => shootGun());
+        }
+        else if (!isServer)
+        {
+            Debug.Log("Client Shoot");
+            shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
+            shootButton.onClick.AddListener(() => shootGunClient());
+        }
 
         if (FindObjectOfType<MyNetworkRoomManager>() != null)
         {
@@ -330,7 +345,19 @@ public class PlayerController : NetworkBehaviour
 
 
 
-	}
+    }
+
+    public bool IsGrounded()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(GroundCast.position, -Vector2.up, groundCastDist, ground);
+
+        if (hit.collider != null)
+        {
+            return true;
+        }
+
+        return false;
+    }
 
 	public bool IsGrounded()
     {
@@ -343,7 +370,6 @@ public class PlayerController : NetworkBehaviour
 
         return false;
     }
-
 
     private void FixedUpdate()
     {
@@ -643,11 +669,6 @@ public class PlayerController : NetworkBehaviour
         anim.SetInteger("State", (int)state);
     }
 
-    public void DecreaseAmmo()
-    {
-        ammo--;
-    }
-
     public void increaseAndDecreaseBar()
     {
        
@@ -689,4 +710,26 @@ public class PlayerController : NetworkBehaviour
 	{
 		StartCoroutine(CallFunctionForTime(1.0f));
 	}
+
+
+    public void shootGun()
+    {
+        newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
+        gunParticle.Play();
+        NetworkServer.Spawn(newBulletObject);
+        soundEffectScript.playGunSoundEffect();
+    }
+
+    [Command]
+    public void shootGunClient()
+    {
+        newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
+        gunParticle.Play();
+        NetworkServer.Spawn(newBulletObject);
+        soundEffectScript.playGunSoundEffect();
+    }
+    public void DecreaseAmmo()
+    {
+        ammo--;
+    }
 }

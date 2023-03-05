@@ -160,14 +160,14 @@ public class ObstacleSpawner : NetworkBehaviour
         switch (rand)
         {
             case 0:
-                obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0),Quaternion.identity);
-                NetworkServer.Spawn(obstacleClone);
-                setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+                //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0),Quaternion.identity);
+                //NetworkServer.Spawn(obstacleClone);
+                //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                 break;
             case 1:
-                obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-                NetworkServer.Spawn(obstacleClone);
-                setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+                //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+                //NetworkServer.Spawn(obstacleClone);
+                //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                 break;
             case 2:
                 enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
