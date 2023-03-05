@@ -478,6 +478,7 @@ public class PlayerController : NetworkBehaviour
                 ToChangeTo = new Color(0.476415f, 1, 1, 1);
                 shouldStartEffect = true;
                 pickupScript.resistancePickupImplementation(GetComponent<NetworkIdentity>());
+                soundEffectScript.PlayResistSoundEffect();
             }
 
             if (isServer)

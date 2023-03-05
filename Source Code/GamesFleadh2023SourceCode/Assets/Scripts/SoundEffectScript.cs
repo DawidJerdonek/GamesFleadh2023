@@ -9,11 +9,13 @@ public class SoundEffectScript : MonoBehaviour
     public AudioSource powerupSoundEffect;
     public AudioSource enemyHitSoundEffect;
     public AudioSource reloadSoundEffect;
+    public AudioSource resistanceSoundEffect;
 
     public AudioClip gunShootClip;
     public AudioClip hitClip;
     public AudioClip powerupClip;
     public AudioClip enemyHitClip;
+    public AudioClip resistanceClip;
 
 
     public void playHitSoundEffect()
@@ -39,5 +41,10 @@ public class SoundEffectScript : MonoBehaviour
     public void PlayReloadSoundEffect()
     {
         reloadSoundEffect.Play();
+    }
+
+    public void PlayResistSoundEffect()
+    {
+        resistanceSoundEffect.Play();
     }
 }
