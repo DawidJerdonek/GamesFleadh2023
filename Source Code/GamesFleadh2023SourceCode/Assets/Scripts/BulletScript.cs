@@ -47,6 +47,18 @@ public class BulletScript : NetworkBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            ZombieAI ai = collision.GetComponent<ZombieAI>();
+
+            if (ai.isMoving)
+            {
+                soundEffectScript.playEnemyHitSoundEffect();
+
+                ai.triggerKillAnim();
+            }
+        }
+
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bullet" ||
             collision.gameObject.tag == "Sample" || collision.gameObject.tag == "ResistancePickup"
             || collision.gameObject.tag == "Ammo")
@@ -58,17 +70,7 @@ public class BulletScript : NetworkBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.gameObject.tag == "Enemy")
-        {
-            soundEffectScript.playEnemyHitSoundEffect();
-
-            ZombieAI ai = collision.GetComponent<ZombieAI>();
-
-            if (ai.isMoving) 
-            { 
-                ai.triggerKillAnim();
-            }
-        }
+       
     }
 
 

@@ -123,6 +123,7 @@ MonoBehaviour:
     m_Bits: 64
   HasCollidedPlayer: 0
   isMoving: 1
+  alive: 1
 --- !u!114 &1521651334588346481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,6 +163,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2734187533684431526}
   - component: {fileID: 5697963267558215127}
+  - component: {fileID: 5603015289883371518}
   m_Layer: 0
   m_Name: headTrigger
   m_TagString: Untagged
@@ -210,6 +212,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8, y: 1.65}
   m_EdgeRadius: 0
+--- !u!114 &5603015289883371518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716669370432190899}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6855de982617321489e21a2286d50ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2123191672092175038
 GameObject:
   m_ObjectHideFlags: 0

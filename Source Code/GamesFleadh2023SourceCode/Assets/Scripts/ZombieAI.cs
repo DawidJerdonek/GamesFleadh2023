@@ -74,7 +74,7 @@ public class ZombieAI : NetworkBehaviour
     public void triggerKillAnim()
     {
         alive = false;
-        GetComponent<BoxCollider2D>().enabled= false;
+        GetComponent<Collider2D>().enabled = false;
         GetComponent<Rigidbody2D>().gravityScale = 0;
         GetComponentInChildren<Animator>().SetTrigger("Death");
     }

@@ -1556,22 +1556,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SoundEffectManager
       objectReference: {fileID: 0}
-    - target: {fileID: 5315839097886290125, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
-      propertyPath: hitClip
-      value: 
-      objectReference: {fileID: 8300000, guid: ea7351b59d7bc0b448545cb2480e46f8, type: 3}
-    - target: {fileID: 5315839097886290125, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
-      propertyPath: powerupClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 26522c957ba51634ebaa3a1caa3a7773, type: 3}
-    - target: {fileID: 5315839097886290125, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
-      propertyPath: enemyHitClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 45d5ef736ac3f3841938c538cc7760fd, type: 3}
-    - target: {fileID: 5315839097886290125, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
-      propertyPath: gunShootClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 78f145772a7e2034b996b3854c1fd4be, type: 3}
     - target: {fileID: 5315839097886290128, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
       propertyPath: m_RootOrder
       value: 10
