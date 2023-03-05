@@ -67,6 +67,7 @@ public class PlayerController : NetworkBehaviour
     private GameObject newBulletObject;
     public GameObject bullet;
 
+    private bool bulletIsShotforAnimation = false;
     private Slider bar;
 
     [SyncVar]
@@ -120,8 +121,9 @@ public class PlayerController : NetworkBehaviour
 	private bool twnfiveCheck = false;
 	private bool fivezerCheck = false;
 	private bool svnfiveCheck = false;
+	private float timeToJumpShootAnimation = 1.0f;
 
-    public override void OnStartClient()
+	public override void OnStartClient()
     {
         if (FindObjectOfType<MyNetworkRoomManager>() != null)
         {
@@ -308,7 +310,7 @@ public class PlayerController : NetworkBehaviour
 			//AiSwitchFromDebuff = false;
 			barWidth = barWidthToChange;
 			barHeight = barHeightToChange;
-			timeForDebuffAI = 5.0f;
+			timeForDebuffAI = 3.0f;
 
 		}
 
@@ -379,7 +381,16 @@ public class PlayerController : NetworkBehaviour
 			barHeight = barHeightToChange;
 		}
 
+		timeToJumpShootAnimation -= Time.deltaTime;
 
+		if (timeToJumpShootAnimation <= 0.0f && bulletIsShotforAnimation == true)
+		{
+			bulletIsShotforAnimation = false;
+			timeToJumpShootAnimation = 1.4f;
+		}
+
+
+		Debug.Log(bulletIsShotforAnimation);
 	}
 
     public bool IsGrounded()
@@ -388,7 +399,7 @@ public class PlayerController : NetworkBehaviour
 
         if (hit.collider != null)
         {
-            return true;
+			return true;
         }
 
         return false;
@@ -665,7 +676,7 @@ public class PlayerController : NetworkBehaviour
                 state = States.Run;
             }
 
-            if (10 == 19) // if p;ayer shgot
+            if (bulletIsShotforAnimation) // if p;ayer shgot
             {
                 state = States.JumpShoot;
             }
@@ -691,8 +702,13 @@ public class PlayerController : NetworkBehaviour
                 state = States.Die;
 
             }
+            if (!bulletIsShotforAnimation)
+            {
+				state = States.Jump;
 
-        }
+			}
+
+		}
 
 
         if (state == States.Die)
@@ -718,7 +734,7 @@ public class PlayerController : NetworkBehaviour
         {
             barHeight += increaseRate;
             barWidth += increaseRate;
-            if (barHeight >= 4.0f)
+            if (barHeight >= 3.5f)
             {
                 isIncreasing = false;
             }
@@ -755,7 +771,8 @@ public class PlayerController : NetworkBehaviour
 
     public void shootGun()
     {
-        newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
+		bulletIsShotforAnimation = true;
+		newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
         gunParticle.Play();
         Handheld.Vibrate();
         NetworkServer.Spawn(newBulletObject);
@@ -765,13 +782,15 @@ public class PlayerController : NetworkBehaviour
     [Command]
     public void shootGunClient()
     {
-        newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
+		bulletIsShotforAnimation = true;
+		newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
         gunParticle.Play();
         Handheld.Vibrate();
         NetworkServer.Spawn(newBulletObject);
         soundEffectScript.playGunSoundEffect();
-    }
-    public void DecreaseAmmo()
+
+	}
+	public void DecreaseAmmo()
     {
         ammo--;
     }
