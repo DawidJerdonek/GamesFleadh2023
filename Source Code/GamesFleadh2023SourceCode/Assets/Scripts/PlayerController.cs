@@ -554,7 +554,7 @@ public class PlayerController : NetworkBehaviour
         {
             if (isLocalPlayer)
             {
-                soundEffectScript.playPowerupSoundEffect();
+                soundEffectScript.PlayReloadSoundEffect();
                 pickupScript.AmmoImplementation(GetComponent<NetworkIdentity>());
             }
 

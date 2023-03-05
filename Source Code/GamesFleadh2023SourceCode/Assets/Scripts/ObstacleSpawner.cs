@@ -163,11 +163,17 @@ public class ObstacleSpawner : NetworkBehaviour
                 //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0),Quaternion.identity);
                 //NetworkServer.Spawn(obstacleClone);
                 //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+                ammoPillClone = Instantiate(ammoPillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+                NetworkServer.Spawn(ammoPillClone);
+                setParentofObject(ammoPillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                 break;
             case 1:
                 //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
                 //NetworkServer.Spawn(obstacleClone);
                 //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+                ammoPillClone = Instantiate(ammoPillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+                NetworkServer.Spawn(ammoPillClone);
+                setParentofObject(ammoPillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                 break;
             case 2:
                 enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
@@ -272,7 +278,7 @@ public class ObstacleSpawner : NetworkBehaviour
 
     private void level1ObstacleSpawn()
     {
-        timeObstacleSpawn = Random.Range(1, 4);
+        timeObstacleSpawn = Random.Range(1, 3);
 
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)
@@ -310,7 +316,7 @@ public class ObstacleSpawner : NetworkBehaviour
 
     private void level3ObstacleSpawn()
     {
-        timeObstacleSpawn = Random.Range(1, 4);
+        timeObstacleSpawn = Random.Range(1, 3);
 
         timeLeft -= Time.deltaTime;
         if (timeLeft < 0)

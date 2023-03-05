@@ -8,7 +8,7 @@ public class SoundEffectScript : MonoBehaviour
     public AudioSource gunSoundEffect;
     public AudioSource powerupSoundEffect;
     public AudioSource enemyHitSoundEffect;
-
+    public AudioSource reloadSoundEffect;
 
     public void playHitSoundEffect()
     {
@@ -28,5 +28,10 @@ public class SoundEffectScript : MonoBehaviour
     public void playEnemyHitSoundEffect()
     {
         enemyHitSoundEffect.Play();
+    }
+
+    public void PlayReloadSoundEffect()
+    {
+        reloadSoundEffect.Play();
     }
 }
