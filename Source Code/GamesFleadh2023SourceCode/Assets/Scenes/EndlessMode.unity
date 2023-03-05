@@ -1706,7 +1706,7 @@ PrefabInstance:
     - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: enemyJumperPrefab
       value: 
-      objectReference: {fileID: 2698132178557220745, guid: 6c67ffa06381ab343a5c22294f328e98, type: 3}
+      objectReference: {fileID: 2136123242298594068, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
     - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: ScreenDebuffPrefab
       value: 
@@ -1714,7 +1714,7 @@ PrefabInstance:
     - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: enemyShooterPrefab
       value: 
-      objectReference: {fileID: 9184346184822107770, guid: 8d86f36939f5f26479282574c8315f89, type: 3}
+      objectReference: {fileID: 2136123242298594068, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
     - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: resistancePillPrefab
       value: 

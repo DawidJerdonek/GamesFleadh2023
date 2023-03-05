@@ -1091,7 +1091,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1965542256, guid: 122fceb59adb6614db58c51adde8d543, type: 3}
       propertyPath: spawnPrefabs.Array.size
-      value: 13
+      value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 1965542256, guid: 122fceb59adb6614db58c51adde8d543, type: 3}
       propertyPath: spawnPrefabs.Array.data[1]
@@ -1141,13 +1141,17 @@ PrefabInstance:
       propertyPath: spawnPrefabs.Array.data[12]
       value: 
       objectReference: {fileID: 434276540098324291, guid: 00b775dde78e7e945b0ec819be79aba2, type: 3}
+    - target: {fileID: 1965542256, guid: 122fceb59adb6614db58c51adde8d543, type: 3}
+      propertyPath: spawnPrefabs.Array.data[13]
+      value: 
+      objectReference: {fileID: 2136123242298594068, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
     - target: {fileID: 9080221118411168419, guid: 122fceb59adb6614db58c51adde8d543, type: 3}
       propertyPath: m_Name
       value: NetworkManager
       objectReference: {fileID: 0}
     - target: {fileID: 9080221118411168420, guid: 122fceb59adb6614db58c51adde8d543, type: 3}
       propertyPath: Port
-      value: 5555
+      value: 7777
       objectReference: {fileID: 0}
     - target: {fileID: 9080221118411168421, guid: 122fceb59adb6614db58c51adde8d543, type: 3}
       propertyPath: m_RootOrder
