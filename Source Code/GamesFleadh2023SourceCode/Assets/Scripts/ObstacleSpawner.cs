@@ -239,7 +239,7 @@ public class ObstacleSpawner : NetworkBehaviour
     {
         MapGen mapgener = GetComponent<MapGen>();
         int ChunkToSpawnOn = /*Random.Range(mapgener.chunks.Count - 4, */mapgener.chunks.Count - 10/*)*/;
-        enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+        enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 1.25f, 0), Quaternion.identity);
         NetworkServer.Spawn(enemyJumperClone);
         //setParentofObject(enemyJumperClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
     }
@@ -358,7 +358,7 @@ public class ObstacleSpawner : NetworkBehaviour
 
         if (mapgener.chunks[ChunkToSpawnOn].ActualHeight > 0)
         {
-            enemyShooterClone = Instantiate(enemyShooterPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+            enemyShooterClone = Instantiate(enemyShooterPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 1.25f, 0), Quaternion.identity);
             NetworkServer.Spawn(enemyShooterClone);
             //setParentofObject(enemyShooterClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
             targetTimeShooter = Random.Range(15.0f, 30.0f);

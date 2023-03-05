@@ -37,7 +37,6 @@ public class ZombieAI : NetworkBehaviour
 
     public void FixedUpdate()
     {
-        
         if(isServer && isMoving)
         {
             if(transform.position.y <= -10)
@@ -66,6 +65,21 @@ public class ZombieAI : NetworkBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             StartCoroutine(stunZombie(collision));
+        }
+    }
+
+    public void triggerKillAnim()
+    {
+        GetComponentInChildren<BoxCollider2D>().enabled= false;
+        GetComponent<Rigidbody2D>().gravityScale = 0;
+        GetComponentInChildren<Animator>().SetTrigger("Death");
+    }
+
+    public void killZombie()
+    {
+        if (isServer)
+        {
+            NetworkServer.Destroy(gameObject);
         }
     }
 

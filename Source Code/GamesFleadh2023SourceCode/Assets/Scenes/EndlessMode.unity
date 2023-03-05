@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &66283034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -931,7 +931,7 @@ PrefabInstance:
     - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: enemyShooterPrefab
       value: 
-      objectReference: {fileID: 2136123242298594068, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
+      objectReference: {fileID: 59144201582073435, guid: cab1fcc3a73d3604c81d6c3582f62a40, type: 3}
     - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: resistancePillPrefab
       value: 
@@ -1709,7 +1709,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: HUD Canvas
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 742973186, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4852ec78cfc66d34d9f0163b9e9f8b69, type: 3}
 --- !u!114 &5725948484731350653 stripped
 MonoBehaviour:

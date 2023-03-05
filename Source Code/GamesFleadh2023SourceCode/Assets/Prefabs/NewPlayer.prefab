@@ -73,6 +73,7 @@ MonoBehaviour:
   AiSwitchFromDebuff: 0
   debuffParticleSystem: {fileID: 5712782009134916241, guid: 32195bfdc838ee14d98d850f6c0e0085, type: 3}
   pickupScript: {fileID: 0}
+  ammoDisplay: []
   m_cameraMain: {fileID: 0}
   speed: 0.1
   jumpForce: {x: -0.5, y: 5}
@@ -280,7 +281,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -1075707146, guid: 4390057eaa02fd342bbaa208e55f9605, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
