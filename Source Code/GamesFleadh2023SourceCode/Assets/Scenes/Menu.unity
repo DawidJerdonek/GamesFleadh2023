@@ -2039,6 +2039,30 @@ PrefabInstance:
       propertyPath: playerPrefab
       value: 
       objectReference: {fileID: 628449253120534090, guid: 962b9776f28b2944ab18f689c45e2078, type: 3}
+    - target: {fileID: 3421582719361182628, guid: 7b39ae1d7ce1ffe4c9fe26a3e52d9abc, type: 3}
+      propertyPath: spawnPrefabs.Array.size
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 3421582719361182628, guid: 7b39ae1d7ce1ffe4c9fe26a3e52d9abc, type: 3}
+      propertyPath: spawnPrefabs.Array.data[12]
+      value: 
+      objectReference: {fileID: 4537858977827697040, guid: 1e6cb8ee03ebcb542ae6a3bb81304747, type: 3}
+    - target: {fileID: 3421582719361182628, guid: 7b39ae1d7ce1ffe4c9fe26a3e52d9abc, type: 3}
+      propertyPath: spawnPrefabs.Array.data[13]
+      value: 
+      objectReference: {fileID: 9065728938940535854, guid: a50ab0a54e059ee45a145ee1ffb2affe, type: 3}
+    - target: {fileID: 3421582719361182628, guid: 7b39ae1d7ce1ffe4c9fe26a3e52d9abc, type: 3}
+      propertyPath: spawnPrefabs.Array.data[14]
+      value: 
+      objectReference: {fileID: 8824551629800928167, guid: b1bc0444574cee3499b62f254307a29a, type: 3}
+    - target: {fileID: 3421582719361182628, guid: 7b39ae1d7ce1ffe4c9fe26a3e52d9abc, type: 3}
+      propertyPath: spawnPrefabs.Array.data[15]
+      value: 
+      objectReference: {fileID: 8824551629800928167, guid: b1bc0444574cee3499b62f254307a29a, type: 3}
+    - target: {fileID: 3421582719361182628, guid: 7b39ae1d7ce1ffe4c9fe26a3e52d9abc, type: 3}
+      propertyPath: spawnPrefabs.Array.data[16]
+      value: 
+      objectReference: {fileID: 8824551629800928167, guid: b1bc0444574cee3499b62f254307a29a, type: 3}
     - target: {fileID: 3421582719361182630, guid: 7b39ae1d7ce1ffe4c9fe26a3e52d9abc, type: 3}
       propertyPath: m_RootOrder
       value: 5
