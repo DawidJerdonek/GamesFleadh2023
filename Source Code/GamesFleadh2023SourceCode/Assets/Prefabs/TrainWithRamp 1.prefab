@@ -717,7 +717,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
-  Enemy: {fileID: 2698132178557220745, guid: 6c67ffa06381ab343a5c22294f328e98, type: 3}
+  Enemy: {fileID: 2136123242298594068, guid: 04a84d6c68ed92c458bfcdab8542ffa7, type: 3}
   trainCar1: {fileID: 8879001308913937734}
   trainCar2: {fileID: 0}
   enemies: []

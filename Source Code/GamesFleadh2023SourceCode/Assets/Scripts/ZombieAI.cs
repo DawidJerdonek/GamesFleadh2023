@@ -67,7 +67,7 @@ public class ZombieAI : NetworkBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > 0.4f && isServer)
+        if (timer > 0.7f && isServer)
         {
             int closestIndexValue = 0;
             float checkIfCloser = 1000;
@@ -77,11 +77,14 @@ public class ZombieAI : NetworkBehaviour
             m_obstacleCount = 0;
             m_distance = 0;
 
-            foreach (GameObject obstacle in GameObject.FindGameObjectsWithTag("Ground"))
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, -Vector2.right, 6.0f, ground);
+            Debug.DrawRay(transform.position, -Vector2.up * 6.0f, Color.green);
+
+            if (hit.collider != null)
             {
-                if (obstacle.transform.position.y > -6 && obstacle.transform.position.y < transform.position.y + 1.5)
+                if (hit.collider.gameObject.layer == ground.value)
                 {
-                    obstacles.Add(obstacle);
+                    obstacles.Add(hit.collider.gameObject);
                 }
             }
 
@@ -93,15 +96,22 @@ public class ZombieAI : NetworkBehaviour
                     {
                         if (ray.transform.position.y > obstacles[i].transform.position.y)
                         {
+
                             if (Math.Abs(obstacles[i].transform.position.x - transform.position.x) > checkIfCloser)
                             {
-                                closestIndexValue = i;
-                                checkIfCloser = Math.Abs(obstacles[i].transform.position.x - transform.position.x);
+                                if (obstacles[i] != null)
+                                {
+                                    closestIndexValue = i;
+                                    checkIfCloser = Math.Abs(obstacles[i].transform.position.x - transform.position.x);
+                                }
                             }
-
                             m_obstacleCount++;
                         }
                     }
+                }
+                else
+                {
+                    obstacles.RemoveAt(i);
                 }
             }
 
