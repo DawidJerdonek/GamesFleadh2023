@@ -936,6 +936,22 @@ PrefabInstance:
       propertyPath: resistancePillPrefab
       value: 
       objectReference: {fileID: 1944484261910568749, guid: 33211b2183bbc854b9a069c1c3c437cd, type: 3}
+    - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
+      propertyPath: HoardPrefabs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
+      propertyPath: HoardPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1001055614521801819, guid: 1270279de21537b4da87573b507a3a41, type: 3}
+    - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
+      propertyPath: HoardPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 5317796964020780931, guid: 0f3f4c9ee008cd54aa359854e8513279, type: 3}
+    - target: {fileID: 1593358268542287338, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
+      propertyPath: HoardPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 8824551629800928167, guid: b1bc0444574cee3499b62f254307a29a, type: 3}
     - target: {fileID: 2434648272109118305, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: m_Name
       value: map generator

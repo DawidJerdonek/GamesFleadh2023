@@ -57,6 +57,11 @@ public class ObstacleSpawner : NetworkBehaviour
     private float timeTrainSpawn = 1.0f;
     MapGen mapgener;
 
+    public List<GameObject> HoardPrefabs = new List<GameObject>();
+
+    private float hoardTimeToSpawn = 15.0f;
+    private float hoardTimeLeft = 0;
+
     public override void OnStartServer()
     {
         timeLeft = timeObstacleSpawn;
@@ -74,7 +79,19 @@ public class ObstacleSpawner : NetworkBehaviour
         {
             return;
         }
-        
+
+        if (GameManager.instance.currentLevel == 1 || GameManager.instance.currentLevel == 3)
+        {
+            hoardTimeLeft += Time.deltaTime;
+
+            if(hoardTimeLeft >= hoardTimeToSpawn)
+            {
+                spawnHoard(Random.Range(0, HoardPrefabs.Count));
+                hoardTimeLeft = 0; ;
+            }
+        }
+
+
         switch (GameManager.instance.currentLevel)
         {
             case 1:
@@ -120,6 +137,18 @@ public class ObstacleSpawner : NetworkBehaviour
         }
     }
 
+    private void spawnHoard(int hoardNumber)
+    {
+        int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 1);
+
+        for (int i = 0; i < HoardPrefabs[hoardNumber].transform.childCount - 1; i++)
+        {
+            GameObject zombie = Instantiate(HoardPrefabs[hoardNumber].transform.GetChild(i).gameObject, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+            NetworkServer.Spawn(zombie);
+            setParentofObject(zombie.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+        }
+    }
+
     [Server]
     void spawnEnemy()
     {
@@ -131,14 +160,14 @@ public class ObstacleSpawner : NetworkBehaviour
         switch (rand)
         {
             case 0:
-                obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0),Quaternion.identity);
-                NetworkServer.Spawn(obstacleClone);
-                setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+                //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0),Quaternion.identity);
+                //NetworkServer.Spawn(obstacleClone);
+                //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                 break;
             case 1:
-                obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-                NetworkServer.Spawn(obstacleClone);
-                setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+                //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+                //NetworkServer.Spawn(obstacleClone);
+                //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                 break;
             case 2:
                 enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);

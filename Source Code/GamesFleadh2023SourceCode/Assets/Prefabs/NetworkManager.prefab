@@ -94,6 +94,7 @@ MonoBehaviour:
   - {fileID: 1944484261910568749, guid: 33211b2183bbc854b9a069c1c3c437cd, type: 3}
   - {fileID: 7896018952283963816, guid: 27c2f7b143c6ca84f81e53f5e17db179, type: 3}
   - {fileID: 8780081029477162712, guid: 5b186501c889b4045afdaf1aa7e3f153, type: 3}
+  - {fileID: 434276540098324291, guid: 391f4998b99f29d40a1ad6720fb3a8fd, type: 3}
   timeInterpolationGui: 0
   showRoomGUI: 0
   minPlayers: 1

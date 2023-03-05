@@ -35,6 +35,7 @@ public class PlayerController : NetworkBehaviour
     private GameObject fuzzyLogicObject;
     private bool playerDied = false;
     private SoundEffectScript soundEffectScript;
+    public ParticleSystem gunParticle;
 
     public Brain brain;
     private float[] inputs = new float[3];
@@ -60,6 +61,11 @@ public class PlayerController : NetworkBehaviour
     public GameObject onlineInfection;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI infectionText;
+  
+
+    private Button shootButton;
+    private GameObject newBulletObject;
+    public GameObject bullet;
 
     private Slider bar;
 
@@ -97,19 +103,28 @@ public class PlayerController : NetworkBehaviour
     public Transform GroundCast;
     private float groundCastDist = 0.25f;
 
-    private Button shootButton;
+    //private Button shootButton;
     public Animator anim;
-	public States state;
+    public States state;
+    private float barWidth = 3;
+    private float barHeight = 3;
+	private float increaseRate = 0.05f;
+	private float decreaseRate = 0.1f;
+	private bool isIncreasing = true;
+	private bool barIncreasedAndDecreased = false;
+	private bool twnfiveCheck = false;
+	private bool fivezerCheck = false;
+	private bool svnfiveCheck = false;
 
-
-	public override void OnStartClient()
+    public override void OnStartClient()
     {
         if (FindObjectOfType<MyNetworkRoomManager>() != null)
         {
             nameText.text = playerName;
             nameText.color = playerColor;
         }
-        
+
+        soundEffectScript = GameObject.Find("SoundEffectManager").GetComponent<SoundEffectScript>();
         shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
         shootButton.onClick.AddListener(() => DecreaseAmmo());
         SpineSkeleton = GetComponentInChildren<SkeletonAnimation>();
@@ -125,13 +140,24 @@ public class PlayerController : NetworkBehaviour
         instance = this;
         rb = gameObject.GetComponent<Rigidbody2D>();
         m_cameraMain = Camera.main;
-        soundEffectScript = GameObject.Find("SoundEffectManager").GetComponent<SoundEffectScript>();
-		state = States.Run;
+        state = States.Run;
 
-		brain = new Brain();
+        brain = new Brain();
         brain.Init(3, 5, 1);
 
         fuzzyLogicObject = GameObject.Find("FuzzyAI");
+
+        if (isServer)
+        {
+            shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
+            shootButton.onClick.AddListener(() => shootGun());
+        }
+        else if (!isServer)
+        {
+            Debug.Log("Client Shoot");
+            shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
+            shootButton.onClick.AddListener(() => shootGunClient());
+        }
 
         if (FindObjectOfType<MyNetworkRoomManager>() != null)
         {
@@ -164,12 +190,12 @@ public class PlayerController : NetworkBehaviour
         {
             if (!isColor)
             {
-               //// SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), ToChangeTo, transitionSpeed));
+                //// SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), ToChangeTo, transitionSpeed));
 
-               // if (SpineSkeleton.skeleton.GetColor() == ToChangeTo)
-               // {
-               //     isColor = true;
-               // }
+                // if (SpineSkeleton.skeleton.GetColor() == ToChangeTo)
+                // {
+                //     isColor = true;
+                // }
             }
             else
             {
@@ -313,8 +339,35 @@ public class PlayerController : NetworkBehaviour
         }
 
         checkStatesForAnimator();
+        GameManager.instance.infectionBar.transform.localScale = new Vector3(barHeight, barWidth, 1);
 
-    }
+
+        /// bar increase and decrease 
+		if (infection > 24 && infection < 31.0f && !twnfiveCheck)
+		{
+            // DO all lines of code with *** to reproduce bar increaqse and decrease
+            StartIncreaseAndDecreaseForSeconds();///***
+			twnfiveCheck = true;
+			barWidth = 3;///***
+			barHeight = 3;///***
+		}
+
+		if (infection > 49 && infection < 60.0f && !fivezerCheck)
+        {
+			StartIncreaseAndDecreaseForSeconds();
+			fivezerCheck = true;
+			barWidth = 3;
+			barHeight = 3;
+		}
+		if (infection > 74 && infection < 81.0f && !svnfiveCheck)
+		{
+			StartIncreaseAndDecreaseForSeconds();
+			svnfiveCheck = true;
+			barWidth = 3;
+			barHeight = 3;
+		}
+
+	}
 
     public bool IsGrounded()
     {
@@ -328,6 +381,17 @@ public class PlayerController : NetworkBehaviour
         return false;
     }
 
+	//public bool IsGrounded()
+ //   {
+ //       RaycastHit2D hit = Physics2D.Raycast(GroundCast.position, -Vector2.up, groundCastDist, ground);
+
+ //       if (hit.collider != null)
+ //       {
+ //           return true;
+ //       }
+
+ //       return false;
+ //   }
 
     private void FixedUpdate()
     {
@@ -380,63 +444,26 @@ public class PlayerController : NetworkBehaviour
         {
             transform.position += (new Vector3(joystick.InputDirection.x * speed, 0));
         }
-
-
-        //{
-        //	if (Input.touchCount > 0)
-        //	{
-        //		Touch touch = Input.GetTouch(0);
-        //		if (touch.position.x < Screen.width / 2)
-        //		{
-        //			if (touch.phase == TouchPhase.Began)
-        //			{
-        //				swipeStart = touch.position;
-        //			}
-        //			else if (touch.phase == TouchPhase.Moved)
-        //			{
-        //				swipeEnd = touch.position;
-        //				swipeDistanceMove = (swipeEnd - swipeStart).magnitude;
-        //				Vector2 swipeDirection = (swipeEnd - swipeStart).normalized;
-        //				if (swipeDirection.x > 0)
-        //				{
-        //					//Debug.Log("Right swipe");
-        //					rb.velocity = (new Vector2(transform.right.x * 5, rb.velocity.y ));
-        //				}
-        //				else if (swipeDirection.x < 0)
-        //				{
-        //                       //Debug.Log("Left swipe");
-        //                       rb.velocity = (new Vector2(-transform.right.x *  5, rb.velocity.y));
-        //				}
-        //                   swipeDirection.x = 0;
-        //                   //done
-        //               }
-        //               else if (touch.phase == TouchPhase.Ended)
-        //               {
-        //                   //Debug.Log("STOPPEDS");
-        //                   rb.velocity = Vector2.zero;
-        //               }
-        //           }
-        //	}
     }
 
 
-	public void Jumping()
+    public void Jumping()
     {
-		if(joystick.InputDirection.z > 0.25f && IsGrounded())
+        if (joystick.InputDirection.z > 0.25f && IsGrounded())
         {
             rb.AddForce(new Vector2(jumpForce.x, jumpForce.y), ForceMode2D.Impulse);
         }
-	}
+    }
 
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "ResistancePickup")
         {
-            if(isLocalPlayer)
+            if (isLocalPlayer)
             {
                 ToChangeTo = new Color(0.476415f, 1, 1, 1);
-                shouldStartEffect= true;
+                shouldStartEffect = true;
                 pickupScript.resistancePickupImplementation(GetComponent<NetworkIdentity>());
             }
 
@@ -464,13 +491,16 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "Enemy")
+		if (collision.gameObject.tag == "Enemy" && !resistance)
         {
             if (isLocalPlayer)
             {
-                //DepleatHealthByAmount(GetComponent<NetworkIdentity>(),5);
-            }
-        }
+                
+				StartIncreaseAndDecreaseForSeconds();///***
+				barWidth = 3;///***
+				barHeight = 3;///***
+			}
+		}
 
         if (collision.gameObject.tag == "AiDebuff")
         {
@@ -546,7 +576,7 @@ public class PlayerController : NetworkBehaviour
     public void MoveRightAI()
     {
         float speed = 0.0125f;
-        transform.position += new Vector3 (speed ,0 , 0);
+        transform.position += new Vector3(speed, 0, 0);
         Debug.Log("AI Moving Right");
     }
 
@@ -573,80 +603,79 @@ public class PlayerController : NetworkBehaviour
         yield return new WaitForSeconds(1.5f);
         infection = 0;
         distanceTime = 0;
-		GameManager.instance.scoreDistance = 0;
+        GameManager.instance.scoreDistance = 0;
         respawnTime = 4;
         GetComponentInChildren<SpriteRenderer>().enabled = true;
         GameManager.instance.respawnText.enabled = false;
         nameText.enabled = true;
-		playerDied = false;
+        playerDied = false;
 
 
-	}
+    }
 
-	//////public enum States
-	//////{
-	//////	Run = 1,
-	//////	Jump = 2,
-	//////	JumpShoot = 3,
-	//////	Die = 4
-	//////}
+    //////public enum States
+    //////{
+    //////	Run = 1,
+    //////	Jump = 2,
+    //////	JumpShoot = 3,
+    //////	Die = 4
+    //////}
 
 
-	void checkStatesForAnimator()
-	{
-		//////
-		///Idle animations Conrolls
-		//////
-		if (state == States.Run)
-		{
-			if (joystick.InputDirection.z > 0.25f)
-			{
-				state = States.Jump;
-                Debug.Log("Change of state to Jump");
-			}
+    void checkStatesForAnimator()
+    {
+        //////
+        ///Idle animations Conrolls
+        //////
+        if (state == States.Run)
+        {
+            if (joystick.InputDirection.z > 0.25f)
+            {
+                state = States.Jump;
+            }
             if (playerDied)
             {
-				state = States.Die;
+                state = States.Die;
 
-			}
+            }
 
 
-		}
-		if (state == States.Jump)
-		{
-			if (IsGrounded())
-			{
-				state = States.Run;
-			}
+        }
+        if (state == States.Jump)
+        {
+            if (IsGrounded())
+            {
+                state = States.Run;
+            }
 
             if (10 == 19) // if p;ayer shgot
             {
-				state = States.JumpShoot;
-			}
+                state = States.JumpShoot;
+            }
 
-			if (playerDied)
-			{
-				state = States.Die;
+            if (playerDied)
+            {
+                state = States.Die;
 
-			}
+            }
 
-		}
+        }
 
 
         if (state == States.JumpShoot)
         {
-			if (IsGrounded())
-			{
-				state = States.Run;
-			}
+            if (IsGrounded())
+            {
+                state = States.Run;
+            }
 
-			if (playerDied)
-			{
-				state = States.Die;
+            if (playerDied)
+            {
+                state = States.Die;
 
-			}
+            }
 
-		}
+        }
 
 
         if (state == States.Die)
@@ -659,12 +688,71 @@ public class PlayerController : NetworkBehaviour
 
         }
 
-			//////
-			///LEave it hERE DONT TOUCH THIS OR HANDS WILL BE THROWN
-			//////
-			anim.SetInteger("State", (int)state);
+        //////
+        ///LEave it hERE DONT TOUCH THIS OR HANDS WILL BE THROWN
+        //////
+        anim.SetInteger("State", (int)state);
+    }
+
+    public void increaseAndDecreaseBar()
+    {
+       
+        if (isIncreasing)
+        {
+            barHeight += increaseRate;
+            barWidth += increaseRate;
+            if (barHeight >= 5.0f)
+            {
+                isIncreasing = false;
+            }
+        }
+        else
+        {
+            barHeight -= decreaseRate;
+            barWidth -= decreaseRate;
+            if (barHeight <= 3.0f)
+            {
+                isIncreasing = true;
+			}
+        }
+
+}
+
+	IEnumerator CallFunctionForTime(float time)
+	{
+		float timer = 0f;
+
+		while (timer < time)
+		{
+			increaseAndDecreaseBar();
+			timer += Time.deltaTime;
+			yield return null;
+		}
 	}
 
+	// Call this function to start the coroutine for 3 seconds
+	public void StartIncreaseAndDecreaseForSeconds()
+	{
+		StartCoroutine(CallFunctionForTime(1.0f));
+	}
+
+
+    public void shootGun()
+    {
+        newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
+        gunParticle.Play();
+        NetworkServer.Spawn(newBulletObject);
+        soundEffectScript.playGunSoundEffect();
+    }
+
+    [Command]
+    public void shootGunClient()
+    {
+        newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y), Quaternion.identity);
+        gunParticle.Play();
+        NetworkServer.Spawn(newBulletObject);
+        soundEffectScript.playGunSoundEffect();
+    }
     public void DecreaseAmmo()
     {
         ammo--;

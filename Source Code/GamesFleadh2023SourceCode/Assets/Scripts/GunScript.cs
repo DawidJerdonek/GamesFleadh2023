@@ -1,8 +1,9 @@
+using Mirror;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using UnityEngine.UI;
+using Mirror.Examples.Basic;
 
 public class GunScript : MonoBehaviour
 {
@@ -14,13 +15,13 @@ public class GunScript : MonoBehaviour
     private SoundEffectScript soundEffectScript;
     private Button shootButton;
     private float bulletYPositionDeviation = 0.6f;
+    private GameObject newBulletObject;
     // Start is called before the first frame update
     void Start()
     {
-        
-        shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
-        shootButton.onClick.AddListener(() => shootGun());
-        soundEffectScript = GameObject.Find("SoundEffectManager").GetComponent<SoundEffectScript>();
+        //shootButton = GameObject.FindGameObjectWithTag("ShootButton").GetComponent<Button>();
+        //shootButton.onClick.AddListener(() => shootGun());
+        //soundEffectScript = GameObject.Find("SoundEffectManager").GetComponent<SoundEffectScript>();
         //gun = GameObject.Find("Gun");
         //gun.SetActive(true);
         //bulletScript = GameObject.Find("Bullet").GetComponent<BulletScript>();
@@ -35,11 +36,12 @@ public class GunScript : MonoBehaviour
     //    }
     //}
 
-    public void shootGun()
-    {
-        soundEffectScript.playGunSoundEffect();
-        Instantiate(bullet, new Vector2 (this.transform.position.x, this.transform.position.y - bulletYPositionDeviation), Quaternion.identity);
-        //Instantiate(bullet, this.transform.position, Quaternion.identity);
-        //Instantiate(bullet, this.transform.position, Quaternion.identity);
-    }
+    //public void shootGun()
+    //{
+    //        soundEffectScript.playGunSoundEffect();
+    //        newBulletObject = Instantiate(bullet, new Vector2(this.transform.position.x, this.transform.position.y - bulletYPositionDeviation), Quaternion.identity);
+    //        NetworkServer.Spawn(newBulletObject);
+    //        //Instantiate(bullet, this.transform.position, Quaternion.identity);
+    //        //Instantiate(bullet, this.transform.position, Quaternion.identity);
+    //}
 }
