@@ -44,6 +44,7 @@ public class PlayerController : NetworkBehaviour
     private SoundEffectScript soundEffectScript;
     public ParticleSystem gunParticle;
     public ParticleSystem respawnParticle;
+    public GameObject shieldObject;
 
     public Brain brain;
     private float[] inputs = new float[3];
@@ -462,6 +463,7 @@ public class PlayerController : NetworkBehaviour
     void resetResistanceCMD()
     {
         resistance = false;
+        shieldObject.SetActive(false);
     }
 
     public void ToggleAIForLimitedTime()
@@ -515,6 +517,7 @@ public class PlayerController : NetworkBehaviour
         {
             if (isLocalPlayer)
             {
+                shieldObject.SetActive(true);
                 ToChangeTo = new Color(0.476415f, 1, 1, 1);
                 shouldStartEffect = true;
                 pickupScript.resistancePickupImplementation(GetComponent<NetworkIdentity>());
@@ -556,7 +559,14 @@ public class PlayerController : NetworkBehaviour
 			}
 		}
 
-        if (collision.gameObject.tag == "AiDebuff")
+        //if (collision.gameObject.tag == "Enemy" && resistance)
+        //{
+        //    ZombieAI ai = collision.GetComponent<ZombieAI>();
+
+        //    ai.triggerKillAnim();
+        //}
+
+            if (collision.gameObject.tag == "AiDebuff")
         {
 
             //mindDebuffCollected = true;
