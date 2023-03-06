@@ -73,6 +73,7 @@ MonoBehaviour:
   AiSwitchFromDebuff: 0
   debuffParticleSystem: {fileID: 5712782009134916241, guid: 32195bfdc838ee14d98d850f6c0e0085, type: 3}
   pickupScript: {fileID: 0}
+  maxTimeBetweenJumps: 5
   ammoDisplay: []
   m_cameraMain: {fileID: 0}
   speed: 0.1

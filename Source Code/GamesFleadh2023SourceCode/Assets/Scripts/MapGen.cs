@@ -18,6 +18,7 @@ public class MapGen : NetworkBehaviour
 
     public float SquareWidth = 1;
     public float speed = 2;
+    public float maxSpeed;
     private float speedIncreateTimer = 0;
     public float speedIncreateTimeRate = 5.0f;
     public float level2ChunkDestroyerDeviation;
@@ -121,8 +122,11 @@ public class MapGen : NetworkBehaviour
 
         if (speedIncreateTimer >= speedIncreateTimeRate)
         {
-            speed += 0.10f;
-            speedIncreateTimer = 0;
+            if (speed < maxSpeed)
+            {
+                speed += 0.10f;
+                speedIncreateTimer = 0;
+            }
         }
     }
 
