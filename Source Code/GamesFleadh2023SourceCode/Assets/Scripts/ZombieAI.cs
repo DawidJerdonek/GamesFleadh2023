@@ -86,6 +86,16 @@ public class ZombieAI : NetworkBehaviour
         {
             NetworkServer.Destroy(gameObject);
         }
+        else
+        {
+            killZombieRPC();
+        }
+    }
+
+    [Command]
+    public void killZombieRPC()
+    {
+        NetworkServer.Destroy(gameObject);
     }
 
     private IEnumerator stunZombie(Collision2D col)
@@ -118,6 +128,10 @@ public class ZombieAI : NetworkBehaviour
                 yield return new WaitForSeconds(3);
 
                 isMoving = true;
+
+                list.Clear();
+
+                list = GameObject.FindObjectsOfType<PlayerController>().ToList();
 
                 foreach (var item in list)
                 {

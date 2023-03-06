@@ -39,8 +39,7 @@ public class PickupScript : NetworkBehaviour
         t_player.GetComponent<PlayerController>().infection -= 10;
     }
 
-    [Command(requiresAuthority = false)]
-    public void AmmoImplementation(NetworkIdentity t_player)
+    public void AmmoImplementation(GameObject t_player)
     {
         t_player.GetComponent<PlayerController>().ammo += 3;
     }

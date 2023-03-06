@@ -599,9 +599,8 @@ public class PlayerController : NetworkBehaviour
             if (isLocalPlayer)
             {
                 soundEffectScript.PlayReloadSoundEffect();
-                pickupScript.AmmoImplementation(GetComponent<NetworkIdentity>());
+                pickupScript.AmmoImplementation(gameObject);
                 moveAmmoToLoader();
-
             }
 
             if (isServer)
