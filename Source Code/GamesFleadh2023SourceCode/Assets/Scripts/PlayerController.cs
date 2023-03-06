@@ -555,11 +555,10 @@ public class PlayerController : NetworkBehaviour
         twnfiveCheck = false;
 	    fivezerCheck = false;
 	    svnfiveCheck = false;
-
-
+        ammo = 15;
     }
 
-    void checkStatesForAnimator()
+void checkStatesForAnimator()
     {
         //////
         ///Idle animations Conrolls
