@@ -29,6 +29,13 @@ public class PlayerController : NetworkBehaviour
     //public ParticleSystem gunParticle;
 
     public GameObject gun;
+    public GameObject ammoToMove;
+    private GameObject ammoMoveClone;
+    public Vector3 pointAAmmo;
+    private Vector3 pointBAmmo = new Vector3(2,2,1);
+    private bool ammoIsCollected = false;
+    
+
     public Rigidbody2D rb;
     public Transform rayPos;
     public LayerMask rayLayer;
@@ -391,8 +398,18 @@ public class PlayerController : NetworkBehaviour
 		}
 
 
-		Debug.Log(bulletIsShotforAnimation);
-	}
+        if (ammoIsCollected)
+        {
+            ammoMoveClone.transform.position = Vector3.MoveTowards(ammoMoveClone.transform.position, new Vector3(-8, 0.5f, 1), 30.0f * Time.deltaTime);
+
+            if (ammoMoveClone.transform.position == new Vector3(-8, 0.5f, 1))
+            {
+                ammoIsCollected = false;
+                Destroy(ammoMoveClone);
+            }
+        }
+
+    }
 
     public bool IsGrounded()
     {
@@ -572,6 +589,8 @@ public class PlayerController : NetworkBehaviour
             {
                 soundEffectScript.PlayReloadSoundEffect();
                 pickupScript.AmmoImplementation(GetComponent<NetworkIdentity>());
+                moveAmmoToLoader();
+
             }
 
             if (isServer)
@@ -796,5 +815,12 @@ public class PlayerController : NetworkBehaviour
 	public void DecreaseAmmo()
     {
         ammo--;
+    }
+
+    public void moveAmmoToLoader()
+    {
+        ammoMoveClone = Instantiate(ammoToMove, gameObject.transform.position, Quaternion.identity);
+        Destroy(ammoMoveClone, 1.0f);
+        ammoIsCollected = true;
     }
 }
