@@ -31,7 +31,6 @@ public class PlayerController : NetworkBehaviour
     public Vector3 pointAAmmo;
     private bool ammoIsCollected = false;
     
-
     public Rigidbody2D rb;
     public Transform rayPos;
     public LayerMask rayLayer;
@@ -44,7 +43,6 @@ public class PlayerController : NetworkBehaviour
     public Brain brain;
     private float[] inputs = new float[3];
     private float timeForBarRest = 5.0f;
-    public GameObject debuffParticleSystem;
     public PickupScript pickupScript;
     bool isJumping = false;
     private int timeBetweenJumps = 0;
@@ -52,22 +50,16 @@ public class PlayerController : NetworkBehaviour
 
     public List<Image> ammoDisplay = new List<Image>();
 
-
     public Camera m_cameraMain;
 
     public float speed = 0.1f;
     public Vector2 jumpForce = new Vector2(-100, 1850);
-    private Vector2 swipeStart;
-    private float swipeDistanceMove = 0.0f;
-    Vector2 swipeEnd;
-    public bool mindDebuffCollected = false;
     public int testAIisOn = 0;
 
     public GameObject onlineInfection;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI infectionText;
   
-
     private Button shootButton;
     private GameObject newBulletObject;
     public GameObject bullet;
