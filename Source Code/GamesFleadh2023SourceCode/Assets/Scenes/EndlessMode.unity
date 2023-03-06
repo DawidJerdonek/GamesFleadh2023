@@ -1650,9 +1650,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5086939808242218028, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315839097848217571, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5315839097886290122, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
       propertyPath: m_Name
       value: SoundEffectManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315839097886290124, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_Volume
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5315839097886290128, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
       propertyPath: m_RootOrder
@@ -1696,6 +1708,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5315839097886290128, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315839097886290129, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_Volume
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109842908391823007, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_Volume
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7109842908391823007, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7737930230182788280, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7737930230182788280, guid: c7d9688dfc58a164ea802ccc3f3f8152, type: 3}
+      propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

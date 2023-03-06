@@ -318,6 +318,8 @@ public class PlayerController : NetworkBehaviour
         GameManager.instance.respawnText.text = "Respawning in\n " + (int)respawnTime;
         if (infection >= 100)
         {
+            respawnParticle.Play();
+            //respawnParticle.transform.position = new Vector3(-1, -1, 0);
             soundEffectScript.PlayReviveSoundEffect();
             infection = 0;
             playerDied = true;
