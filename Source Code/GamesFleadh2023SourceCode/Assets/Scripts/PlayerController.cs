@@ -317,18 +317,19 @@ public class PlayerController : NetworkBehaviour
         GameManager.instance.respawnText.text = "Respawning in\n " + (int)respawnTime;
         if (infection >= 100)
         {
+            soundEffectScript.PlayReviveSoundEffect();
+            infection = 0;
             playerDied = true;
             GameManager.instance.scoreDistance = 0;
+            resetPosition();
             StartCoroutine("RestartGame");
-            //resetPosition();
-
-
+          
         }
 
         //RESISTANCE CHECKS AND CODE FOR PLAYER
         if (resistance == false)
         {
-            GameManager.instance.targetTime = 10.0f;
+            GameManager.instance.targetTime = 5.0f;
             GameManager.instance.infectionBar.fillRect.GetComponent<Image>().color = Color.red;
         }
         else if (resistance == true)
@@ -339,7 +340,7 @@ public class PlayerController : NetworkBehaviour
             if (GameManager.instance.targetTime <= 0.0f)
             {
                 resetResistanceCMD();
-                GameManager.instance.targetTime = 10.0f;
+                GameManager.instance.targetTime = 5.0f;
             }
         }
 
@@ -458,7 +459,7 @@ public class PlayerController : NetworkBehaviour
 
     public void resetPosition()
     {
-        transform.position = new Vector3(0, 0, 0);
+        transform.position = new Vector3(-1, -1, 0);
         rb.velocity = Vector2.zero;
     }
 
@@ -625,6 +626,7 @@ public class PlayerController : NetworkBehaviour
         {
             respawnTime -= Time.deltaTime * 2;
         }
+        rb.gravityScale = 0;
         yield return new WaitForSeconds(1.5f);
         infection = 0;
         distanceTime = 0;
@@ -634,8 +636,8 @@ public class PlayerController : NetworkBehaviour
         GameManager.instance.respawnText.enabled = false;
         nameText.enabled = true;
         playerDied = false;
-
-	    twnfiveCheck = false;
+        rb.gravityScale = 1;
+        twnfiveCheck = false;
 	    fivezerCheck = false;
 	    svnfiveCheck = false;
 
