@@ -54,12 +54,12 @@ public class BulletScript : NetworkBehaviour
 
             Instantiate(bloodParticle, collision.transform);
 
-            if (ai.isMoving)
-            {
+            //if (ai.isMoving)
+            //{
                 soundEffectScript.playEnemyHitSoundEffect();
 
                 ai.triggerKillAnim();
-            }
+            //}
         }
 
         if (collision.gameObject.tag == "Player" || collision.gameObject.tag == "Bullet" ||

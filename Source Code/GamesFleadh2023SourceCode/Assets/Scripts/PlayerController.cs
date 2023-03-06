@@ -417,7 +417,7 @@ public class PlayerController : NetworkBehaviour
         {
             timeBetweenJumps = 0;
             rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y * 3.1f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y * 5f), ForceMode2D.Impulse);
         }
     }
 
