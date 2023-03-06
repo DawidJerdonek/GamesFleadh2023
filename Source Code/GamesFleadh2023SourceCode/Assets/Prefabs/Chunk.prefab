@@ -98,10 +98,16 @@ MonoBehaviour:
   topTile: {fileID: 0}
   BoxSprite: {fileID: 7787358908669397648, guid: 696da02087d795e4782da42b4e7dbf8a, type: 3}
   BoxSpriteNoCol: {fileID: 7787358908669397648, guid: 45850e40f9331ce4992bec21fbe92fab, type: 3}
-  BoxSpritelevel2: {fileID: 2395457361264683503, guid: e319d66ce9d47ee468bf2a7ae41dbb29, type: 3}
-  BoxSpriteNoCollevel2: {fileID: 2976499156041516666, guid: eddab032274b0ab4780302b203e6cec7, type: 3}
-  BoxSpritelevel4: {fileID: 4083581493457811112, guid: 673509e6e88391f44a89dcf5dd40bbed, type: 3}
-  BoxSpriteNoCollevel4: {fileID: 3587891692258464457, guid: b20c26c3a8be4704193c81b1254a5a7d, type: 3}
+  BoxSpriteLevel2: {fileID: 2395457361264683503, guid: e319d66ce9d47ee468bf2a7ae41dbb29, type: 3}
+  BoxSpriteNoColLevel2: {fileID: 2976499156041516666, guid: eddab032274b0ab4780302b203e6cec7, type: 3}
+  BoxSpriteTwoLevel2: {fileID: 2960596151789080569, guid: 7c7cf703abfb480499fbefca3ff8e3d2, type: 3}
+  BoxSpriteTwoNoColLevel2: {fileID: 8747842834907559989, guid: 5b7175ab339e68d4d923e56127246c75, type: 3}
+  BoxSpriteThreeLevel2: {fileID: 5191256915048520837, guid: d92b6fd9559819d4e876e1da07c93156, type: 3}
+  BoxSpriteThreeNoColLevel2: {fileID: 3611672598587240954, guid: a4fc9d89827274043ba132199e2d4b8b, type: 3}
+  BoxSpriteFourLevel2: {fileID: 1437170776414109559, guid: 58a98f8830bd4354fb488e17501032f2, type: 3}
+  BoxSpriteFourNoColLevel2: {fileID: 3288605230553072729, guid: 7dd6029e1422510489fac5b9d9a47da0, type: 3}
+  BoxSpriteLevel4: {fileID: 4083581493457811112, guid: 673509e6e88391f44a89dcf5dd40bbed, type: 3}
+  BoxSpriteNoColLevel4: {fileID: 3587891692258464457, guid: b20c26c3a8be4704193c81b1254a5a7d, type: 3}
   ActualHeight: 4
   isSynced: 0
   isSpawned: 0

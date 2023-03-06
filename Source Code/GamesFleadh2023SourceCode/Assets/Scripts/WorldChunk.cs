@@ -9,11 +9,17 @@ public class WorldChunk : NetworkBehaviour
     public GameObject BoxSprite;
     public GameObject BoxSpriteNoCol;
 
-    public GameObject BoxSpritelevel2;
-    public GameObject BoxSpriteNoCollevel2;
+    public GameObject BoxSpriteLevel2;
+    public GameObject BoxSpriteNoColLevel2;
+    public GameObject BoxSpriteTwoLevel2;
+    public GameObject BoxSpriteTwoNoColLevel2;
+    public GameObject BoxSpriteThreeLevel2;
+    public GameObject BoxSpriteThreeNoColLevel2;
+    public GameObject BoxSpriteFourLevel2;
+    public GameObject BoxSpriteFourNoColLevel2;
 
-    public GameObject BoxSpritelevel4;
-    public GameObject BoxSpriteNoCollevel4;
+    public GameObject BoxSpriteLevel4;
+    public GameObject BoxSpriteNoColLevel4;
 
 
     [SyncVar]
@@ -85,32 +91,80 @@ public class WorldChunk : NetworkBehaviour
           
                 if (i >= ActualHeight - 2)
                 {
-                    GameObject tile = Instantiate(BoxSpritelevel4, transform.position, Quaternion.identity, transform);
+                    GameObject tile = Instantiate(BoxSpriteLevel4, transform.position, Quaternion.identity, transform);
                     tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
                     topTile = tile.transform;
                 }
                 else
                 {
-                    GameObject tile = Instantiate(BoxSpriteNoCollevel4, transform.position, Quaternion.identity, transform);
+                    GameObject tile = Instantiate(BoxSpriteNoColLevel4, transform.position, Quaternion.identity, transform);
                     tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
                     topTile = tile.transform;
                 }
 
             }
-            else if (gen.currentLevel == 2)
+            else if (gen.currentLevel == 1 || gen.currentLevel == 2 || gen.currentLevel == 3)
             {
-
-                if (i >= ActualHeight - 2)
+                int rand = Random.Range(0, 4);
+                if (rand == 0)
                 {
-                    GameObject tile = Instantiate(BoxSpritelevel2, transform.position, Quaternion.identity, transform);
-                    tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
-                    topTile = tile.transform;
+                    if (i >= ActualHeight - 2)
+                    {
+                        GameObject tile = Instantiate(BoxSpriteLevel2, transform.position, Quaternion.identity, transform);
+                        tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                        topTile = tile.transform;
+                    }
+                    else
+                    {
+                        GameObject tile = Instantiate(BoxSpriteNoColLevel2, transform.position, Quaternion.identity, transform);
+                        tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                        topTile = tile.transform;
+                    }
                 }
-                else
+                else if(rand == 1)
                 {
-                    GameObject tile = Instantiate(BoxSpriteNoCollevel2, transform.position, Quaternion.identity, transform);
-                    tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
-                    topTile = tile.transform;
+                    if (i >= ActualHeight - 2)
+                    {
+                        GameObject tile = Instantiate(BoxSpriteTwoLevel2, transform.position, Quaternion.identity, transform);
+                        tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                        topTile = tile.transform;
+                    }
+                    else
+                    {
+                        GameObject tile = Instantiate(BoxSpriteTwoNoColLevel2, transform.position, Quaternion.identity, transform);
+                        tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                        topTile = tile.transform;
+                    }
+                }
+                else if (rand == 2)
+                {
+                    if (i >= ActualHeight - 2)
+                    {
+                        GameObject tile = Instantiate(BoxSpriteThreeLevel2, transform.position, Quaternion.identity, transform);
+                        tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                        topTile = tile.transform;
+                    }
+                    else
+                    {
+                        GameObject tile = Instantiate(BoxSpriteThreeNoColLevel2, transform.position, Quaternion.identity, transform);
+                        tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                        topTile = tile.transform;
+                    }
+                }
+                else if (rand == 3)
+                {
+                    if (i >= ActualHeight - 2)
+                    {
+                        GameObject tile = Instantiate(BoxSpriteFourLevel2, transform.position, Quaternion.identity, transform);
+                        tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                        topTile = tile.transform;
+                    }
+                    else
+                    {
+                        GameObject tile = Instantiate(BoxSpriteFourNoColLevel2, transform.position, Quaternion.identity, transform);
+                        tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                        topTile = tile.transform;
+                    }
                 }
 
             }
