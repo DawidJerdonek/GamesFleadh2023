@@ -360,7 +360,7 @@ public class PlayerController : NetworkBehaviour
 
         if (ammoIsCollected)
         {
-            ammoMoveClone.transform.position = Vector3.MoveTowards(ammoMoveClone.transform.position, new Vector3(-8, 0.5f, 1), 30.0f * Time.deltaTime);
+            ammoMoveClone.transform.position = Vector3.MoveTowards(ammoMoveClone.transform.position, new Vector3(-8, 0.5f, 1), 40.0f * Time.deltaTime);
 
             if (ammoMoveClone.transform.position == new Vector3(-8, 0.5f, 1))
             {
@@ -715,7 +715,7 @@ public class PlayerController : NetworkBehaviour
     public void moveAmmoToLoader()
     {
         ammoMoveClone = Instantiate(ammoToMove, gameObject.transform.position, Quaternion.identity);
-        Destroy(ammoMoveClone, 1.0f);
+        Destroy(ammoMoveClone, 0.7f);
         ammoIsCollected = true;
     }
 }
