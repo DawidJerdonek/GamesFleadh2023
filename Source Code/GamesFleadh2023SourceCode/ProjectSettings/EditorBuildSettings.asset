@@ -21,12 +21,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Offline Scene.unity
     guid: acd2914c200704d46b1e22c706f308fa
   - enabled: 1
-    path: Assets/Scenes/PickupTutorial.unity
-    guid: 55bc7ac3cb786ba4e825df068f1a0085
-  - enabled: 1
-    path: Assets/Scenes/PickupTutorialSingleplayer.unity
-    guid: 0d2329c3acc970a479b3e2fe320ca14d
-  - enabled: 1
     path: Assets/Scenes/EndlessMode.unity
     guid: c0a3c70c1757d25449ea5c493c830637
   m_configObjects: {}
