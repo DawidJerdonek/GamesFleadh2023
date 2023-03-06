@@ -506,6 +506,13 @@ public class PlayerController : NetworkBehaviour
         }
     }
 
+    [Command]
+    public void resetInfectionRPC(NetworkIdentity toReset)
+    { 
+          toReset.GetComponent<PlayerController>().infection = 0;
+    }
+
+
     public void JumpAI()
     {
         if (IsGrounded())
@@ -543,7 +550,16 @@ public class PlayerController : NetworkBehaviour
         }
         rb.gravityScale = 0;
         yield return new WaitForSeconds(1.5f);
-        infection = 0;
+
+        if (isServer)
+        {
+            infection = 0;
+        }
+        else
+        {
+            resetInfectionRPC(GetComponent<NetworkIdentity>());
+        }
+
         distanceTime = 0;
         GameManager.instance.scoreDistance = 0;
         respawnTime = 4;
