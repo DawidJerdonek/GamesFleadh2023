@@ -61,6 +61,8 @@ public class GameManager : MonoBehaviour
     private bool isExpanding = true;
 
 	public float targetTimeToText = 5.0f;
+    private Color[] colorsForDistanceText = { Color.red, Color.yellow, Color.green, Color.cyan, Color.blue, Color.magenta };
+    private int currentColorIndex = 0;
 
 
 	[SerializeField]
@@ -181,6 +183,12 @@ public class GameManager : MonoBehaviour
 					if (isExpanding)
                     {
                         distanceText.fontSize += expandSpeed * Time.deltaTime;
+                        currentColorIndex++;
+                        if (currentColorIndex >= colorsForDistanceText.Length) 
+                        {
+                            currentColorIndex = 0;
+                        }
+                        distanceText.color = colorsForDistanceText[currentColorIndex];
 
                         if (distanceText.fontSize >= maxSize)
                         {
@@ -198,6 +206,10 @@ public class GameManager : MonoBehaviour
                             isExpanding = true;
                         }
                     }
+
+                   
+
+
                 }
 
 				targetTimeToText -= Time.deltaTime;
@@ -205,8 +217,9 @@ public class GameManager : MonoBehaviour
 				if (targetTimeToText <= 0.0f)
 				{
                     distanceText.fontSize = 50.0f;
+                    distanceText.color = Color.white;
 
-						targetTimeToText = 3.0f;
+                    targetTimeToText = 0.5f;
 				}
 
 
