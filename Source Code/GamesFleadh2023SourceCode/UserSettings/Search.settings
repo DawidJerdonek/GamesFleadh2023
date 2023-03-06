@@ -13,6 +13,9 @@ scopes = {
 	"last_search.2138236A" = "2110019029"
 	"OpenInspectorPreview.2138236A" = "1"
 	"currentGroup.2138236A" = "all"
+	"last_search.304ACD21" = "t:Prefab"
+	"OpenInspectorPreview.304ACD21" = "0"
+	"currentGroup.304ACD21" = "asset"
 }
 providers = {
 	adb = {
@@ -59,14 +62,16 @@ providers = {
 objectSelectors = {
 }
 recentSearches = [
+	"t:Prefab"
+	"t:Prefab 4022454484"
+	" 4022454484"
 	"2110019029"
 ]
 searchItemFavorites = [
 ]
 savedSearchesSortOrder = 0
 showSavedSearchPanel = true
-expandedQueries = [
-]
+expandedQueries = [-1765347274 961552606]
 queryBuilder = false
 ignoredProperties = "id;name;classname;imagecontentshash"
 helperWidgetCurrentArea = "all"
