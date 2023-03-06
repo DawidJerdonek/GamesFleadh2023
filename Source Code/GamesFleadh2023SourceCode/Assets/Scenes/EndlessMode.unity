@@ -951,7 +951,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 129063438346990576, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: currentLevel
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 129063438346990576, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: syncInterval
@@ -1280,7 +1280,7 @@ PrefabInstance:
       objectReference: {fileID: 914175325}
     - target: {fileID: 7325968627209454876, guid: 94ff57a7d65b11640ae11439267556ef, type: 3}
       propertyPath: distanceTraveled
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7325968627209454876, guid: 94ff57a7d65b11640ae11439267556ef, type: 3}
       propertyPath: transitionScreen
