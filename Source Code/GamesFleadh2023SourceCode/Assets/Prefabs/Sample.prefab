@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotateSpeed: 180
-  maxScale: 0.8
+  maxScale: 0.7
   minScale: 0.3
   ScaleingFactor: 0.005
   shouldIncreaseInSize: 0

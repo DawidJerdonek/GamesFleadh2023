@@ -9,6 +9,13 @@ public class WorldChunk : NetworkBehaviour
     public GameObject BoxSprite;
     public GameObject BoxSpriteNoCol;
 
+    public GameObject BoxSpritelevel2;
+    public GameObject BoxSpriteNoCollevel2;
+
+    public GameObject BoxSpritelevel4;
+    public GameObject BoxSpriteNoCollevel4;
+
+
     [SyncVar]
     public int ActualHeight = 4;
 
@@ -70,19 +77,57 @@ public class WorldChunk : NetworkBehaviour
 
     public void GenerateChunk()
     {
+        MapGen gen = FindObjectOfType<MapGen>();
         for (int i = 0; i < ActualHeight; i++)
         {
-            if (i >= ActualHeight - 2)
+            if (gen.currentLevel == 4)
             {
-                GameObject tile = Instantiate(BoxSprite, transform.position, Quaternion.identity, transform);
-                tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
-                topTile = tile.transform;
+          
+                if (i >= ActualHeight - 2)
+                {
+                    GameObject tile = Instantiate(BoxSpritelevel4, transform.position, Quaternion.identity, transform);
+                    tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                    topTile = tile.transform;
+                }
+                else
+                {
+                    GameObject tile = Instantiate(BoxSpriteNoCollevel4, transform.position, Quaternion.identity, transform);
+                    tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                    topTile = tile.transform;
+                }
+
+            }
+            else if (gen.currentLevel == 2)
+            {
+
+                if (i >= ActualHeight - 2)
+                {
+                    GameObject tile = Instantiate(BoxSpritelevel2, transform.position, Quaternion.identity, transform);
+                    tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                    topTile = tile.transform;
+                }
+                else
+                {
+                    GameObject tile = Instantiate(BoxSpriteNoCollevel2, transform.position, Quaternion.identity, transform);
+                    tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                    topTile = tile.transform;
+                }
+
             }
             else
             {
-                GameObject tile = Instantiate(BoxSpriteNoCol, transform.position, Quaternion.identity, transform);
-                tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
-                topTile = tile.transform;
+                if (i >= ActualHeight - 2)
+                {
+                    GameObject tile = Instantiate(BoxSprite, transform.position, Quaternion.identity, transform);
+                    tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                    topTile = tile.transform;
+                }
+                else
+                {
+                    GameObject tile = Instantiate(BoxSpriteNoCol, transform.position, Quaternion.identity, transform);
+                    tile.transform.position = new Vector2(tile.transform.position.x, tile.transform.position.y + (i * tile.GetComponent<Renderer>().bounds.size.y));
+                    topTile = tile.transform;
+                }
             }
         }
     }
