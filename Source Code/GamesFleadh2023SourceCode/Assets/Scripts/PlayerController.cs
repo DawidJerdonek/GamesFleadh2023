@@ -29,6 +29,13 @@ public class PlayerController : NetworkBehaviour
     //public ParticleSystem gunParticle;
 
     public GameObject gun;
+    public GameObject ammoToMove;
+    private GameObject ammoMoveClone;
+    public Vector3 pointAAmmo;
+    private Vector3 pointBAmmo = new Vector3(2,2,1);
+    private bool ammoIsCollected = false;
+    
+
     public Rigidbody2D rb;
     public Transform rayPos;
     public LayerMask rayLayer;
@@ -45,6 +52,9 @@ public class PlayerController : NetworkBehaviour
     private float timeForDebuffAI = 5.0f;
     public GameObject debuffParticleSystem;
     public PickupScript pickupScript;
+    bool isJumping = false;
+    private int timeBetweenJumps = 0;
+    public int maxTimeBetweenJumps;
 
     public List<Image> ammoDisplay = new List<Image>();
 
@@ -52,7 +62,7 @@ public class PlayerController : NetworkBehaviour
     public Camera m_cameraMain;
 
     public float speed = 0.1f;
-    public Vector2 jumpForce = new Vector2(-100, 850);
+    public Vector2 jumpForce = new Vector2(-100, 1850);
     private Vector2 swipeStart;
     private float swipeDistanceMove = 0.0f;
     Vector2 swipeEnd;
@@ -103,7 +113,7 @@ public class PlayerController : NetworkBehaviour
     //https://docs.google.com/forms/d/e/1FAIpQLSfdbsO2vKysmX5H7sdABY5K6j155kXHvC_E2SpmcHrQ8XzJpA/viewform?usp=pp_url&entry.51372667=IDHERE&entry.1637826786=TIMESDIED&entry.1578808278=HIGHSCORE&entry.2039373689=DISTANCE
     public LayerMask ground;
     public Transform GroundCast;
-    private float groundCastDist = 0.25f;
+    private float groundCastDist = 0.15f;
 
     //private Button shootButton;
     public Animator anim;
@@ -225,6 +235,8 @@ public class PlayerController : NetworkBehaviour
     void Update()
     {
         Debug.DrawRay(GroundCast.position, -Vector2.up * groundCastDist, Color.red);
+
+        timeBetweenJumps++;
 
         //INFECTION CODE AND CHECKS FOR PLAYERs
         if (isServer)
@@ -394,8 +406,18 @@ public class PlayerController : NetworkBehaviour
 		}
 
 
-		Debug.Log(bulletIsShotforAnimation);
-	}
+        if (ammoIsCollected)
+        {
+            ammoMoveClone.transform.position = Vector3.MoveTowards(ammoMoveClone.transform.position, new Vector3(-8, 0.5f, 1), 30.0f * Time.deltaTime);
+
+            if (ammoMoveClone.transform.position == new Vector3(-8, 0.5f, 1))
+            {
+                ammoIsCollected = false;
+                Destroy(ammoMoveClone);
+            }
+        }
+
+    }
 
     public bool IsGrounded()
     {
@@ -403,6 +425,7 @@ public class PlayerController : NetworkBehaviour
 
         if (hit.collider != null)
         {
+            isJumping = true;
 			return true;
         }
 
@@ -477,9 +500,11 @@ public class PlayerController : NetworkBehaviour
 
     public void Jumping()
     {
-        if (joystick.InputDirection.z > 0.25f && IsGrounded())
+        if (joystick.InputDirection.z > 0.25f && IsGrounded() && timeBetweenJumps >= maxTimeBetweenJumps)
         {
-            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y), ForceMode2D.Impulse);
+            timeBetweenJumps = 0;
+            rb.velocity = new Vector2(rb.velocity.x, 0);
+            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y * 3.1f), ForceMode2D.Impulse);
         }
     }
 
@@ -576,6 +601,8 @@ public class PlayerController : NetworkBehaviour
             {
                 soundEffectScript.PlayReloadSoundEffect();
                 pickupScript.AmmoImplementation(GetComponent<NetworkIdentity>());
+                moveAmmoToLoader();
+
             }
 
             if (isServer)
@@ -800,5 +827,12 @@ public class PlayerController : NetworkBehaviour
 	public void DecreaseAmmo()
     {
         ammo--;
+    }
+
+    public void moveAmmoToLoader()
+    {
+        ammoMoveClone = Instantiate(ammoToMove, gameObject.transform.position, Quaternion.identity);
+        Destroy(ammoMoveClone, 1.0f);
+        ammoIsCollected = true;
     }
 }
