@@ -36,6 +36,7 @@ public class PlayerController : NetworkBehaviour
     private bool playerDied = false;
     private SoundEffectScript soundEffectScript;
     public ParticleSystem gunParticle;
+    public ParticleSystem respawnParticle;
 
     public Brain brain;
     private float[] inputs = new float[3];
@@ -491,6 +492,7 @@ public class PlayerController : NetworkBehaviour
                 shouldStartEffect = true;
                 pickupScript.resistancePickupImplementation(GetComponent<NetworkIdentity>());
                 soundEffectScript.PlayResistSoundEffect();
+                respawnParticle.Play();
             }
 
             if (isServer)
