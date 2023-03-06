@@ -19,8 +19,6 @@ public class GameManager : MonoBehaviour
     public bool transition = false;
 
     public Image transitionScreen;
-    public Image background;
-    public Sprite[] levelBackgrounds;
     public GameObject menuExitButton;
     public GameObject feedbackButton;
     public MapGen mapGeneratorScript;
@@ -142,8 +140,6 @@ public class GameManager : MonoBehaviour
                     //transitionScreen.color = Color.Lerp(transitionScreen.color, new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f), 0.3f);
                     //if (transitionScreen.color == new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f))
                     transition = false;
-                    background.sprite = levelBackgrounds[currentLevel - 1];
-
                 }
 
 
