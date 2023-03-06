@@ -300,7 +300,7 @@ public class ObstacleSpawner : NetworkBehaviour
 
         if (level2StartTrainSpawnTimeDeviation <= 0 )
         {
-            level2StartTrainSpawnTimeDeviation = 9999;
+            level2StartTrainSpawnTimeDeviation = 5;
             spawnLevel2Train();
             hasFirstTrainSpawned = true;
         }
