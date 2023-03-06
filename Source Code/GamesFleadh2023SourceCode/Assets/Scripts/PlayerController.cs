@@ -50,7 +50,7 @@ public class PlayerController : NetworkBehaviour
     private float[] inputs = new float[3];
     public bool AiSwitcher = false;
     public bool AiSwitchFromDebuff = false;
-    private float timeForDebuffAI = 5.0f;
+    private float timeForBarRest = 5.0f;
     public GameObject debuffParticleSystem;
     public PickupScript pickupScript;
     bool isJumping = false;
@@ -319,14 +319,13 @@ public class PlayerController : NetworkBehaviour
             fuzzyLogicObject.GetComponent<FuzzyLogic>().enabled = true;
         }
 
-        //timer for debuff
-        timeForDebuffAI -= Time.deltaTime;
-        if (timeForDebuffAI < 0.0f)
+        //timer for bar reset
+        timeForBarRest -= Time.deltaTime;
+        if (timeForBarRest < 0.0f)
         {
-			//AiSwitchFromDebuff = false;
 			barWidth = barWidthToChange;
 			barHeight = barHeightToChange;
-			timeForDebuffAI = 3.0f;
+			timeForBarRest = 2.0f;
 
 		}
 
