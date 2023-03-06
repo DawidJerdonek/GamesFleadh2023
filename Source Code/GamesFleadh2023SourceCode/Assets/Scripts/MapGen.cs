@@ -104,8 +104,8 @@ public class MapGen : NetworkBehaviour
                 if (targetTime2 <= 0.0f)
                 {
                     MaxTiles = 2;
-                    targetTime = Random.Range(3.0f, 5.0f);
-                    targetTime2 = Random.Range(0.5f, 2.0f);
+                    targetTime = Random.Range(2.0f, 4.0f);// how often ground spawns 
+                    targetTime2 = Random.Range(0.5f, 2.3f); // how often holes spawn
                 }
             }
         }
