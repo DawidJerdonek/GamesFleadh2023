@@ -12,6 +12,7 @@ public class BulletScript : NetworkBehaviour
     public float bulletSpeed;
     public float maxBulletSpread;
     private float randYMovement;
+    public ParticleSystem bloodParticle;
 
     private SoundEffectScript soundEffectScript;
     // Start is called before the first frame update
@@ -61,6 +62,8 @@ public class BulletScript : NetworkBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             soundEffectScript.playEnemyHitSoundEffect();
+
+            Instantiate(bloodParticle, collision.transform);
 
             ZombieAI ai = collision.GetComponent<ZombieAI>();
 

@@ -49,13 +49,13 @@ public class TrainEnemySpawner : NetworkBehaviour
             return;
         }
 
-        for (int i = 0; i < enemies.Count; i++)
-        {
-            if (enemies.ElementAt(i) != null)
-            {
-                enemies.ElementAt(i).transform.position = new Vector3(enemySpawnPoints.ElementAt(i).transform.position.x, enemySpawnPoints.ElementAt(i).transform.position.y + yDeviation, enemySpawnPoints.ElementAt(i).transform.position.z);
-            }
-        }
+        //for (int i = 0; i < enemies.Count; i++)
+        //{
+        //    if (enemies.ElementAt(i) != null)
+        //    {
+        //        enemies.ElementAt(i).transform.position = new Vector3(enemySpawnPoints.ElementAt(i).transform.position.x, enemySpawnPoints.ElementAt(i).transform.position.y + yDeviation, enemySpawnPoints.ElementAt(i).transform.position.z);
+        //    }
+        //}
 
         if (pickupClone != null)
         {
@@ -81,16 +81,17 @@ public class TrainEnemySpawner : NetworkBehaviour
 
             if (randEnemySpawn != 1)
             {
-                if (randRotation == 1)
-                {
-                    enemy.transform.rotation = new Quaternion(0, 180, 0, 1);
-                }
+                //if (randRotation == 1)
+                //{
+                //    enemy.transform.rotation = new Quaternion(0, 180, 0, 1);
+                //}
             }
             else
             {
                 enemy.SetActive(false);
             }
 
+            enemy.GetComponent<ZombieAI>().speed = 5;
                 NetworkServer.Spawn(enemy);
                 enemies.Add(enemy);
         }

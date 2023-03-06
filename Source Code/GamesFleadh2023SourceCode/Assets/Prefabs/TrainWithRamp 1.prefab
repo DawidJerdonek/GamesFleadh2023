@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4982083325492009863}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5207988725421271616}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5574053617834388360}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2789292153148982176}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -133,7 +133,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2019381715628973927}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,7 +164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8092413693458341992}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PickupTop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -195,7 +195,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7371264999681130752}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2596386157655571414}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2372944952586933419}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,6 +279,117 @@ Transform:
   m_Father: {fileID: 8251515554183704494}
   m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4100418164016068267
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3629546627542222816}
+  - component: {fileID: 8239431106929410017}
+  - component: {fileID: 3505702268970770512}
+  m_Layer: 0
+  m_Name: trainTop (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3629546627542222816
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4100418164016068267}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 16.56, y: 2.2, z: 0}
+  m_LocalScale: {x: 25.56, y: 0.2, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8251515554183704494}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &8239431106929410017
+SpriteRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4100418164016068267}
+  m_Enabled: 1
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 0
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Color: {r: 0.3301887, g: 0.3301887, b: 0.3301887, a: 0.8}
+  m_FlipX: 0
+  m_FlipY: 0
+  m_DrawMode: 0
+  m_Size: {x: 1, y: 1}
+  m_AdaptiveModeThreshold: 0.5
+  m_SpriteTileMode: 0
+  m_WasSpriteAssigned: 1
+  m_MaskInteraction: 0
+  m_SpriteSortPoint: 0
+--- !u!61 &3505702268970770512
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4100418164016068267}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
+  m_EdgeRadius: 0
 --- !u!1 &4424902013223077276
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3885845211255850023}
   - component: {fileID: 6007782634064556011}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: undergroundShroomTram
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -372,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7899437596676752545}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -403,7 +514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6722637179961299292}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PickupBottom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -434,7 +545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5869462127030460740}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -465,7 +576,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7488904385306379538}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -496,7 +607,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4132394582939162678}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +640,7 @@ GameObject:
   - component: {fileID: 8251515554040268628}
   - component: {fileID: 8251515554040268626}
   - component: {fileID: 8251515554040268629}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: trainBottom
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -612,7 +723,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 8251515554040268631}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -640,7 +751,7 @@ GameObject:
   - component: {fileID: 8251515554183704494}
   - component: {fileID: -3231484460182418523}
   - component: {fileID: 3307536413469058730}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: TrainWithRamp 1
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -682,6 +793,7 @@ Transform:
   - {fileID: 620993902389947707}
   - {fileID: 169311581173406125}
   - {fileID: 3885845211255850023}
+  - {fileID: 3629546627542222816}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -737,7 +849,7 @@ MonoBehaviour:
   - {fileID: 8632878717910752861}
   - {fileID: 3608588600415474527}
   - {fileID: 8900838711225206434}
-  pickup: {fileID: 8780081029477162712, guid: 5b186501c889b4045afdaf1aa7e3f153, type: 3}
+  pickup: {fileID: 2479776089854383110, guid: 9759fbd1fd0cfc8429c1233792930f3f, type: 3}
   pickupTop: {fileID: 3045295179145117772}
   pickupBottom: {fileID: 5653151406580612589}
   randPickupChance: 0
@@ -753,7 +865,7 @@ GameObject:
   - component: {fileID: 8251515554292740546}
   - component: {fileID: 8251515554292740544}
   - component: {fileID: 8251515554292740547}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: trainTop
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -836,7 +948,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 8251515554292740549}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -864,7 +976,7 @@ GameObject:
   - component: {fileID: 8251515554398287289}
   - component: {fileID: 8251515554398287287}
   - component: {fileID: 8251515554398287286}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: trainRamp
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -973,7 +1085,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2292250834474839641}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1004,7 +1116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3596025353134620922}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1035,7 +1147,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 620993902389947707}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: EnemySpawn15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1084,6 +1196,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -5.89
       objectReference: {fileID: 0}
+    - target: {fileID: 6700349174769827987, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
+    - target: {fileID: 6700349174769827989, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6700349175020140034, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
       propertyPath: m_Color.b
       value: 0.36845854
@@ -1100,9 +1220,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -8.16
       objectReference: {fileID: 0}
+    - target: {fileID: 6700349175020140037, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
+    - target: {fileID: 6700349175020140039, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6700349175164083937, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
       propertyPath: m_Name
       value: Train
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700349175164083937, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6700349175164083937, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
       propertyPath: m_IsActive
@@ -1195,6 +1327,14 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -5.89
       objectReference: {fileID: 0}
+    - target: {fileID: 6700349174769827987, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
+    - target: {fileID: 6700349174769827989, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6700349175020140034, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
       propertyPath: m_Color.a
       value: 0.56078434
@@ -1215,9 +1355,21 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -8.16
       objectReference: {fileID: 0}
+    - target: {fileID: 6700349175020140037, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: 97a190ab57bf62e41a97ac4ad2822910, type: 2}
+    - target: {fileID: 6700349175020140039, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6700349175164083937, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
       propertyPath: m_Name
       value: Train (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6700349175164083937, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6700349175164083937, guid: e747864fc71646c44ad2fe55bb02910d, type: 3}
       propertyPath: m_IsActive

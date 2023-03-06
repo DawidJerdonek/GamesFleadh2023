@@ -262,12 +262,15 @@ public class ObstacleSpawner : NetworkBehaviour
     [Server]
     void spawnLevel2Train()
     {
-        int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 8, mapgener.chunks.Count - 2);
-        mapgener.chunks[ChunkToSpawnOn].doesChunkHaveTrain = true;
-        mapgener.chunks[ChunkToSpawnOn].canChunkSpawnExtra = true;
-        trainClone = Instantiate(trainPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.position + new Vector3(0, 0.9f, 0),Quaternion.identity);
-        NetworkServer.Spawn(trainClone);
-        setParentofObject(trainClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+        if (GameManager.instance.distanceTraveled % 50 <= 40)
+        {
+            int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 5,/* mapgener.chunks.Count - 2*/mapgener.chunks.Count - 5);
+            mapgener.chunks[ChunkToSpawnOn].doesChunkHaveTrain = true;
+            mapgener.chunks[ChunkToSpawnOn].canChunkSpawnExtra = true;
+            trainClone = Instantiate(trainPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+            NetworkServer.Spawn(trainClone);
+            setParentofObject(trainClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+        }
     }
 
     [ClientRpc]

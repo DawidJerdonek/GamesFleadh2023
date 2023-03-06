@@ -107,6 +107,7 @@ MonoBehaviour:
   player: {fileID: 628449253120534090, guid: c08088ba32d4d334e86f9268969a2185, type: 3}
   bulletSpeed: 20
   maxBulletSpread: 3
+  bloodParticle: {fileID: 6921159218905674448, guid: f212be7d698b24a49b269e7b5d3884ed, type: 3}
 --- !u!50 &4031077027195476379
 Rigidbody2D:
   serializedVersion: 4
