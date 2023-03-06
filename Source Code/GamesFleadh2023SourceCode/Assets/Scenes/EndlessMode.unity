@@ -182,9 +182,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5086939808242218028, guid: 69ecdfb1460a9a5438a405632da716db, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315839097848217571, guid: 69ecdfb1460a9a5438a405632da716db, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
+      objectReference: {fileID: 0}
     - target: {fileID: 5315839097886290122, guid: 69ecdfb1460a9a5438a405632da716db, type: 3}
       propertyPath: m_Name
       value: SoundEffectManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315839097886290124, guid: 69ecdfb1460a9a5438a405632da716db, type: 3}
+      propertyPath: m_Volume
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 5315839097886290128, guid: 69ecdfb1460a9a5438a405632da716db, type: 3}
       propertyPath: m_RootOrder
@@ -229,6 +241,10 @@ PrefabInstance:
     - target: {fileID: 5315839097886290128, guid: 69ecdfb1460a9a5438a405632da716db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5315839097886290129, guid: 69ecdfb1460a9a5438a405632da716db, type: 3}
+      propertyPath: m_Volume
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 69ecdfb1460a9a5438a405632da716db, type: 3}
@@ -1093,7 +1109,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 129063438346990576, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: currentLevel
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 129063438346990576, guid: 4a47ee4aba287bf478be6fdd887d30da, type: 3}
       propertyPath: syncInterval
@@ -1422,7 +1438,7 @@ PrefabInstance:
       objectReference: {fileID: 914175325}
     - target: {fileID: 7325968627209454876, guid: 94ff57a7d65b11640ae11439267556ef, type: 3}
       propertyPath: distanceTraveled
-      value: -5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7325968627209454876, guid: 94ff57a7d65b11640ae11439267556ef, type: 3}
       propertyPath: transitionScreen

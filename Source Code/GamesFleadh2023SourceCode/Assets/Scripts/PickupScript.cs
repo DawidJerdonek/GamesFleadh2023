@@ -21,18 +21,6 @@ public class PickupScript : NetworkBehaviour
         t_player.GetComponent<PlayerController>().gun.SetActive(true);
     }
 
-    public void AIDebuffImplementation(NetworkIdentity t_player)
-    {
-        PlayerController controller = t_player.GetComponent<PlayerController>();
-
-        controller.mindDebuffCollected = true;
-        controller.testAIisOn = 1;
-        Debug.Log("Collided with AI DEBUG " + controller.testAIisOn);
-        Handheld.Vibrate();
-        GameObject ps = Instantiate(controller.debuffParticleSystem, transform.position, Quaternion.identity);
-        controller.ToggleAIForLimitedTime();
-    }
-
     [Command(requiresAuthority = false)]
     public void SampleImplementation(NetworkIdentity t_player)
     {

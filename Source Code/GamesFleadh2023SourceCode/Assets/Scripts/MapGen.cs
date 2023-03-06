@@ -14,7 +14,7 @@ public class MapGen : NetworkBehaviour
     public ObstacleSpawner obstacleSpawner;
     
     [SyncVar]
-    public int currentLevel = 0;
+    public int currentLevel = 1;
 
     public float SquareWidth = 1;
     public float speed = 2;

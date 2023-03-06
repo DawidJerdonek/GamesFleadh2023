@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
     private bool isExpanding = true;
 
 	public float targetTimeToText = 5.0f;
+    private Color[] colorsForDistanceText = { Color.red, Color.yellow, Color.green, Color.cyan, Color.blue, Color.magenta };
+    private int currentColorIndex = 0;
 
 
 	[SerializeField]
@@ -81,16 +83,11 @@ public class GameManager : MonoBehaviour
 
         instance.bgCanvas.worldCamera = Camera.main;
 
-        //instance.player = FindObjectOfType<PlayerController>();
-        //instance.restartButton.SetActive(false);
-
     }
 
-    IEnumerator Post()//, string email, string phone)
+    IEnumerator Post()
     {
-
         WWWForm form = new WWWForm();
-        //form.AddField("entry.51372667", name);
         byte[] rawData = form.data;
         string url = BASE_URL;
 
@@ -137,9 +134,8 @@ public class GameManager : MonoBehaviour
 
                 if (transition == true)
                 {
-                    //transitionScreen.color = Color.Lerp(transitionScreen.color, new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f), 0.3f);
-                    //if (transitionScreen.color == new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f))
                     transition = false;
+                    //background.sprite = levelBackgrounds[currentLevel - 1];
                 }
 
 
@@ -185,6 +181,12 @@ public class GameManager : MonoBehaviour
 					if (isExpanding)
                     {
                         distanceText.fontSize += expandSpeed * Time.deltaTime;
+                        currentColorIndex++;
+                        if (currentColorIndex >= colorsForDistanceText.Length) 
+                        {
+                            currentColorIndex = 0;
+                        }
+                        distanceText.color = colorsForDistanceText[currentColorIndex];
 
                         if (distanceText.fontSize >= maxSize)
                         {
@@ -202,6 +204,10 @@ public class GameManager : MonoBehaviour
                             isExpanding = true;
                         }
                     }
+
+                   
+
+
                 }
 
 				targetTimeToText -= Time.deltaTime;
@@ -209,8 +215,9 @@ public class GameManager : MonoBehaviour
 				if (targetTimeToText <= 0.0f)
 				{
                     distanceText.fontSize = 50.0f;
+                    distanceText.color = Color.white;
 
-						targetTimeToText = 3.0f;
+                    targetTimeToText = 0.5f;
 				}
 
 

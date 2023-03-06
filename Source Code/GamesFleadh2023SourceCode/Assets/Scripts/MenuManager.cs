@@ -18,17 +18,9 @@ public class MenuManager : MonoBehaviour
         
     }
 
-    public void StoryMode()
-    {
-        SceneManager.LoadScene("Game");
-        //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
-    }
-
-
     public void EndlessMode()
     {
         SceneManager.LoadScene("EndlessMode");
-        //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
     }
 
     public void Mainmenu()
@@ -55,32 +47,12 @@ public class MenuManager : MonoBehaviour
             FindObjectOfType<NetworkManager>().StopHost();
             Destroy(FindObjectOfType<NetworkManager>().gameObject);
         }
-
         SceneManager.LoadScene("Menu");
-        //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
     }
 
     public void Credits()
     {
         SceneManager.LoadScene("Credits");
-        //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
-    }
-
-    public void HelpMenu()
-    {
-        SceneManager.LoadScene("TutorialInfo");
-        //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
-    }
-
-    public void PickupTutorial()
-    {
-        SceneManager.LoadScene("PickupTutorial");
-        //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
-    }
-    public void SingleplayTutorial()
-    {
-        SceneManager.LoadScene("PickupTutorialSingleplayer");
-        //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
     }
     public void ConnectMenu()
     {
@@ -108,9 +80,7 @@ public class MenuManager : MonoBehaviour
         }
 
         SceneManager.LoadScene("Connect Menu");
-        //FindObjectOfType<PlayerController>().m_cameraMain = Camera.main;
     }
-
 
     public void Exit()
     {

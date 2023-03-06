@@ -24,22 +24,16 @@ public enum States
 
 public class PlayerController : NetworkBehaviour
 {
-    //added to main
-    //public GameObject gun;
-    //public ParticleSystem gunParticle;
 
     public GameObject gun;
     public GameObject ammoToMove;
     private GameObject ammoMoveClone;
     public Vector3 pointAAmmo;
-    private Vector3 pointBAmmo = new Vector3(2,2,1);
     private bool ammoIsCollected = false;
     
-
     public Rigidbody2D rb;
     public Transform rayPos;
     public LayerMask rayLayer;
-    private GameObject fuzzyLogicObject;
     private bool playerDied = false;
     private SoundEffectScript soundEffectScript;
     public ParticleSystem gunParticle;
@@ -48,10 +42,7 @@ public class PlayerController : NetworkBehaviour
 
     public Brain brain;
     private float[] inputs = new float[3];
-    public bool AiSwitcher = false;
-    public bool AiSwitchFromDebuff = false;
     private float timeForBarRest = 5.0f;
-    public GameObject debuffParticleSystem;
     public PickupScript pickupScript;
     bool isJumping = false;
     private int timeBetweenJumps = 0;
@@ -59,22 +50,16 @@ public class PlayerController : NetworkBehaviour
 
     public List<Image> ammoDisplay = new List<Image>();
 
-
     public Camera m_cameraMain;
 
     public float speed = 0.1f;
     public Vector2 jumpForce = new Vector2(-100, 1850);
-    private Vector2 swipeStart;
-    private float swipeDistanceMove = 0.0f;
-    Vector2 swipeEnd;
-    public bool mindDebuffCollected = false;
     public int testAIisOn = 0;
 
     public GameObject onlineInfection;
     public TextMeshProUGUI nameText;
     public TextMeshProUGUI infectionText;
   
-
     private Button shootButton;
     private GameObject newBulletObject;
     public GameObject bullet;
@@ -150,7 +135,6 @@ public class PlayerController : NetworkBehaviour
 
         if (!isLocalPlayer)
         {
-            //this.enabled = false;
             return;
         }
 
@@ -165,7 +149,6 @@ public class PlayerController : NetworkBehaviour
         brain.Init(3, 5, 1);
         barWidth = barWidthToChange;
         barHeight = barHeightToChange;
-		fuzzyLogicObject = GameObject.Find("FuzzyAI");
 
         if (isServer)
         {
@@ -203,33 +186,6 @@ public class PlayerController : NetworkBehaviour
         ammo = 20;
 
         base.OnStartClient();
-    }
-
-    private void UpdateColorToNewColor()
-    {
-        if (shouldStartEffect)
-        {
-            if (!isColor)
-            {
-                //// SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), ToChangeTo, transitionSpeed));
-
-                // if (SpineSkeleton.skeleton.GetColor() == ToChangeTo)
-                // {
-                //     isColor = true;
-                // }
-            }
-            else
-            {
-                //SpineSkeleton.skeleton.SetColor(Color.Lerp(SpineSkeleton.skeleton.GetColor(), Color.white, transitionSpeed));
-
-                //if (SpineSkeleton.skeleton.GetColor() == Color.white)
-                //{
-                //    ToChangeTo = Color.white;
-                //    shouldStartEffect = false;
-                //    isColor = false;
-                //}
-            }
-        }
     }
 
     // Update is called once per frame
@@ -290,7 +246,6 @@ public class PlayerController : NetworkBehaviour
             return;
         }
 
-
         Vector3 LowerLeftScreen = Camera.main.ScreenToWorldPoint(new Vector3(0, 0, 0));
         Vector3 LowerRightScreen = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, 0, 0));
         Vector3 UpperLeftScreen = Camera.main.ScreenToWorldPoint(new Vector3(0, Screen.height, 0));
@@ -305,19 +260,8 @@ public class PlayerController : NetworkBehaviour
             rb.velocity = Vector2.zero;
         }
 
-        if (!AiSwitcher && !AiSwitchFromDebuff)
-        {
-            //fuzzyLogicObject.GetComponent<FuzzyLogic>().enabled = false;
-            Moving();
-            Jumping();
-        }
-
-
-
-        if (AiSwitcher || AiSwitchFromDebuff)
-        {
-            fuzzyLogicObject.GetComponent<FuzzyLogic>().enabled = true;
-        }
+        Moving();
+        Jumping();
 
         //timer for bar reset
         timeForBarRest -= Time.deltaTime;
@@ -408,7 +352,7 @@ public class PlayerController : NetworkBehaviour
 
         if (ammoIsCollected)
         {
-            ammoMoveClone.transform.position = Vector3.MoveTowards(ammoMoveClone.transform.position, new Vector3(-8, 0.5f, 1), 30.0f * Time.deltaTime);
+            ammoMoveClone.transform.position = Vector3.MoveTowards(ammoMoveClone.transform.position, new Vector3(-8, 0.5f, 1), 40.0f * Time.deltaTime);
 
             if (ammoMoveClone.transform.position == new Vector3(-8, 0.5f, 1))
             {
@@ -432,21 +376,8 @@ public class PlayerController : NetworkBehaviour
         return false;
     }
 
-	//public bool IsGrounded()
- //   {
- //       RaycastHit2D hit = Physics2D.Raycast(GroundCast.position, -Vector2.up, groundCastDist, ground);
-
- //       if (hit.collider != null)
- //       {
- //           return true;
- //       }
-
- //       return false;
- //   }
-
     private void FixedUpdate()
     {
-        UpdateColorToNewColor();
         distanceTime = Time.deltaTime;
         if (isLocalPlayer)
         {
@@ -464,25 +395,6 @@ public class PlayerController : NetworkBehaviour
         resistance = false;
         shieldObject.SetActive(false);
     }
-
-    public void ToggleAIForLimitedTime()
-    {
-        if (mindDebuffCollected)
-        {
-          //  timeForDebuffAI = 5.0f;
-            AiSwitchFromDebuff = true;
-            mindDebuffCollected = false;
-        }
-    }
-
-
-    //public void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.tag == "Ground")
-    //    {
-    //        isGrounded = true;
-    //    }
-    //}
 
     public void resetPosition()
     {
@@ -505,7 +417,7 @@ public class PlayerController : NetworkBehaviour
         {
             timeBetweenJumps = 0;
             rb.velocity = new Vector2(rb.velocity.x, 0);
-            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y * 3.1f), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(jumpForce.x, jumpForce.y * 5f), ForceMode2D.Impulse);
         }
     }
 
@@ -528,11 +440,6 @@ public class PlayerController : NetworkBehaviour
                 NetworkServer.Destroy(collision.gameObject);
             }
         }
-
-        //if (!isLocalPlayer)
-        //{
-        //    return;
-        //}
 
         if (collision.gameObject.tag == "GunPowerup")
         {
@@ -558,34 +465,6 @@ public class PlayerController : NetworkBehaviour
 			}
 		}
 
-        //if (collision.gameObject.tag == "Enemy" && resistance)
-        //{
-        //    ZombieAI ai = collision.GetComponent<ZombieAI>();
-
-        //    ai.triggerKillAnim();
-        //}
-
-            if (collision.gameObject.tag == "AiDebuff")
-        {
-
-            //mindDebuffCollected = true;
-            //testAIisOn = 1;
-            //Debug.Log("Collided with AI DEBUG " + testAIisOn);
-            //Handheld.Vibrate();
-            //GameObject ps = Instantiate(debuffParticleSystem, transform.position, Quaternion.identity);
-            //ToggleAIForLimitedTime();
-
-            if (!AiSwitcher && isLocalPlayer)
-            {
-                pickupScript.AIDebuffImplementation(GetComponent<NetworkIdentity>());
-                soundEffectScript.playPowerupSoundEffect();
-            }
-
-            if (isServer)
-            {
-                NetworkServer.Destroy(collision.gameObject);
-            }
-        }
 
         if (collision.gameObject.tag == "Sample")
         {
@@ -599,7 +478,6 @@ public class PlayerController : NetworkBehaviour
 
             if (isServer)
             {
-                //infection -= 10;
                 NetworkServer.Destroy(collision.gameObject);
             }
         }
@@ -614,7 +492,6 @@ public class PlayerController : NetworkBehaviour
 
             if (isServer)
             {
-                //infection -= 10;
                 NetworkServer.Destroy(collision.gameObject);
             }
         }
@@ -678,20 +555,10 @@ public class PlayerController : NetworkBehaviour
         twnfiveCheck = false;
 	    fivezerCheck = false;
 	    svnfiveCheck = false;
+        ammo = 15;
+    }
 
-
-}
-
-    //////public enum States
-    //////{
-    //////	Run = 1,
-    //////	Jump = 2,
-    //////	JumpShoot = 3,
-    //////	Die = 4
-    //////}
-
-
-    void checkStatesForAnimator()
+void checkStatesForAnimator()
     {
         //////
         ///Idle animations Conrolls
@@ -717,7 +584,7 @@ public class PlayerController : NetworkBehaviour
                 state = States.Run;
             }
 
-            if (bulletIsShotforAnimation) // if p;ayer shgot
+            if (bulletIsShotforAnimation) // if player shot
             {
                 state = States.JumpShoot;
             }
@@ -839,7 +706,7 @@ public class PlayerController : NetworkBehaviour
     public void moveAmmoToLoader()
     {
         ammoMoveClone = Instantiate(ammoToMove, gameObject.transform.position, Quaternion.identity);
-        Destroy(ammoMoveClone, 1.0f);
+        Destroy(ammoMoveClone, 0.7f);
         ammoIsCollected = true;
     }
 }
