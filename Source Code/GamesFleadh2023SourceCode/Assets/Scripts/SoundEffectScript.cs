@@ -21,7 +21,7 @@ public class SoundEffectScript : MonoBehaviour
 
     public void playHitSoundEffect()
     {
-        hitSoundEffect.PlayOneShot(hitClip, 1);
+        hitSoundEffect.PlayOneShot(hitClip, 1.0f);
     }
 
     public void playGunSoundEffect()
@@ -36,7 +36,7 @@ public class SoundEffectScript : MonoBehaviour
 
     public void playEnemyHitSoundEffect()
     {
-        enemyHitSoundEffect.PlayOneShot(enemyHitClip, 1);
+        enemyHitSoundEffect.PlayOneShot(enemyHitClip, 0.7f);
     }
 
     public void PlayReloadSoundEffect()

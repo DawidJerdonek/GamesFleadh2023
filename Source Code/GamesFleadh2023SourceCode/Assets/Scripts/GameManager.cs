@@ -83,16 +83,11 @@ public class GameManager : MonoBehaviour
 
         instance.bgCanvas.worldCamera = Camera.main;
 
-        //instance.player = FindObjectOfType<PlayerController>();
-        //instance.restartButton.SetActive(false);
-
     }
 
-    IEnumerator Post()//, string email, string phone)
+    IEnumerator Post()
     {
-
         WWWForm form = new WWWForm();
-        //form.AddField("entry.51372667", name);
         byte[] rawData = form.data;
         string url = BASE_URL;
 
@@ -139,11 +134,8 @@ public class GameManager : MonoBehaviour
 
                 if (transition == true)
                 {
-                    //transitionScreen.color = Color.Lerp(transitionScreen.color, new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f), 0.3f);
-                    //if (transitionScreen.color == new Color(0.1886792f, 0.1886792f, 0.1886792f, 1.0f))
                     transition = false;
                     background.sprite = levelBackgrounds[currentLevel - 1];
-
                 }
 
 

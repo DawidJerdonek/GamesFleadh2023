@@ -26,8 +26,6 @@ public class ObstacleSpawner : NetworkBehaviour
     private float trainSpawnTime = MAX_TRAIN_SPAWN_TIME;
     private bool hasFirstTrainSpawned = false;
 
-    // public int currentLevel;
-
     public GameObject resistancePillPrefab;
     private GameObject resistancePillClone;
 
@@ -37,17 +35,6 @@ public class ObstacleSpawner : NetworkBehaviour
     public GameObject ammoPillPrefab;
     private GameObject ammoPillClone;
 
-    public GameObject mindDebuffPrefab;
-    private GameObject mindClone;
-
-    public GameObject ScreenDebuffPrefab;
-    private GameObject ScreenClone;
-
-    private float targetTimeScreenDebuff;
-    private float timerTOSpawnScreenDebuff = 10.0f;
-
-    private float targetTimeMindDebuff;
-    private float timerTOSpawnMindDebuff = 10.0f;
     private float targetTimeShooter;
     private float timerTOSpawnShooter = 10.0f;
 
@@ -68,8 +55,6 @@ public class ObstacleSpawner : NetworkBehaviour
         timeLeft = timeObstacleSpawn;
         mapgener = GetComponent<MapGen>();
         base.OnStartServer();
-        targetTimeMindDebuff = timerTOSpawnMindDebuff;
-        targetTimeScreenDebuff = timerTOSpawnScreenDebuff;
         targetTimeShooter = timerTOSpawnShooter;
     }
 
@@ -113,29 +98,11 @@ public class ObstacleSpawner : NetworkBehaviour
                 break;
         }
 
-
-        targetTimeMindDebuff -= Time.deltaTime;
-
-		if (targetTimeMindDebuff <= 0.0f)
-		{
-			spawnAiDebuff();
-		}
-
-
 		targetTimeShooter -= Time.deltaTime;
 
         if (targetTimeShooter <= 0.0f)
         {
             spawnShooter();
-        }
-
-
-
-        targetTimeScreenDebuff -= Time.deltaTime;
-
-        if (targetTimeScreenDebuff <= 0.0f)
-        {
-            spawnScreenDebuff();
         }
     }
 
@@ -164,14 +131,14 @@ public class ObstacleSpawner : NetworkBehaviour
             switch (rand)
             {
                 case 0:
-                    //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0),Quaternion.identity);
-                    //NetworkServer.Spawn(obstacleClone);
-                    //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+                    ammoPillClone = Instantiate(ammoPillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+                    NetworkServer.Spawn(ammoPillClone);
+                    setParentofObject(ammoPillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                     break;
                 case 1:
-                    //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-                    //NetworkServer.Spawn(obstacleClone);
-                    //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
+                    ammoPillClone = Instantiate(ammoPillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
+                    NetworkServer.Spawn(ammoPillClone);
+                    setParentofObject(ammoPillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                     break;
                 case 2:
                     enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
@@ -204,16 +171,6 @@ public class ObstacleSpawner : NetworkBehaviour
                     setParentofObject(ammoPillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
                     break;
                 case 8:
-                    ammoPillClone = Instantiate(ammoPillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-                    NetworkServer.Spawn(ammoPillClone);
-                    setParentofObject(ammoPillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
-                    break;
-                case 9:
-                    ammoPillClone = Instantiate(ammoPillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-                    NetworkServer.Spawn(ammoPillClone);
-                    setParentofObject(ammoPillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
-                    break;
-                case 10:
                     ammoPillClone = Instantiate(ammoPillPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
                     NetworkServer.Spawn(ammoPillClone);
                     setParentofObject(ammoPillClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
@@ -255,16 +212,6 @@ public class ObstacleSpawner : NetworkBehaviour
             enemyJumperClone = Instantiate(enemyJumperPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 1.25f, 0), Quaternion.identity);
             NetworkServer.Spawn(enemyJumperClone);
         }
-        //setParentofObject(enemyJumperClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
-    }
-
-    public void spawnTrap()
-    {
-        //MapGen mapgener = GetComponent<MapGen>();
-        //int ChunkToSpawnOn = /*Random.Range(mapgener.chunks.Count - 4, */mapgener.chunks.Count - 10/*)*/;
-        //obstacleClone = Instantiate(obstaclePrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-        //NetworkServer.Spawn(obstacleClone);
-        //setParentofObject(obstacleClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
     }
 
     [Server]
@@ -351,21 +298,6 @@ public class ObstacleSpawner : NetworkBehaviour
         }
     }
 
-    [Server]
-    void spawnAiDebuff()
-    {
-        //MapGen mapgener = GetComponent<MapGen>();
-        //int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 2);
-        
-        //if (mapgener.chunks[ChunkToSpawnOn].ActualHeight > 0)
-        //{
-        //    mindClone = Instantiate(mindDebuffPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-        //    NetworkServer.Spawn(mindClone);
-        //    setParentofObject(mindClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
-        //    targetTimeMindDebuff = Random.Range(7.0f, 13.0f);
-        //}
-    }
-
 
     [Server]
     void spawnShooter()
@@ -380,22 +312,5 @@ public class ObstacleSpawner : NetworkBehaviour
             //setParentofObject(enemyShooterClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
             targetTimeShooter = Random.Range(15.0f, 30.0f);
         }
-    }
-
-
-
-    [Server]
-    void spawnScreenDebuff()
-    {
-        //MapGen mapgener = GetComponent<MapGen>();
-        //int ChunkToSpawnOn = Random.Range(mapgener.chunks.Count - 4, mapgener.chunks.Count - 2);
-        
-        //if (mapgener.chunks[ChunkToSpawnOn].ActualHeight > 0)
-        //{
-        //    ScreenClone = Instantiate(ScreenDebuffPrefab, mapgener.chunks[ChunkToSpawnOn].topTile.transform.position + new Vector3(0, 0.9f, 0), Quaternion.identity);
-        //    NetworkServer.Spawn(ScreenClone);
-        //    setParentofObject(ScreenClone.GetComponent<NetworkIdentity>(), mapgener.chunks[ChunkToSpawnOn].GetComponent<NetworkIdentity>());
-        //    targetTimeScreenDebuff = Random.Range(5.0f, 13.0f);
-        //}
     }
 }
