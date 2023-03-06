@@ -63,6 +63,8 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   gun: {fileID: 659060051864946975}
+  ammoToMove: {fileID: 3113044612503557270, guid: 9ab3671a3ae99064b96220074e80c908, type: 3}
+  pointAAmmo: {x: 0, y: 0, z: 0}
   rb: {fileID: 628449253120534093}
   rayPos: {fileID: 7944071750052751093}
   rayLayer:
@@ -73,6 +75,7 @@ MonoBehaviour:
   AiSwitchFromDebuff: 0
   debuffParticleSystem: {fileID: 5712782009134916241, guid: 32195bfdc838ee14d98d850f6c0e0085, type: 3}
   pickupScript: {fileID: 0}
+  maxTimeBetweenJumps: 5
   ammoDisplay: []
   m_cameraMain: {fileID: 0}
   speed: 0.1
