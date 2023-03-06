@@ -9,7 +9,8 @@ using UnityEngine.UIElements;
 public class ZombieAI : NetworkBehaviour
 {
     private Transform ray;
-    
+    public int damageToPlayer = 5;
+
     public float speed;
     private float jumpForce = 2;
     public LayerMask ground;
@@ -104,7 +105,7 @@ public class ZombieAI : NetworkBehaviour
                     Physics2D.IgnoreCollision(GetComponent<Collider2D>(), item.GetComponent<Collider2D>(), true);
                 }
 
-                col.collider.gameObject.GetComponent<PlayerController>().IncreaseInfectionByAmount(col.collider.gameObject.GetComponent<NetworkIdentity>(), 5);
+                col.collider.gameObject.GetComponent<PlayerController>().IncreaseInfectionByAmount(col.collider.gameObject.GetComponent<NetworkIdentity>(), damageToPlayer);
 
                 Color mybaseCol = GetComponentInChildren<SpriteRenderer>().color;
 

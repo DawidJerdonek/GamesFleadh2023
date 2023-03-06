@@ -338,6 +338,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0.1
+  damageToPlayer: 10
   speed: 5
   ground:
     serializedVersion: 2

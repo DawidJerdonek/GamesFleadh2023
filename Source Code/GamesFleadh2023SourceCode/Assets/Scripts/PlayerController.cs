@@ -255,32 +255,34 @@ public class PlayerController : NetworkBehaviour
             }
         }
 
-        if (ammo >= maxAmmo)
+        if (isLocalPlayer)
         {
-            ammo = maxAmmo;
-        }
+            if (ammo >= maxAmmo)
+            {
+                ammo = maxAmmo;
+            }
 
-        for (int i = 0; i < ammo; i++)
-        {
-            ammoDisplay[i].enabled = true;
-        }
+            for (int i = 0; i < ammo; i++)
+            {
+                ammoDisplay[i].enabled = true;
+            }
 
-        for (int i = ammo; i < maxAmmo; i++)
-        {
-            ammoDisplay[i].enabled = false;
-        }
+            for (int i = ammo; i < maxAmmo; i++)
+            {
+                ammoDisplay[i].enabled = false;
+            }
 
-        if (ammo <= 0)
-        {
-            ammo = 0;
-            shootButton.interactable = false;
-        }
-        else
-        {
-            shootButton.interactable = true;
-        }
+            if (ammo <= 0)
+            {
+                ammo = 0;
+                shootButton.interactable = false;
+            }
+            else
+            {
+                shootButton.interactable = true;
+            }
 
-
+        }
 
         if (!isLocalPlayer)
         {
@@ -330,13 +332,13 @@ public class PlayerController : NetworkBehaviour
         GameManager.instance.respawnText.text = "Respawning in\n " + (int)respawnTime;
         if (infection >= 100)
         {
+            respawnParticle.Play();
             soundEffectScript.PlayReviveSoundEffect();
             infection = 0;
             playerDied = true;
             GameManager.instance.scoreDistance = 0;
             resetPosition();
             StartCoroutine("RestartGame");
-          
         }
 
         //RESISTANCE CHECKS AND CODE FOR PLAYER
@@ -360,10 +362,10 @@ public class PlayerController : NetworkBehaviour
         if (infection < 100)
         {
             GameManager.instance.infectionBar.value = infection;
-            if (FindObjectOfType<MyNetworkRoomManager>() != null)
-            {
-                bar.value = GameManager.instance.infectionBar.value;
-            }
+            //if (FindObjectOfType<MyNetworkRoomManager>() != null)
+            //{
+            //    bar.value = GameManager.instance.infectionBar.value;
+            //}
         }
 
         checkStatesForAnimator();
@@ -517,7 +519,6 @@ public class PlayerController : NetworkBehaviour
                 shouldStartEffect = true;
                 pickupScript.resistancePickupImplementation(GetComponent<NetworkIdentity>());
                 soundEffectScript.PlayResistSoundEffect();
-                respawnParticle.Play();
             }
 
             if (isServer)
