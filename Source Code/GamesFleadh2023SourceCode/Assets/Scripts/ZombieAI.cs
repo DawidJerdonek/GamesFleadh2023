@@ -67,7 +67,14 @@ public class ZombieAI : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(stunZombie(collision));
+            if (collision.gameObject.GetComponent<PlayerController>().resistance == false)
+            {
+                StartCoroutine(stunZombie(collision));
+            }
+            else if (collision.gameObject.GetComponent<PlayerController>().resistance == true)
+            {
+                triggerKillAnim();
+            }
         }
     }
 
