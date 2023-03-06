@@ -66,7 +66,7 @@ public class ObstacleSpawner : NetworkBehaviour
             return;
         }
 
-        if (GameManager.instance.currentLevel == 1 || GameManager.instance.currentLevel == 3)
+        if (GameManager.instance.currentLevel == 1 || GameManager.instance.currentLevel == 3 || GameManager.instance.currentLevel == 4)
         {
             hoardTimeLeft += Time.deltaTime;
 
