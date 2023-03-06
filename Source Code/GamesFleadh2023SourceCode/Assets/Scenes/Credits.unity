@@ -227,7 +227,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_SizeDelta: {x: 310, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &89773235
 MonoBehaviour:
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Chi
+  m_text: Chi Cham Ng
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7b7e89d8d6ac9a46ba8772f3244225c, type: 2}
   m_sharedMaterial: {fileID: 1039746423766474815, guid: c7b7e89d8d6ac9a46ba8772f3244225c, type: 2}
@@ -1266,8 +1266,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -200, y: -50}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -150, y: -50}
+  m_SizeDelta: {x: 330, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1120749773
 MonoBehaviour:
@@ -1289,7 +1289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Stephen
+  m_text: ' Stephen Fogarty'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c7b7e89d8d6ac9a46ba8772f3244225c, type: 2}
   m_sharedMaterial: {fileID: 1039746423766474815, guid: c7b7e89d8d6ac9a46ba8772f3244225c, type: 2}
